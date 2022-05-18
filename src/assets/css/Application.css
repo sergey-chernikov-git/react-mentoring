@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.searchPanel input{
+  background: rgba(50, 50, 50, 0.8);
+  border-radius: 4px;
+  width: 713px;
+  height: 57px;
+  mix-blend-mode: normal;
+  opacity: 0.7;
+  margin: 5px;
+}
+
+.searchPanel button{
+  background-color: #F65261;
+  border-radius: 4px;
+  width: 233px;
+  height: 57px;
+  margin: 5px;
+}
