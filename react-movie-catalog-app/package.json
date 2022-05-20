@@ -1,0 +1,39 @@
+{
+  "name": "movie-catalog",
+  "version": "1.0.0",
+  "description": "React mentoring app",
+  "main": "index.js",
+  "scripts": {
+    "start": "dotenv -e .env.dev webpack-dev-server --open --hot",
+    "format": "npx prettier --write .",
+    "build:dev": "dotenv -e .env.dev webpack",
+    "build:test": "dotenv -e .env.test webpack",
+    "build:prod": "dotenv -e .env.prod webpack"
+  },
+  "author": "Sergey Chernikov",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.0",
+    "@babel/plugin-proposal-class-properties": "^7.17.12",
+    "@babel/plugin-transform-runtime": "^7.18.0",
+    "@babel/preset-env": "^7.18.0",
+    "@babel/preset-react": "^7.17.12",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^6.7.1",
+    "dotenv": "^16.0.1",
+    "dotenv-cli": "^5.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "prettier": "2.6.2",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
+  }
+}
