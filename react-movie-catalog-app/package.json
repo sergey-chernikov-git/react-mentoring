@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "dotenv -e .env.dev webpack-dev-server --open --hot",
-    "format": "npx prettier --write .",
     "build:dev": "dotenv -e .env.dev webpack",
     "build:test": "dotenv -e .env.test webpack",
-    "build:prod": "dotenv -e .env.prod webpack"
+    "build:prod": "dotenv -e .env.prod webpack",
+    "format": "npx prettier --write . --config .prettierrc"
   },
   "author": "Sergey Chernikov",
   "license": "ISC",
