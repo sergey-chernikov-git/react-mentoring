@@ -32,6 +32,7 @@
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.0",
     "prettier": "2.6.2",
+    "prop-types": "^15.8.1",
     "react-error-boundary": "^3.1.4",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",

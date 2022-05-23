@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const MoviePreview = ({ movie }) => {
   const { src, title, year, genders } = movie;
@@ -12,4 +13,14 @@ export const MoviePreview = ({ movie }) => {
       </div>
     </div>
   );
+};
+
+MoviePreview.propTypes = {
+  movies: PropTypes.exact({
+    src: PropTypes.string,
+    title: PropTypes.string,
+    year: PropTypes.string,
+    genders: PropTypes.arrayOf(PropTypes.string)
+  }
+  )
 };
