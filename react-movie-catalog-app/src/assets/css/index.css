@@ -11,7 +11,7 @@ body {
   margin: 10px;
   font-family: 'Montserrat';
   font-style: normal;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .moviePreview img {
@@ -19,10 +19,10 @@ body {
   border-radius: 4px;
   width: 300px;
 }
-.moviePreview div{
+.moviePreview div {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;  
+  flex-direction: row;
 }
 
 .moviePreviewTitle {
