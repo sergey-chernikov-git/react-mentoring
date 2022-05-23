@@ -1,3 +1,55 @@
 h1 {
   color: brown;
 }
+
+body {
+  background-color: #424242;
+  color: #ddd;
+}
+
+.moviePreview {
+  margin: 10px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  color: #FFFFFF;
+}
+
+.moviePreview img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 300px;
+}
+.moviePreview div{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;  
+}
+
+.moviePreviewTitle {
+  line-height: 22px;
+  opacity: 0.7;
+  margin-left: 0%;
+  margin-right: 50%;
+}
+.moviePreviewYear {
+  border-style: outset;
+  border: 1px solid #979797;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  opacity: 0.5;
+  margin-left: auto;
+  margin-right: 0%;
+}
+.moviePreviewGender {
+  opacity: 0.5;
+}
+
+.moviesSearchResultPanel {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

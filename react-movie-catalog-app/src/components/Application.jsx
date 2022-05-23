@@ -1,9 +1,15 @@
 import React from 'react';
-
+import { MoviePreview } from './MoviePreview';
+import { getTestMovieList } from '../util/dictionary/movies';
 export const Application = () => {
-  return (
-    <div>
-      <h1>Hello From webpack react app</h1>
-    </div>
+    const movies  = getTestMovieList()
+return (
+    <>
+      <div className="moviesSearchResultPanel">
+        {movies.map((movie) => {
+          return <MoviePreview key= {movie.id} movie={movie} />;
+        })}
+      </div>
+    </>
   );
 };
