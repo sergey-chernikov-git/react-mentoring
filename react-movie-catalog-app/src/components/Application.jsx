@@ -1,15 +1,19 @@
 import React from 'react';
-import { MoviePreview } from './MoviePreview';
-import { getTestMovieList } from '../util/dictionary/movies';
+import { MoviesPanel } from './moviePanel/MoviesPreview';
+import { GenderMenu } from './genderMenu/GenderMenu';
+import { SearchBar } from './SearchBar';
+import { getTestMovieList } from '../util/dictionary/dictionary';
+import { getGendersList } from '../util/dictionary/dictionary';
+
 export const Application = () => {
   const movies = getTestMovieList();
+  const genders = getGendersList();
   return (
     <>
-      <div className="moviesSearchResultPanel">
-        {movies.map((movie) => {
-          return <MoviePreview key={movie.id} movie={movie} />;
-        })}
-      </div>
+      <SearchBar />
+      <br></br>
+      <GenderMenu genders={genders} />
+      <MoviesPanel movies={movies} />;
     </>
   );
 };

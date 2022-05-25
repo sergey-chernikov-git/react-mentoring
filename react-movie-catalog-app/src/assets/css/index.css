@@ -3,8 +3,7 @@ h1 {
 }
 
 body {
-  background-color: #424242;
-  color: #ddd;
+  background-color: #555555;
 }
 
 .moviePreview {
@@ -48,8 +47,74 @@ body {
   opacity: 0.5;
 }
 
-.moviesSearchResultPanel {
+.moviePreviewPanel {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  background-color: #232323;
+  justify-content: center;
+}
+
+.searchBarBackground {
+  background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/fall-movies-index-1628968089.jpg');
+}
+.searchBar {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  align-items: center;
+}
+
+.searchBar button {
+  height: 46px;
+  width: 177px;
+  border-radius: 4px;
+  background: rgba(96, 96, 96, 0.68);
+  color: #f65261;
+  align-self: flex-end;
+}
+
+.searchBar button {
+  height: 57px;
+  width: 233px;
+  border-radius: 4px;
+  background: #f65261;
+  color: #ffffff;
+}
+
+.searchBar h1 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 49px;
+  /* text-align: center; */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.searchBar input {
+  width: 713px;
+  height: 57px;
+  background: rgba(50, 50, 50, 0.8);
+  margin-bottom: 100px;
+}
+
+.genderMenuPanel {
+  display: flex;
+  background-color: #232323;
+}
+.genderMenuPanel div {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: #ffffff;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #f65261;
 }
