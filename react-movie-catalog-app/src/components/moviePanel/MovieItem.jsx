@@ -6,12 +6,12 @@ export const MovieItem = ({ movie }) => {
   const { id, src = NotFoundImg, title, year, genders } = movie;
   return (
     <>
-      <div className="moviePreview">
+      <div className="movie-preview">
         <img src={src}></img>
         <div>
-          <div className="moviePreviewTitle">{title}</div>
-          <div className="moviePreviewYear">{year}</div>
-          <div className="moviePreviewGender">{genders.join(' & ')}</div>
+          <div className="movie-preview-title">{title}</div>
+          <div className="movie-preview-year">{year}</div>
+          <div className="movie-preview-gender">{genders.join(' & ')}</div>
         </div>
       </div>
     </>

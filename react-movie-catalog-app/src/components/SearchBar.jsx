@@ -1,14 +1,15 @@
 import React from 'react';
+import { showElementById } from './../logic/elementOperations.js';
 
 export const SearchBar = () => {
   return (
-    <div className="searchBarBackground">
-      <div className="searchBar">
-        <button>+ ADD MOVIE</button>
-        <h1>FIND YOUR MOVIE</h1>
+    <div className="search-bar-background">
+      <div className="search-bar">
+        <button onClick={() => showElementById('movie-add')}>+ Add Movie</button>
+        <h1>Find your movie</h1>
         <div>
           <input></input>
-          <button>SEARCH</button>
+          <button>Search</button>
         </div>
       </div>
     </div>

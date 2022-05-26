@@ -1,6 +1,6 @@
 import PropTypes, { shape } from 'prop-types';
 
-export const genderType = shape({
+export const genreType = shape({
   id: PropTypes.string,
-  gender: PropTypes.string
+  value: PropTypes.string
 });

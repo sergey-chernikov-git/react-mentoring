@@ -1,36 +1,168 @@
-h1 {
-  color: brown;
+:root {
+  --black-bg-color: #232323;
+  --pirple-bg-color: #f65261;
+  --white-bg-color: #ffffff;
+  --grey-bg-color: #424242;
+  --light-grey-bg-color: #555555;
+  --font-family-value: 'Montserrat';
 }
 
 body {
-  background-color: #555555;
-}
-
-.moviePreview {
-  margin: 10px;
-  font-family: 'Montserrat';
+  background-color: var(--light-grey-bg-color);
+  font-family: var(--font-family-value);
   font-style: normal;
-  color: #ffffff;
+  text-transform: uppercase;
 }
 
-.moviePreview img {
-  border: 1px solid #ddd;
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 595px;
+  width: 686px;
+  left: 317px;
+  top: 308px;
+  border-radius: 4px;
+  background-color: var(--black-bg-color);
+  color: var(--white-bg-color);
+  border: solid 0.5px var(--white-bg-color);
+  box-shadow: var(--grey-bg-color) 0px 25px 50px -12px;
+  z-index: 2;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.movie-add {
+  visibility: hidden;
+  width: 976px;
+  height: 917px;
+  background-color: var(--black-bg-color);
+  background-blend-mode: lighten;
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  left: 500px;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  box-shadow: var(--grey-bg-color) 0px 25px 50px -12px;
+}
+
+.movie-add div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px;
+}
+
+.movie-add div div {
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-count-panel {
+  background-color: var(--black-bg-color);
+  color: var(--white-bg-color);
+  padding: 20px;
+  text-transform: none;
+}
+
+.movie-genre-select {
+  width: 525px;
+  text-transform: none;
+  color: var(--white-bg-color);
+  display: block;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.movie-genre-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.movie-genre-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.movie-genre-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+.movie-genre-container:hover input ~ .movie-genre-checkmark {
+  background-color: #ccc;
+}
+
+.movie-genre-container input:checked ~ .movie-genre-checkmark {
+  background-color: var(--pirple-bg-color);
+}
+
+.movie-genre-checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.movie-genre-container input:checked ~ .movie-genre-checkmark:after {
+  display: block;
+}
+
+.movie-genre-container .movie-genre-checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.movie-preview {
+  margin: 10px;
+  color: var(--white-bg-color);
+  font-style: normal;
+  text-transform: none;
+}
+
+.movie-preview img {
   border-radius: 4px;
   width: 300px;
 }
-.moviePreview div {
+.movie-preview div {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
 }
 
-.moviePreviewTitle {
+.movie-preview-title {
   line-height: 22px;
   opacity: 0.7;
   margin-left: 0%;
   margin-right: 50%;
 }
-.moviePreviewYear {
+.movie-preview-year {
   border-style: outset;
   border: 1px solid #979797;
   box-sizing: border-box;
@@ -43,78 +175,200 @@ body {
   margin-left: auto;
   margin-right: 0%;
 }
-.moviePreviewGender {
+.movie-preview-gender {
   opacity: 0.5;
 }
 
-.moviePreviewPanel {
+.movie-preview-panel {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: #232323;
+  background-color: var(--black-bg-color);
   justify-content: center;
 }
 
-.searchBarBackground {
+.notification {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 686px;
+  height: 322px;
+  color: var(--white-bg-color);
+  background-color: var(--black-bg-color);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.07),
+    0px 10px 20px rgba(0, 0, 0, 0.05), 0px 10px 50px rgba(0, 0, 0, 0.05);
+}
+
+.notification div {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  margin: 20px;
+}
+.notification label {
+  margin: 20px;
+}
+
+.notification-success {
+  background-color: var(--pirple-bg-color);
+  border: 1px solid var(--pirple-bg-color);
+}
+
+.search-bar-background {
   background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/fall-movies-index-1628968089.jpg');
 }
-.searchBar {
+
+.search-bar {
   display: flex;
   flex-direction: column;
   height: 200px;
   align-items: center;
 }
 
-.searchBar button {
+.search-bar button {
   height: 46px;
   width: 177px;
   border-radius: 4px;
-  background: rgba(96, 96, 96, 0.68);
-  color: #f65261;
+  background: var(--grey-bg-color);
+  color: var(--pirple-bg-color);
   align-self: flex-end;
 }
 
-.searchBar button {
+.search-bar button {
   height: 57px;
   width: 233px;
   border-radius: 4px;
-  background: #f65261;
-  color: #ffffff;
+  background: var(--pirple-bg-color);
+  color: var(--white-bg-color);
 }
 
-.searchBar h1 {
-  font-family: 'Montserrat';
-  font-style: normal;
+.search-bar h1 {
   font-weight: 300;
   font-size: 40px;
   line-height: 49px;
   /* text-align: center; */
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--white-bg-color);
 }
 
-.searchBar input {
+.search-bar input {
   width: 713px;
   height: 57px;
-  background: rgba(50, 50, 50, 0.8);
+  background: var();
   margin-bottom: 100px;
 }
 
-.genderMenuPanel {
+.gender-menu-panel {
   display: flex;
-  background-color: #232323;
+  background-color: var(--black-bg-color);
 }
-.genderMenuPanel div {
+.gender-menu-panel div {
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
-  color: #ffffff;
-  font-family: 'Montserrat';
-  font-style: normal;
+  color: var(--white-bg-color);
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
+  border-bottom: 1px solid var(--pirple-bg-color);
+}
+
+h1 {
+  color: var(--white-bg-color);
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 49px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  border-bottom: 1px solid #f65261;
+}
+
+.reset-button {
+  border: 1.5px solid var(--pirple-bg-color);
+  border-radius: 4px;
+  color: var(--pirple-bg-color);
+  width: 182px;
+  height: 57px;
+  box-sizing: border-box;
+  background-color: var(--black-bg-color);
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  margin: 10px;
+}
+.reset-button:hover {
+  background-color: var(--grey-bg-color);
+}
+.reset-button:active {
+  background-color: var(--white-bg-color);
+}
+
+.submit-button {
+  border-radius: 4px;
+  color: var(--white-bg-color);
+  width: 182px;
+  height: 57px;
+  box-sizing: border-box;
+  background-color: var(--pirple-bg-color);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  margin: 10px;
+}
+
+.reset-button:active {
+  background-color: var(--white-bg-color);
+}
+
+.uppercase-label {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.888889px;
+  color: var(--pirple-bg-color);
+  mix-blend-mode: normal;
+  opacity: 0.8;
+}
+.tight-input {
+  width: 301px;
+  height: 57px;
+  background-color: var(--grey-bg-color);
+  color: var(--white-bg-color);
+}
+
+.tight-hiden-input {
+  visibility: hidden;
+  width: 301px;
+  height: 57px;
+  background-color: var(--grey-bg-color);
+  color: var(--white-bg-color);
+}
+.wide-input {
+  width: 525px;
+  height: 57px;
+  background-color: var(--grey-bg-color);
+  color: var(--white-bg-color);
+}
+
+.text-box-input {
+  width: 859px;
+  height: 197px;
+  background-color: #323232;
+  color: #ffffff;
+}
+
+.window-overlay {
+  visibility: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: var(--grey-bg-color);
+  z-index: 5;
+  overflow: hidden;
 }

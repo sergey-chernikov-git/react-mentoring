@@ -6,10 +6,10 @@ import { movieType } from './type/movieType';
 export const MoviesPanel = ({ movies }) => {
   return (
     <>
-      <div>
+      <div className="movie-count-panel">
         <b>{movies.length}</b> movies found
       </div>
-      <div className="moviePreviewPanel">
+      <div className="movie-preview-panel">
         {movies.map((movie) => {
           return <MovieItem key={movie.id} movie={movie} />;
         })}
