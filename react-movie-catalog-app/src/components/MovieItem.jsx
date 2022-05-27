@@ -1,6 +1,6 @@
 import React from 'react';
-import NotFoundImg from './../../assets/img/404/404.jpg';
-import { movieType } from './type/movieType';
+import NotFoundImg from './../assets/img/404/404.jpg';
+import { movieType } from './type';
 
 export const MovieItem = ({ movie }) => {
   const { id, src = NotFoundImg, title, year, genders } = movie;

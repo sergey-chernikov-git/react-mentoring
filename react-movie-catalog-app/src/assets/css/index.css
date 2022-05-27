@@ -5,6 +5,8 @@
   --grey-bg-color: #424242;
   --light-grey-bg-color: #555555;
   --font-family-value: 'Montserrat';
+  --left: 10%;
+  --global-width: 1200px;
 }
 
 body {
@@ -12,9 +14,52 @@ body {
   font-family: var(--font-family-value);
   font-style: normal;
   text-transform: uppercase;
+  margin-left: 17%;
 }
 
+h4 {
+  text-transform: none;
+}
+
+.close-x-button {
+  color: var(--white-bg-color);
+  background-color: var(--black-bg-color);
+  border: var(--black-bg-color);
+}
+
+.dropdown-content {
+  background-color: var(--black-bg-color);
+  color: var(--white-bg-color);
+  text-transform: uppercase;
+  border-color: var(--black-bg-color);
+  margin-top: 7.5%;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.8888887763023376px;
+  text-align: left;
+}
+
+.dropdown-content option {
+
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  color: var(--white-bg-color);
+  background-color: var(--grey-bg-color);
+}
+
+.dropdown-content option:hover {
+  background-color: #ddd;
+}
+
+
 .login-form {
+  visibility: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,7 +73,7 @@ body {
   color: var(--white-bg-color);
   border: solid 0.5px var(--white-bg-color);
   box-shadow: var(--grey-bg-color) 0px 25px 50px -12px;
-  z-index: 2;
+  z-index: 1;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -37,17 +82,14 @@ body {
 
 .movie-add {
   visibility: hidden;
+  position: absolute;
   width: 976px;
-  height: 917px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   background-color: var(--black-bg-color);
   background-blend-mode: lighten;
-  z-index: 2;
-  position: fixed;
-  top: 0;
-  left: 500px;
-  right: 0;
-  bottom: 0;
-  overflow: auto;
+  z-index: 3;
   box-shadow: var(--grey-bg-color) 0px 25px 50px -12px;
 }
 
@@ -64,19 +106,29 @@ body {
 }
 
 .movie-count-panel {
+  position: absolute;
   background-color: var(--black-bg-color);
   color: var(--white-bg-color);
-  padding: 20px;
   text-transform: none;
+  width: var(--global-width);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  top: 41%;
 }
 
 .movie-genre-select {
-  width: 525px;
+  visibility: hidden;
+  position: absolute;
   text-transform: none;
   color: var(--white-bg-color);
   display: block;
   flex-direction: column;
   align-items: flex-start;
+  left: 50%;
+  top: 50%;
+  transform: translate(-303%, 15%);
+  background-color: var(--black-bg-color);
+  z-index: 1;
 }
 
 .movie-genre-container {
@@ -180,6 +232,9 @@ body {
 }
 
 .movie-preview-panel {
+  position: absolute;
+  width: var(--global-width);
+  top: 45%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -188,80 +243,29 @@ body {
 }
 
 .notification {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 686px;
-  height: 322px;
+  visibility: hidden;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   color: var(--white-bg-color);
   background-color: var(--black-bg-color);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.07),
     0px 10px 20px rgba(0, 0, 0, 0.05), 0px 10px 50px rgba(0, 0, 0, 0.05);
-}
-
-.notification div {
-  width: 66px;
-  height: 66px;
-  border-radius: 50%;
-  margin: 20px;
-}
-.notification label {
-  margin: 20px;
-}
-
-.notification-success {
-  background-color: var(--pirple-bg-color);
-  border: 1px solid var(--pirple-bg-color);
-}
-
-.search-bar-background {
-  background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/fall-movies-index-1628968089.jpg');
-}
-
-.search-bar {
-  display: flex;
-  flex-direction: column;
-  height: 200px;
-  align-items: center;
-}
-
-.search-bar button {
-  height: 46px;
-  width: 177px;
-  border-radius: 4px;
-  background: var(--grey-bg-color);
-  color: var(--pirple-bg-color);
-  align-self: flex-end;
-}
-
-.search-bar button {
-  height: 57px;
-  width: 233px;
-  border-radius: 4px;
-  background: var(--pirple-bg-color);
-  color: var(--white-bg-color);
-}
-
-.search-bar h1 {
-  font-weight: 300;
-  font-size: 40px;
-  line-height: 49px;
-  /* text-align: center; */
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--white-bg-color);
-}
-
-.search-bar input {
-  width: 713px;
-  height: 57px;
-  background: var();
-  margin-bottom: 100px;
+  z-index: 2;
+  text-align: center;
+  padding: 3%;
 }
 
 .gender-menu-panel {
+  position: absolute;
+  width: var(--global-width);
   display: flex;
+
   background-color: var(--black-bg-color);
+  vertical-align: middle;
+  height: 300px;
+  top: 35%;
 }
 .gender-menu-panel div {
   margin-top: 20px;
@@ -271,7 +275,29 @@ body {
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
-  border-bottom: 1px solid var(--pirple-bg-color);
+  /* border-bottom: 1px solid var(--pirple-bg-color); */
+}
+
+.menu-horisontal-splitter {
+  position: absolute;
+  height: 2px;
+  width: 1155px;
+  top: 10%;
+  transform: translate(1%);
+  border-radius: 0px;
+  background-color: var(--light-grey-bg-color);
+  z-index: 1;
+}
+
+.menu-horisontal-splitter-selected {
+  position: absolute;
+  height: 2px;
+  width: 40px;
+  top: 10%;
+  transform: translate(-1%);
+  border-radius: 0px;
+  background-color: var(--pirple-bg-color);
+  z-index: 2;
 }
 
 h1 {
@@ -281,6 +307,15 @@ h1 {
   line-height: 49px;
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+.horisontal-line {
+  position: absolute;
+  height: 10px;
+  width: 1200px;
+  top: 34%;
+  border-radius: 0px;
+  background-color: var(--light-grey-bg-color);
 }
 
 .reset-button {
@@ -303,6 +338,78 @@ h1 {
 }
 .reset-button:active {
   background-color: var(--white-bg-color);
+}
+
+.sorting-panel {
+  display: flex;
+  align-content: space-between;
+  position: absolute;
+  vertical-align: middle;
+  right: 0%;
+  top: -7%;
+
+}
+
+.search-movie-add-button {
+  position: absolute;
+  width: 177px;
+  height: 46px;
+  left: 70%;
+  border-radius: 4px;
+  background: var(--light-grey-bg-color);
+  border: var(--light-grey-bg-color);
+  opacity: 0.68;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0px;
+  color: var(--pirple-bg-color);
+}
+
+.search-bar-background {
+  position: absolute;
+  background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/fall-movies-index-1628968089.jpg');
+  height: 683px;
+  width: var(--global-width);
+  border-radius: 0px;
+  mix-blend-mode: normal;
+  opacity: 0.3;
+  filter: blur(8.15485px);
+  z-index: -1;
+}
+
+.search-title {
+  position: absolute;
+  width: 392px;
+  height: 49px;
+  top: 10%;
+  height: 49px;
+  width: 392px;
+  margin-left: 5%;
+}
+
+.search-input {
+  position: absolute;
+  top: 20%;
+  height: 57px;
+  width: 713px;
+  border-radius: 4px;
+  background-color: var(--light-grey-bg-color);
+  mix-blend-mode: normal;
+  opacity: 0.7;
+  border-radius: 4px;
+  margin-left: 5%;
+}
+.search-button {
+  position: absolute;
+  top: 20%;
+  right: 25%;
+  height: 63px;
+  width: 233px;
+  border-radius: 4px;
+  background-color: var(--pirple-bg-color);
+  color: var(--white-bg-color);
 }
 
 .submit-button {
@@ -369,6 +476,7 @@ h1 {
   width: 100%;
   height: 100%;
   background-color: var(--grey-bg-color);
-  z-index: 5;
+  z-index: 1;
   overflow: hidden;
+  opacity: 0.5;
 }

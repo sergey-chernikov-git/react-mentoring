@@ -1,27 +1,26 @@
 import React from 'react';
-import { MoviesPanel } from './moviePanel/MoviesPreview';
-import { GenreMenu } from './genreMenu/GenreMenu';
+import { MoviesPanel } from './MoviesPreview';
 import { SearchBar } from './SearchBar';
-import { MovieAdd } from './moviePanel/MovieAdd';
+import { MovieAdd } from './MovieAdd';
 import { Notification } from './Notification';
+import { MenuPanel } from './MenuPanel';
 import { LoginForm } from './LoginForm';
-import { getTestMovieList } from '../util/dictionary/dictionary';
-import { getGenresList } from '../util/dictionary/dictionary';
+import { getTestMovieList, getGenresList, getSortList } from '../util/dictionary/dictionary';
 
 export const Application = () => {
   const movies = getTestMovieList();
   const genres = getGenresList();
+  const sortList = getSortList();
   return (
     <>
-      <SearchBar />
+      <SearchBar genres={genres} />
       <LoginForm />
-      {/* <Notification
+      <Notification
         type="success"
         message="Congratulations!"
         description="The movie has been added to database succesfully"
-      /> */}
-      <br></br>
-      <GenreMenu genres={genres} />
+      />
+      <MenuPanel genres={genres} sort={sortList} />
       <MoviesPanel movies={movies} />;
       <MovieAdd genres={genres} />
     </>

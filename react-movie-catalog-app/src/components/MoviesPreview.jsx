@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MovieItem } from './MovieItem';
-import { movieType } from './type/movieType';
+import { movieType } from './type';
 
 export const MoviesPanel = ({ movies }) => {
   return (
     <>
       <div className="movie-count-panel">
-        <b>{movies.length}</b> movies found
+        <b className="movie-count">&nbsp;&nbsp;&nbsp;&nbsp; {movies.length}</b> movies found
       </div>
       <div className="movie-preview-panel">
         {movies.map((movie) => {

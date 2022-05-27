@@ -1,5 +1,10 @@
 import PropTypes, { shape } from 'prop-types';
 
+export const genreType = shape({
+  id: PropTypes.string,
+  value: PropTypes.string
+});
+
 export const movieType = shape({
   id: PropTypes.number || PropTypes.string,
   src: PropTypes.string,

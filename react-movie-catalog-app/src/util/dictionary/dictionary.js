@@ -5,6 +5,16 @@ const Genres = {
   Adventure: 'Adventure'
 };
 
+const Sort = {
+  Genres: 'Genres',
+  ReleaseDate: 'Release Date'
+};
+
+const Notifications = {
+  Success: 'Success',
+  Exception: 'Exception'
+};
+
 export function getTestMovieList() {
   const movies = [];
   for (let i = 0; i < 10; i++) {
@@ -28,4 +38,15 @@ export function getGenresList() {
     });
   }
   return genders;
+}
+
+export function getSortList() {
+  const sortList = [];
+  for (const [key, value] of Object.entries(Sort)) {
+    sortList.push({
+      id: key,
+      value: value
+    });
+  }
+  return sortList;
 }
