@@ -1,6 +1,6 @@
 import PropTypes, { shape } from 'prop-types';
 
-export const genreType = shape({
+export const keyValueType = shape({
   id: PropTypes.string,
   value: PropTypes.string
 });

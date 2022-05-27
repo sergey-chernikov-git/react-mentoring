@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { genreType } from './type';
-import { Sort, Genres } from './../util/dictionary/dictionary.js';
+import { keyValueType } from './type';
 
-export const MenuPanel = ({ genres, sort }) => {
+export const MenuPanel = ({ genres, sortList }) => {
   return (
     <>
       <div className="horisontal-line"></div>
       <div className="gender-menu-panel">
         {genres.map((genre) => {
           return (
-            <>
-              <div key={genre.id}>{genre.value} </div>
+            <React.Fragment key={genre.id}>
+              <div >{genre.value}</div>
               <div className="menu-horisontal-splitter-selected"></div>
-            </>
+            </React.Fragment>
           );
         })}
         <div className="sorting-panel">
           <div>Sort by</div>
-          <select class="dropdown-content" id="dropdown-sorting-content" name="genres">
-            {sort.map((el) => {
-              return <option value={el.id}>{el.value}</option>;
+          <select className="dropdown-content" id="dropdown-sorting-content" name="genres">
+            {sortList.map((el) => {
+              return (
+                <option key={el.id} value={el.id}>
+                  {el.value}
+                </option>
+              );
             })}
           </select>
         </div>
@@ -31,5 +34,6 @@ export const MenuPanel = ({ genres, sort }) => {
 };
 
 MenuPanel.propTypes = {
-  genders: PropTypes.arrayOf(genreType)
+  genders: PropTypes.arrayOf(keyValueType),
+  sortList: PropTypes.arrayOf(keyValueType)
 };

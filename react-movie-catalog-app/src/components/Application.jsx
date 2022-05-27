@@ -20,7 +20,7 @@ export const Application = () => {
         message="Congratulations!"
         description="The movie has been added to database succesfully"
       />
-      <MenuPanel genres={genres} sort={sortList} />
+      <MenuPanel genres={genres} sortList={sortList} />
       <MoviesPanel movies={movies} />;
       <MovieAdd genres={genres} />
     </>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { genreType } from './type';
+import { keyValueType } from './type';
 import { hideElementById, showElementById } from './../logic/elementOperations.js';
 
 export const MovieAdd = ({ genres }) => {
@@ -59,7 +59,7 @@ export const MovieAdd = ({ genres }) => {
               .filter(({ id, value }) => value != 'All')
               .map(({ id, value }) => {
                 return (
-                  <div>
+                  <div key={id}>
                     <label className="movie-genre-container">
                       {value}
                       <input type="checkbox" />
@@ -98,5 +98,5 @@ export const MovieAdd = ({ genres }) => {
 };
 
 MovieAdd.propTypes = {
-  genres: PropTypes.arrayOf(genreType)
+  genres: PropTypes.arrayOf(keyValueType)
 };
