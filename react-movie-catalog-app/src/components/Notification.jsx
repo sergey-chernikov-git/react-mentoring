@@ -11,7 +11,7 @@ export const Notification = ({ type, message, description }) => {
       onClick={(e) => hideElementById(e.currentTarget.id)}
     >
       <div>
-        <img src={type != 'success' ? errorImg : successImg}></img>
+        <img src={type !== 'success' ? errorImg : successImg}></img>
       </div>
       <h2>{message}</h2>
       <h4>{description}</h4>

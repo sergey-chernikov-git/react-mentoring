@@ -7,7 +7,7 @@ export const MoviesPanel = ({ movies }) => {
   return (
     <>
       <div className="movie-count-panel">
-        <b className="movie-count">&nbsp;&nbsp;&nbsp;&nbsp; {movies.length}</b> movies found
+        <b className="movie-count">{movies.length}</b> movies found
       </div>
       <div className="movie-preview-panel">
         {movies.map((movie) => {
