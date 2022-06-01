@@ -3,7 +3,7 @@ import NotFoundImg from './../assets/img/404/404.jpg';
 import { movieType } from './type';
 
 export const MovieItem = ({ movie }) => {
-  const { id, src = NotFoundImg, title, year, genders } = movie;
+  const { id, src = NotFoundImg, title, year, genres } = movie;
   return (
     <>
       <div className="movie-preview">
@@ -11,7 +11,7 @@ export const MovieItem = ({ movie }) => {
         <div>
           <div className="movie-preview-title">{title}</div>
           <div className="movie-preview-year">{year}</div>
-          <div className="movie-preview-gender">{genders.join(' & ')}</div>
+          <div className="movie-preview-gender">{genres.join(' & ')}</div>
         </div>
       </div>
     </>

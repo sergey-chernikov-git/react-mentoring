@@ -114,7 +114,7 @@ h4 {
   top: 41%;
 }
 
-.movie-count{
+.movie-count {
   margin-left: 11%;
 }
 
@@ -202,6 +202,7 @@ h4 {
 
 .movie-preview img {
   border-radius: 4px;
+  height: 450px;
   width: 300px;
 }
 .movie-preview div {
@@ -263,7 +264,7 @@ h4 {
   position: absolute;
   width: var(--global-width);
   display: flex;
-
+  cursor: pointer;
   background-color: var(--black-bg-color);
   vertical-align: middle;
   height: 300px;
