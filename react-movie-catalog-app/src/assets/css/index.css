@@ -27,6 +27,35 @@ h4 {
   border: var(--black-bg-color);
 }
 
+.context-call {
+  margin-left: 95%;
+  cursor: pointer;
+}
+
+.movie-preview-context-menu {
+  height: 111px;
+  width: 190px;
+  border: 80px;
+  background-color: var(--black-bg-color);
+  position: absolute;
+  margin-top: 3px;
+  margin-left: 9%;
+}
+
+.movie-preview-context-menu-item {
+  width: 190px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.movie-preview-context-menu-item:hover {
+  background-color: var(--pirple-bg-color);
+}
+.movie-preview-context-menu-close {
+  padding-left: 90%;
+  padding-right: 1%;
+}
+
 .dropdown-content {
   background-color: var(--black-bg-color);
   color: var(--white-bg-color);
@@ -79,7 +108,6 @@ h4 {
 }
 
 .movie-add {
-  visibility: hidden;
   position: absolute;
   width: 976px;
   left: 50%;

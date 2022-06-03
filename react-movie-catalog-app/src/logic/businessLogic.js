@@ -29,14 +29,20 @@ export const sortMovies = (movies, e) => {
   return movies;
 };
 
-export const filterMovies = (genre, movies) => {
-  let filtered = [];
-
+export const filterMovies = (genre, movies = null) => {
   if (genre === 'All') {
     return getInitMovieList();
   }
 
-  return movies.filter((movie) => {
+  if (movies) {
+    return movies.filter((movie) => {
+      if (movie.genres.includes(genre)) {
+        return movie;
+      }
+    });
+  }
+
+  return getInitMovieList().filter((movie) => {
     if (movie.genres.includes(genre)) {
       return movie;
     }
