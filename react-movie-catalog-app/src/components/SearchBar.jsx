@@ -1,5 +1,4 @@
 import React from 'react';
-import { showElementById } from './../logic/elementOperations.js';
 
 export const SearchBar = ({ genres }) => {
   return (

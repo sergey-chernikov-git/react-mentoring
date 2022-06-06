@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { MovieItem } from './MovieItem';
 import { movieType } from './type';
 
-export const MoviesPanel = ({ movies, deleteMovie, editMovie }) => {
+export const MoviesPanel = ({ movies, deleteMovie, editMovie, movieOperation }) => {
   return (
     <>
       <div className="movie-count-panel">
@@ -18,6 +18,7 @@ export const MoviesPanel = ({ movies, deleteMovie, editMovie }) => {
               movie={movie}
               deleteMovie={deleteMovie}
               editMovie={editMovie}
+              movieOperation={movieOperation}
             />
           );
         })}

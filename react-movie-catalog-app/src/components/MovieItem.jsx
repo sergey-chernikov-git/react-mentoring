@@ -10,30 +10,43 @@ export const MovieItem = ({ movie, deleteMovie, editMovie }) => {
 
   const contextMenuHandler = (e) => {
     e.preventDefault();
-    setContextMenu(!contextMenu);
+    setContextMenu(true);
   };
 
-  const editMovieFun = (movie) => {
-    setEditMenu(!editMenu);
+  const movieEditOperation = () => {
+    return (
+      <MovieOperation
+        movie={movie}
+        operationHandler={editMovie}
+        closeWindow={() =>setEditMenu(false)}
+      />
+    );
   };
 
   return (
     <>
-      {editMenu ? <MovieOperation movie={movie} genres={[]} /> : null}
+    {editMenu ? movieEditOperation(): null}
       <div className="movie-preview">
         {contextMenu ? (
           <div className="movie-preview-context-menu">
-            <div className="movie-preview-context-menu-close">X</div>
             <div
-              className="movie-preview-context-menu-item"
-              onClick={() => editMovieFun(movie)}
+              className="movie-preview-context-menu-close"
+              onClick={() => {
+                setContextMenu(false);
+              }}
             >
-              Edit
+              X
             </div>
             <div
               className="movie-preview-context-menu-item"
-              onClick={() => deleteMovie(movie)}
+              onClick={() => {
+                setEditMenu(true);
+                setContextMenu(false);
+              }}
             >
+              Edit
+            </div>
+            <div className="movie-preview-context-menu-item" onClick={() => deleteMovie(movie)}>
               Delete
             </div>
           </div>

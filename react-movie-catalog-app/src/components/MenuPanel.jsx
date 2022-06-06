@@ -42,5 +42,7 @@ export const MenuPanel = ({ genres, sortList, sortMovies, filterMovies }) => {
 
 MenuPanel.propTypes = {
   genders: PropTypes.arrayOf(keyValueType),
-  sortList: PropTypes.arrayOf(keyValueType)
+  sortList: PropTypes.arrayOf(keyValueType),
+  sortMovies: PropTypes.func,
+  filterMovies: PropTypes.func
 };

@@ -7,7 +7,6 @@ import { MenuPanel } from './MenuPanel';
 import { LoginForm } from './LoginForm';
 import { getInitMovieList, getGenresList, getSortList } from '../util/dictionary/dictionary';
 import { sortMovies, filterMovies } from './../logic/businessLogic';
-import { hideElementById } from './../logic/elementOperations';
 
 export const Application = () => {
   const [addMenu, setAddMenu] = useState(false);
@@ -23,7 +22,6 @@ export const Application = () => {
       setMovies([...list]);
     }
     console.log(movies);
-    setAddMenu(false)
   };
 
   const sortMoviesHandler = (e) => {
@@ -35,23 +33,46 @@ export const Application = () => {
     setMovies(filterMovies(genre));
   };
 
-  const deleteMovieHandler = (movie) =>{
-    
+  const deleteMovieHandler = (movie) => {
     const list = movies;
     let index = 0;
-    list.forEach((el, idx) => el.id === movie.id ? index=idx : "");
-    list.splice(index, 1)
-    console.log(list)
-    setMovies([...list])
-  }
+    list.forEach((el, idx) => (el.id === movie.id ? (index = idx) : ''));
+    if (confirm('Are you sure to delete this movie?\n') == true) {
+      list.splice(index, 1);
+    } else {
+      return;
+    }
 
-  const editMovieHandler = (movie) =>{
+    console.log(list);
+    setMovies([...list]);
+  };
 
-  }
+  const editMovieHandler = (movie) => {
+    try {
+      const list = movies;
+      let index = 0;
+      list.forEach((el, idx) => (el.id === movie.id ? (index = idx) : ''));
+      list.splice(index, 1);
+      list.push(movie);
+      setMovies([...list]);
+      return true
+    } catch (error) {
+      console.log(error)
+      return false      
+    }    
+  };
+
+  const movieAddOperation = () => {
+    return (
+      <MovieOperation operationHandler={addMovieHandler} closeWindow={() => setAddMenu(false)} />
+    );
+  };
 
   return (
     <>
-      <button className="search-movie-add-button" onClick={() => setAddMenu(true)}>+ Add Movie</button>
+      <button className="search-movie-add-button" onClick={() => setAddMenu(true)}>
+        + Add Movie
+      </button>
       <SearchBar genres={genres} />
       <LoginForm />
       <Notification
@@ -66,9 +87,9 @@ export const Application = () => {
         sortMovies={sortMoviesHandler}
         filterMovies={filterMoviesHandler}
       />
-      <MoviesPanel movies={movies} deleteMovie={deleteMovieHandler} editMovie={editMovieHandler}/>
-      
-      {addMenu ? <MovieOperation operationHandler={addMovieHandler} /> : null}
+      <MoviesPanel movies={movies} deleteMovie={deleteMovieHandler} editMovie={editMovieHandler} />
+
+      {addMenu ? movieAddOperation() : null}
     </>
   );
 };

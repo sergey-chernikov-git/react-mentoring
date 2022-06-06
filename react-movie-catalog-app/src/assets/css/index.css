@@ -54,6 +54,8 @@ h4 {
 .movie-preview-context-menu-close {
   padding-left: 90%;
   padding-right: 1%;
+  cursor: pointer;
+  color: var(--white-bg-color);
 }
 
 .dropdown-content {
@@ -108,7 +110,7 @@ h4 {
 }
 
 .movie-add {
-  position: absolute;
+  position: fixed;
   width: 976px;
   left: 50%;
   top: 50%;
@@ -222,6 +224,8 @@ h4 {
 }
 
 .movie-preview {
+  width: 300px;
+  height: 500px;
   margin: 10px;
   color: var(--white-bg-color);
   font-style: normal;
@@ -260,6 +264,7 @@ h4 {
 }
 .movie-preview-gender {
   opacity: 0.5;
+  flex-wrap: wrap;
 }
 
 .movie-preview-panel {
@@ -498,7 +503,6 @@ h1 {
 }
 
 .window-overlay {
-  visibility: hidden;
   position: fixed;
   top: 50%;
   left: 50%;

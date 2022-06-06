@@ -5,7 +5,7 @@ import { hideElementById, showElementById } from '../logic/elementOperations.js'
 import { getID } from '../util/dictionary/dictionary';
 import { getGenresList } from '../util/dictionary/dictionary';
 
-export const MovieOperation = ({ movie = null, operationHandler }) => {
+export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) => {
   const [id, setID] = useState(movie ? movie.id : getID());
   const [title, setTitle] = useState(movie ? movie.title : '');
   const [year, setYear] = useState(movie ? movie.year : '');
@@ -40,8 +40,11 @@ export const MovieOperation = ({ movie = null, operationHandler }) => {
   return (
     <>
       <div className="movie-add" id="movie-add">
+        <div className="movie-preview-context-menu-close" onClick={() => closeWindow()}>
+          X
+        </div>
         <div>
-          <h1>{movie ? "Edit " : "Add "}Movie</h1>
+          <h1>{movie ? 'Edit ' : 'Add '}Movie</h1>
         </div>
         <div>
           <div>
@@ -174,7 +177,10 @@ export const MovieOperation = ({ movie = null, operationHandler }) => {
             className="submit-button"
             type="submit"
             value="Submit"
-            onClick={() => operationHandler(movieObj)}
+            onClick={() => {
+              operationHandler(movieObj);
+              closeWindow();
+            }}
           ></input>
         </div>
       </div>
@@ -182,7 +188,8 @@ export const MovieOperation = ({ movie = null, operationHandler }) => {
   );
 };
 
-MovieOperation.propTypes = {
-  genres: PropTypes.arrayOf(keyValueType),
-  addMovie: PropTypes.func
-};
+// MovieOperation.propTypes = {
+//   movie: PropTypes.arrayOf(keyValueType),
+//   operationHandler: PropTypes.func,
+//   closeDialog: PropTypes.func
+// };
