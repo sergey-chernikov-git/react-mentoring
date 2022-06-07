@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { keyValueType } from './type';
-import { hideElementById, showElementById } from '../logic/elementOperations.js';
+import { movieType } from './type';
 import { getID } from '../util/dictionary/dictionary';
 import { getGenresList } from '../util/dictionary/dictionary';
 
 export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) => {
+  const [contextMenu, setContextMenu] = useState(false)
   const [id, setID] = useState(movie ? movie.id : getID());
   const [title, setTitle] = useState(movie ? movie.title : '');
   const [year, setYear] = useState(movie ? movie.year : '');
@@ -15,7 +15,7 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
   const [runtime, setRuntime] = useState(movie ? movie.runtime : '');
   const [overview, setOverview] = useState(movie ? movie.overview : '');
 
-  const genres = getGenresList();
+  const [genres, setGenres] = useState(getGenresList());
 
   const onResetHandle = () => {
     setTitle(movie ? movie.title : '');
@@ -27,16 +27,70 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
     setOverview(movie ? movie.overview : '');
   };
 
+  const genreSelectorHandler = (e, value) => {    
+    console.log(e.target.className)                                          
+    if (e.target.className === "movie-genre-checkmark-selected") {
+        e.target.className = "movie-genre-checkmark"
+        const list = genreList;
+        const inx = list.indexOf(e.target.getAttribute('genre'));
+        list.splice(inx, 1);                            
+        setGenreList([...list]);
+    } else {
+        console.log("I am here")         
+        e.target.className === "movie-genre-checkmark-selected";
+        console.log(e.target)
+        if (genreList.indexOf(value) === -1) {
+          const list = genreList;
+          list.push(value)
+          setGenreList([...list]);
+        }
+      }
+  }
+
   const movieObj = {
     id: id,
     title: title,
     year: year,
     src: src,
     rating: rating,
-    genres: [...genreList],
+    genres: genreList,
     runtime: runtime,
     overview: overview
   };
+
+  const genreSelectorElem = (<div>
+    <div className="movie-genre-select" id="movie-genre-select">
+      <input
+        className="close-x-button"
+        type="button"
+        onClick={() => setContextMenu(false)}
+        value="X"
+      />
+      {
+      genres
+        .filter(({ id, value }) => value != 'All')
+        .map(({ id, value }) => {
+          return (
+            <div key={id}>
+              <label className="movie-genre-container">
+                {value}    
+                {genreList.indexOf(value) !=-1 ?            
+                <span
+                  className="movie-genre-checkmark-selected"  
+                  onClick={(e) => genreSelectorHandler(e, value)}
+                />
+                : 
+                <span
+                  className="movie-genre-checkmark"                               
+                  onClick={(e) => genreSelectorHandler(e, value)}
+                />}
+              </label>
+            </div>
+          );
+        })}
+    </div>
+  </div>)
+
   return (
     <>
       <div className="movie-add" id="movie-add">
@@ -93,8 +147,8 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
             <label className="uppercase-label">Genre</label>
             <input
               className="wide-input"
-              placeholder=""
-              onClick={(e) => showElementById('movie-genre-select')}
+              value={genreList.join(", ")}
+              onClick={() => setContextMenu(!contextMenu)}
             ></input>
           </div>
           <div>
@@ -108,49 +162,7 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
             ></input>
           </div>
         </div>
-        <div>
-          <div className="movie-genre-select" id="movie-genre-select">
-            <input
-              className="close-x-button"
-              type="button"
-              onClick={(e) => {
-                hideElementById('movie-genre-select');
-              }}
-              value="X"
-            />
-            {genres
-              .filter(({ id, value }) => value != 'All')
-              .map(({ id, value }) => {
-                return (
-                  <div key={id}>
-                    <label className="movie-genre-container">
-                      {value}
-                      <input type="checkbox" />
-                      <span
-                        className="movie-genre-checkmark"
-                        selected
-                        genre={value}
-                        onClick={(e) => {
-                          if (e.target.getAttribute('selected')) {
-                            e.target.removeAttribute('selected');
-                            const list = genreList;
-                            const inx = list.indexOf(e.target.getAttribute('genre'));
-                            list.splice(inx, 1);
-                            setGenreList(list);
-                          } else {
-                            e.target.setAttribute('selected', 'true');
-                            const list = genreList;
-                            list.push(e.target.getAttribute('genre'));
-                            setGenreList(list);
-                          }
-                        }}
-                      ></span>
-                    </label>
-                  </div>
-                );
-              })}
-          </div>
-        </div>
+        {contextMenu ? genreSelectorElem : null}
         <div>
           <div>
             <label className="uppercase-label">Overview</label>
@@ -188,8 +200,13 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
   );
 };
 
-// MovieOperation.propTypes = {
-//   movie: PropTypes.arrayOf(keyValueType),
-//   operationHandler: PropTypes.func,
-//   closeDialog: PropTypes.func
-// };
+function Span() {
+  return <span className="movie-genre-checkmark" 
+  selected="true" />;
+}
+
+MovieOperation.propTypes = {
+  movie: movieType,
+  operationHandler: PropTypes.func,
+  closeDialog: PropTypes.func
+};

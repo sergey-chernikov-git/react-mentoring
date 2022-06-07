@@ -1,27 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { MoviesPanel } from './MoviesPreview';
 import { SearchBar } from './SearchBar';
-import { MovieOperation } from './MovieOperation';
-import { Notification } from './Notification';
 import { MenuPanel } from './MenuPanel';
 import { LoginForm } from './LoginForm';
+import { Notification } from './Notification';
 import { getInitMovieList, getGenresList, getSortList } from '../util/dictionary/dictionary';
-import { sortMovies, filterMovies } from './../logic/businessLogic';
+import {
+  sortMovies,
+  filterMovies,
+  deleteMovie,
+  editMovie,
+  addMovie
+} from './../logic/businessLogic';
 
 export const Application = () => {
-  const [addMenu, setAddMenu] = useState(false);
-  const [movies, setMovies] = useState(getInitMovieList());
+  const [movies, setMovies] = useState([]);
+
+  const [deleteNotification, setDeleteNotification] = useState(false);
+  const [addNotification, setAddNotification] = useState(false);
+  const [editNotification, setEditNotification] = useState(false);
+
   const genres = getGenresList();
   const sortList = getSortList();
 
+  useEffect(() => {
+    setMovies(getInitMovieList());
+  }, []);
+
   const addMovieHandler = (movie) => {
-    console.log(movie);
-    if (movie) {
-      const list = movies;
-      list.push(movie);
-      setMovies([...list]);
-    }
-    console.log(movies);
+    addMovie(movie, movies, setMovies);
+    setAddNotification(true);
   };
 
   const sortMoviesHandler = (e) => {
@@ -34,52 +42,44 @@ export const Application = () => {
   };
 
   const deleteMovieHandler = (movie) => {
-    const list = movies;
-    let index = 0;
-    list.forEach((el, idx) => (el.id === movie.id ? (index = idx) : ''));
-    if (confirm('Are you sure to delete this movie?\n') == true) {
-      list.splice(index, 1);
-    } else {
-      return;
-    }
-
-    console.log(list);
-    setMovies([...list]);
+    deleteMovie(movie, movies, setMovies);
+    setDeleteNotification(true);
   };
 
   const editMovieHandler = (movie) => {
-    try {
-      const list = movies;
-      let index = 0;
-      list.forEach((el, idx) => (el.id === movie.id ? (index = idx) : ''));
-      list.splice(index, 1);
-      list.push(movie);
-      setMovies([...list]);
-      return true
-    } catch (error) {
-      console.log(error)
-      return false      
-    }    
+    editMovie(movie, movies, setMovies);
+    setEditNotification(true);
   };
 
-  const movieAddOperation = () => {
-    return (
-      <MovieOperation operationHandler={addMovieHandler} closeWindow={() => setAddMenu(false)} />
-    );
-  };
+  const movieDeleteNotificationElem = (
+    <Notification
+      type="success"
+      message="Congratulations!"
+      description="the movie has been succesfully deleted"
+      onClose={() => setDeleteNotification(false)}
+    />
+  );
+  const movieAddNotificationElem = (
+    <Notification
+      type="success"
+      message="Congratulations!"
+      description="the movie has been succesfully added"
+      onClose={() => setAddNotification(false)}
+    />
+  );
+  const movieEditNotificationElem = (
+    <Notification
+      type="success"
+      message="Congratulations!"
+      description="the movie has been succesfully updated"
+      onClose={() => setEditNotification(false)}
+    />
+  );
 
   return (
     <>
-      <button className="search-movie-add-button" onClick={() => setAddMenu(true)}>
-        + Add Movie
-      </button>
       <SearchBar genres={genres} />
-      <LoginForm />
-      <Notification
-        type="success"
-        message="Congratulations!"
-        description="The movie has been added to database succesfully"
-      />
+      {/* <LoginForm /> */}
       <MenuPanel
         genres={genres}
         sortList={sortList}
@@ -87,9 +87,16 @@ export const Application = () => {
         sortMovies={sortMoviesHandler}
         filterMovies={filterMoviesHandler}
       />
-      <MoviesPanel movies={movies} deleteMovie={deleteMovieHandler} editMovie={editMovieHandler} />
-
-      {addMenu ? movieAddOperation() : null}
+      <MoviesPanel
+        movies={movies}
+        deleteMovie={deleteMovieHandler}
+        editMovie={editMovieHandler}
+        addMovie={addMovieHandler}
+      />
+      {deleteNotification ? movieDeleteNotificationElem : null}
+      {addNotification ? movieAddNotificationElem : null}
+      {editNotification ? movieEditNotificationElem : null}
+      
     </>
   );
 };
