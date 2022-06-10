@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { keyValueType } from './type';
 
 export const MenuPanel = ({ genres, sortList, sortMovies, filterMovies }) => {
-  const [deleteNotification, setDeleteNotification] = useState(false);
   return (
     <>
       <div className="horisontal-line"></div>

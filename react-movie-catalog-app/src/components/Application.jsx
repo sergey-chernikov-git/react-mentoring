@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { MoviesPanel } from './MoviesPreview';
 import { SearchBar } from './SearchBar';
+import { ViewMovieDetails } from './ViewMovieDetails';
 import { MenuPanel } from './MenuPanel';
-import { LoginForm } from './LoginForm';
 import { Notification } from './Notification';
 import { getInitMovieList, getGenresList, getSortList } from '../util/dictionary/dictionary';
 import {
@@ -76,9 +76,15 @@ export const Application = () => {
     />
   );
 
+
   return (
+  
     <>
-      <SearchBar genres={genres} />
+    { movies.length > 0 ? 
+      <div>
+      {/* <SearchBar genres={genres} /> */}
+      
+      <ViewMovieDetails movie={movies[0]}/>
       {/* <LoginForm /> */}
       <MenuPanel
         genres={genres}
@@ -96,7 +102,11 @@ export const Application = () => {
       {deleteNotification ? movieDeleteNotificationElem : null}
       {addNotification ? movieAddNotificationElem : null}
       {editNotification ? movieEditNotificationElem : null}
-      
+    </div>
+    :
+    <div></div>
+    }
     </>
+
   );
 };

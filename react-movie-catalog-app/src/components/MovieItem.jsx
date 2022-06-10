@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import NotFoundImg from './../assets/img/404/404.jpg';
 import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
-import { Notification } from './Notification';
+
+
 
 export const MovieItem = ({ movie, deleteMovie, editMovie }) => {
 

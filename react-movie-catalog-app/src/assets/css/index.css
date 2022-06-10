@@ -21,6 +21,11 @@ h4 {
   text-transform: none;
 }
 
+h1 {
+  margin-right: 20px;
+  /* margin-top: 35px; */
+}
+
 .close-x-button {
   color: var(--white-bg-color);
   background-color: var(--black-bg-color);
@@ -273,12 +278,13 @@ h4 {
 .movie-preview-gender {
   opacity: 0.5;
   flex-wrap: wrap;
+  text-transform: none;
 }
 
 .movie-preview-panel {
   position: absolute;
   width: var(--global-width);
-  top: 45%;
+  top: 70%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -326,7 +332,6 @@ h4 {
   height: 2px;
   width: 1155px;
   top: 10%;
-  transform: translate(1%);
   border-radius: 0px;
   background-color: var(--light-grey-bg-color);
   z-index: 1;
@@ -335,12 +340,12 @@ h4 {
 .menu-horisontal-splitter-selected {
   position: absolute;
   height: 2px;
-  width: 40px;
+  width: 60px;
   top: 10%;
-  transform: translate(-1%);
   border-radius: 0px;
+  left: 0%;
   background-color: var(--pirple-bg-color);
-  z-index: 2;
+  z-index: 5;
 }
 
 h1 {
@@ -507,6 +512,70 @@ h1 {
   height: 197px;
   background-color: #323232;
   color: #ffffff;
+}
+
+.view-movie-details{
+  position: absolute;
+  display: flex;
+  width: 1140px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  /* height: 600px; */
+  z-index: 3;
+  background-color: var(--black-bg-color);
+  color: var(--white-bg-color);
+}
+
+
+
+.view-movie-details img {
+  height: 500px;
+  width: 300px;
+  border-radius: 0px;
+  margin-left: 16.2%;
+  margin-right: 5%;
+  margin-top: 3%;
+}
+
+.view-movie-details div {
+  margin-top: 1%;
+}
+
+.view-movie-details-title {
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 49px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.view-movie-details-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px var(--white-bg-color);
+  border-style: groove;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+
+}
+
+.view-movie-details-header {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+
+.view-movie-details-overview {
+  text-transform: none;
+}
+.view-movie-details-movie-info {
+  color: var(--pirple-bg-color);
+
 }
 
 .window-overlay {
