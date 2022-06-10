@@ -10,5 +10,5 @@ export const movieType = shape({
   src: PropTypes.string,
   title: PropTypes.string,
   year: PropTypes.string,
-  genders: PropTypes.arrayOf(PropTypes.string)
+  genres: PropTypes.arrayOf(PropTypes.string)
 });

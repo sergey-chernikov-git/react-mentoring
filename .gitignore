@@ -3,3 +3,10 @@
 
 # build
 /*/build
+
+: {
+  imgUrl: imgUrl = 'https://cdn5.vectorstock.com/i/1000x1000/73/49/404-error-page-not-found-miss-paper-with-white-vector-20577349.jpg',
+  title: title = 'empty',
+  year: year = '1900',
+  gender: gender = 'empty'
+}

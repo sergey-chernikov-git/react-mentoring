@@ -4,13 +4,6 @@ import { hideElementById } from './../logic/elementOperations.js';
 export const LoginForm = () => {
   return (
     <>
-      <div
-        className="window-overlay"
-        id="login-window-overlay"
-        onClick={(e) => {
-          hideElementById(e.currentTarget.id);
-        }}
-      ></div>
       <div className="login-form" id="login-form">
         <div>Log In</div>
         <div>

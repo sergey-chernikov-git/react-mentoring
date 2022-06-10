@@ -27,6 +27,37 @@ h4 {
   border: var(--black-bg-color);
 }
 
+.context-call {
+  margin-left: 95%;
+  cursor: pointer;
+}
+
+.movie-preview-context-menu {
+  height: 111px;
+  width: 190px;
+  border: 80px;
+  background-color: var(--black-bg-color);
+  position: absolute;
+  margin-top: 3px;
+  margin-left: 9%;
+}
+
+.movie-preview-context-menu-item {
+  width: 190px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.movie-preview-context-menu-item:hover {
+  background-color: var(--pirple-bg-color);
+}
+.movie-preview-context-menu-close {
+  padding-left: 90%;
+  padding-right: 1%;
+  cursor: pointer;
+  color: var(--white-bg-color);
+}
+
 .dropdown-content {
   background-color: var(--black-bg-color);
   color: var(--white-bg-color);
@@ -79,8 +110,7 @@ h4 {
 }
 
 .movie-add {
-  visibility: hidden;
-  position: absolute;
+  position: fixed;
   width: 976px;
   left: 50%;
   top: 50%;
@@ -114,12 +144,11 @@ h4 {
   top: 41%;
 }
 
-.movie-count{
+.movie-count {
   margin-left: 11%;
 }
 
 .movie-genre-select {
-  visibility: hidden;
   position: absolute;
   text-transform: none;
   color: var(--white-bg-color);
@@ -163,6 +192,15 @@ h4 {
   background-color: #eee;
 }
 
+.movie-genre-checkmark-selected {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: var(--pirple-bg-color);
+}
+
 .movie-genre-container:hover input ~ .movie-genre-checkmark {
   background-color: #ccc;
 }
@@ -194,6 +232,8 @@ h4 {
 }
 
 .movie-preview {
+  width: 300px;
+  height: 500px;
   margin: 10px;
   color: var(--white-bg-color);
   font-style: normal;
@@ -202,6 +242,7 @@ h4 {
 
 .movie-preview img {
   border-radius: 4px;
+  height: 450px;
   width: 300px;
 }
 .movie-preview div {
@@ -231,6 +272,7 @@ h4 {
 }
 .movie-preview-gender {
   opacity: 0.5;
+  flex-wrap: wrap;
 }
 
 .movie-preview-panel {
@@ -245,7 +287,6 @@ h4 {
 }
 
 .notification {
-  visibility: hidden;
   position: fixed;
   left: 50%;
   top: 50%;
@@ -254,7 +295,7 @@ h4 {
   background-color: var(--black-bg-color);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.07),
     0px 10px 20px rgba(0, 0, 0, 0.05), 0px 10px 50px rgba(0, 0, 0, 0.05);
-  z-index: 2;
+  z-index: 5;
   text-align: center;
   padding: 3%;
 }
@@ -263,7 +304,7 @@ h4 {
   position: absolute;
   width: var(--global-width);
   display: flex;
-
+  cursor: pointer;
   background-color: var(--black-bg-color);
   vertical-align: middle;
   height: 300px;
@@ -469,7 +510,6 @@ h1 {
 }
 
 .window-overlay {
-  visibility: hidden;
   position: fixed;
   top: 50%;
   left: 50%;

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { keyValueType } from './type';
 
-export const MenuPanel = ({ genres, sortList }) => {
+export const MenuPanel = ({ genres, sortList, sortMovies, filterMovies }) => {
+  const [deleteNotification, setDeleteNotification] = useState(false);
   return (
     <>
       <div className="horisontal-line"></div>
@@ -10,17 +11,24 @@ export const MenuPanel = ({ genres, sortList }) => {
         {genres.map((genre) => {
           return (
             <React.Fragment key={genre.id}>
-              <div >{genre.value}</div>
+              <div onClick={(e) => filterMovies(e)}>{genre.value}</div>
               <div className="menu-horisontal-splitter-selected"></div>
             </React.Fragment>
           );
         })}
         <div className="sorting-panel">
           <div>Sort by</div>
-          <select className="dropdown-content" id="dropdown-sorting-content" name="genres">
+          <select
+            className="dropdown-content"
+            id="dropdown-sorting-content"
+            name="genres"
+            onChange={(e) => {
+              sortMovies(e);
+            }}
+          >
             {sortList.map((el) => {
               return (
-                <option key={el.id} value={el.id}>
+                <option key={el.id} value={el.value}>
                   {el.value}
                 </option>
               );
@@ -35,5 +43,7 @@ export const MenuPanel = ({ genres, sortList }) => {
 
 MenuPanel.propTypes = {
   genders: PropTypes.arrayOf(keyValueType),
-  sortList: PropTypes.arrayOf(keyValueType)
+  sortList: PropTypes.arrayOf(keyValueType),
+  sortMovies: PropTypes.func,
+  filterMovies: PropTypes.func
 };
