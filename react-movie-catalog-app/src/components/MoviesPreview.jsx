@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { MovieItem } from './MovieItem';
+import { MoviePreview } from './MoviePreview';
 import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
 
-export const MoviesPanel = ({ movies, deleteMovie, editMovie, addMovie, viewMovie }) => {
-
+export const MoviesPreview = ({ movies, deleteMovie, editMovie, addMovie, viewMovie }) => {
   const [addModalWindow, setAddModalWindow] = useState(false);
 
-  const addMovieHandler = (movie) => {   
-    addMovie(movie);    
+  const addMovieHandler = (movie) => {
+    addMovie(movie);
     setAddModalWindow(false);
   };
-  
+
   const movieAddOperationElem = (
-    <MovieOperation operationHandler={addMovieHandler} closeWindow={() => setAddModalWindow(false)} />
+    <MovieOperation
+      operationHandler={addMovieHandler}
+      closeWindow={() => setAddModalWindow(false)}
+    />
   );
   return (
-    <>     
+    <>
       {addModalWindow ? movieAddOperationElem : null}
-      
 
       <button className="search-movie-add-button" onClick={() => setAddModalWindow(true)}>
         + Add Movie
@@ -30,7 +31,7 @@ export const MoviesPanel = ({ movies, deleteMovie, editMovie, addMovie, viewMovi
       <div className="movie-preview-panel">
         {movies.map((movie) => {
           return (
-            <MovieItem
+            <MoviePreview
               id={movie.id}
               key={movie.id}
               movie={movie}
@@ -45,7 +46,7 @@ export const MoviesPanel = ({ movies, deleteMovie, editMovie, addMovie, viewMovi
   );
 };
 
-MoviesPanel.propTypes = {
+MoviesPreview.propTypes = {
   movies: PropTypes.arrayOf(movieType),
   deleteMovie: PropTypes.func,
   editMovie: PropTypes.func

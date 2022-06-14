@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { MoviesPanel } from './MoviesPreview';
+import { MoviesPreview } from './MoviesPreview';
 import { SearchBar } from './SearchBar';
-import { ViewMovieDetails } from './ViewMovieDetails';
+import { MoviePreviewDetails } from './MoviePreviewDetails';
 import { MenuPanel } from './MenuPanel';
 import { Notification } from './Notification';
 import { getInitMovieList, getGenresList, getSortList } from '../util/dictionary/dictionary';
@@ -59,13 +59,13 @@ export const Application = () => {
     setPreview(true);
     setSearch(false);
     window.scrollTo(0, 0);
-  }
+  };
 
   const searchMovieHandler = () => {
     setPreview(false);
     setSearch(true);
     window.scrollTo(0, 0);
-  }
+  };
 
   const movieDeleteNotificationElem = (
     <Notification
@@ -92,37 +92,31 @@ export const Application = () => {
     />
   );
 
-
   return (
-  
     <>
-    {/* <LoginForm /> */}
-    {search ? <SearchBar genres={genres} /> : null}
-    {preview ? <ViewMovieDetails movie={movie} searchMovie={searchMovieHandler}/> : null}
-    { movies.length > 0 ? 
-      <div> 
-      <MenuPanel
-        genres={genres}
-        sortList={sortList}
-        movies={movies}
-        sortMovies={sortMoviesHandler}
-        filterMovies={filterMoviesHandler}
-      />
-      <MoviesPanel
-        movies={movies}
-        deleteMovie={deleteMovieHandler}
-        editMovie={editMovieHandler}
-        addMovie={addMovieHandler}
-        viewMovie={previewMovieHandler}
-      />
-      {deleteNotification ? movieDeleteNotificationElem : null}
-      {addNotification ? movieAddNotificationElem : null}
-      {editNotification ? movieEditNotificationElem : null}
-    </div>
-    :
-    <div></div>
-    }
-    </>
+      {/* <LoginForm /> */}
+      {search ? <SearchBar /> : null}
+      {preview ? <MoviePreviewDetails movie={movie} searchMovie={searchMovieHandler} /> : null}
 
+      <div>
+        <MenuPanel
+          genres={genres}
+          sortList={sortList}
+          movies={movies}
+          sortMovies={sortMoviesHandler}
+          filterMovies={filterMoviesHandler}
+        />
+        <MoviesPreview
+          movies={movies}
+          deleteMovie={deleteMovieHandler}
+          editMovie={editMovieHandler}
+          addMovie={addMovieHandler}
+          viewMovie={previewMovieHandler}
+        />
+        {deleteNotification ? movieDeleteNotificationElem : null}
+        {addNotification ? movieAddNotificationElem : null}
+        {editNotification ? movieEditNotificationElem : null}
+      </div>
+    </>
   );
 };

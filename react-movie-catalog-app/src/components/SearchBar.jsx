@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const SearchBar = ({ genres }) => {
+export const SearchBar = () => {
   return (
     <>
       <div className="search-bar-background"></div>

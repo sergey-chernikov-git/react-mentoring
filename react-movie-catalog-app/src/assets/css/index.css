@@ -49,8 +49,6 @@ h1 {
   margin-left: 250px;
 }
 
-
-
 .movie-preview-context-menu {
   height: 111px;
   width: 190px;
@@ -350,24 +348,14 @@ h1 {
 }
 
 .menu-horisontal-splitter {
-  position: relative;
+  position: absolute;
   height: 3px;
-  width: 1155px;
+  width: 1200px;
   border-radius: 0px;
   padding-left: 20px;
   background-color: var(--light-grey-bg-color);
   z-index: 0;
-}
-
-.menu-horisontal-splitter-selected {
-  position: absolute;
-  height: 2px;
-  width: 60px;
-  top: 10%;
-  border-radius: 0px;
-  left: 0%;
-  background-color: var(--pirple-bg-color);
-  z-index: 5;
+  transform: translateY(-170%);
 }
 
 h1 {
@@ -453,7 +441,7 @@ h1 {
   position: absolute;
   width: 392px;
   height: 49px;
-  top: 10%;
+  top: 18%;
   height: 49px;
   width: 392px;
   margin-left: 5%;
@@ -461,7 +449,7 @@ h1 {
 
 .search-input {
   position: absolute;
-  top: 20%;
+  top: 28%;
   height: 57px;
   width: 713px;
   border-radius: 4px;
@@ -473,7 +461,7 @@ h1 {
 }
 .search-button {
   position: absolute;
-  top: 20%;
+  top: 28%;
   right: 25%;
   height: 63px;
   width: 233px;
@@ -537,7 +525,7 @@ h1 {
   color: #ffffff;
 }
 
-.view-movie-details{
+.view-movie-details {
   position: relative;
   display: flex;
   width: 1140px;
@@ -550,8 +538,6 @@ h1 {
   background-color: var(--black-bg-color);
   color: var(--white-bg-color);
 }
-
-
 
 .view-movie-details img {
   height: 500px;
@@ -584,7 +570,6 @@ h1 {
   border-radius: 50%;
   width: 50px;
   height: 50px;
-
 }
 
 .view-movie-details-header {
@@ -593,7 +578,7 @@ h1 {
   /* justify-content: space-between; */
 }
 
-.view-movie-details-header div{
+.view-movie-details-header div {
   margin-right: 10px;
 }
 
@@ -610,7 +595,7 @@ h1 {
 }
 
 .view-movie-details-search {
-  /* margin-left: 100px; */
+  transform: translateX(5100%);
 }
 
 .window-overlay {
@@ -626,20 +611,18 @@ h1 {
   opacity: 0.5;
 }
 
-
- *:focus {
+*:focus {
   outline: none;
-} 
+}
 
 select {
   appearance: none;
   -webkit-appearance: none;
   background-color: transparent;
   border: 0;
-  padding:10px;
-  margin:-5px -20px -5px -5px;
-  
-} 
+  padding: 10px;
+  margin: -5px -20px -5px -5px;
+}
 
 select option:hover {
   background-color: #f65261;
@@ -652,13 +635,12 @@ select option:checked {
 }
 
 #menu-panel-genres select option {
-  display:inline-block;
-  
+  display: inline-block;
 }
 
 #menu-panel-genres {
-  display:inline-block;
-  vertical-align:top;
-  overflow:hidden;  
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
   z-index: 3;
-} 
+}

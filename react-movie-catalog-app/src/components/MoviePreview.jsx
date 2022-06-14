@@ -4,8 +4,7 @@ import NotFoundImg from './../assets/img/404/404.jpg';
 import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
 
-export const MovieItem = ({ movie, deleteMovie, editMovie, viewMovie }) => {
-
+export const MoviePreview = ({ movie, deleteMovie, editMovie, viewMovie }) => {
   const [contextMenu, setContextMenu] = useState(false);
   const { id, src = NotFoundImg, title, year, genres } = movie;
   const [editModalWindow, setEditModalWindow] = useState(false);
@@ -16,12 +15,16 @@ export const MovieItem = ({ movie, deleteMovie, editMovie, viewMovie }) => {
   };
 
   const editModalWindowsHandler = () => {
-    setEditModalWindow(true)
-    setContextMenu(false)
-  }
+    setEditModalWindow(true);
+    setContextMenu(false);
+  };
 
-  const movieEditOperationElem =  (
-    <MovieOperation movie={movie} operationHandler={editMovie} closeWindow={() => setEditModalWindow(false)} />
+  const movieEditOperationElem = (
+    <MovieOperation
+      movie={movie}
+      operationHandler={editMovie}
+      closeWindow={() => setEditModalWindow(false)}
+    />
   );
 
   const contextMenuElem = (
@@ -50,7 +53,11 @@ export const MovieItem = ({ movie, deleteMovie, editMovie, viewMovie }) => {
     <>
       <div className="movie-preview">
         {contextMenu ? contextMenuElem : null}
-        <img src={src} onContextMenu={(e) => contextMenuHandler(e)} onClick={()=> viewMovie(movie)}></img>
+        <img
+          src={src}
+          onContextMenu={(e) => contextMenuHandler(e)}
+          onClick={() => viewMovie(movie)}
+        ></img>
         <div>
           <div className="movie-preview-title">{title}</div>
           <div className="movie-preview-year">{year.split('-')[0]}</div>
@@ -62,7 +69,7 @@ export const MovieItem = ({ movie, deleteMovie, editMovie, viewMovie }) => {
   );
 };
 
-MovieItem.propTypes = {
+MoviePreview.propTypes = {
   movie: movieType,
   deleteMovie: PropTypes.func,
   editMovie: PropTypes.func
