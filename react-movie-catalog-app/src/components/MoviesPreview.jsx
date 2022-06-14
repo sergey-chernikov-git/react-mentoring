@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { MoviePreview } from './MoviePreview';
 import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
+import { MoviesContext } from '../context/MoviesContext';
 
-export const MoviesPreview = ({ movies, deleteMovie, editMovie, addMovie, viewMovie }) => {
+export const MoviesPreview = ({ deleteMovie, editMovie, addMovie, viewMovie }) => {
   const [addModalWindow, setAddModalWindow] = useState(false);
+  const movies = useContext(MoviesContext);
 
-  const addMovieHandler = (movie) => {
+  const addMovieHandler = useCallback((movie) => {
     addMovie(movie);
     setAddModalWindow(false);
-  };
+  }, []);
 
   const movieAddOperationElem = (
     <MovieOperation

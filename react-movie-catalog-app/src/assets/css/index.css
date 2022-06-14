@@ -422,6 +422,8 @@ h1 {
   line-height: 24px;
   letter-spacing: 0px;
   color: var(--pirple-bg-color);
+  transform: translateY(-1300%);
+  z-index: 0;
 }
 
 .search-bar-background {
@@ -534,7 +536,7 @@ h1 {
   padding-right: 30px;
   padding-bottom: 30px;
   /* height: 600px; */
-  /* z-index: 3; */
+  z-index: 3;
   background-color: var(--black-bg-color);
   color: var(--white-bg-color);
 }
@@ -595,7 +597,15 @@ h1 {
 }
 
 .view-movie-details-search {
-  transform: translateX(5100%);
+  /* transform: translateX(5100%); */
+  width: 29px;
+  height: 22px;
+}
+
+.view-movie-details-search img {
+  transform: translateX(3850%);
+  width: 29px;
+  height: 22px;
 }
 
 .window-overlay {

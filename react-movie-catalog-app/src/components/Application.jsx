@@ -5,6 +5,7 @@ import { MoviePreviewDetails } from './MoviePreviewDetails';
 import { MenuPanel } from './MenuPanel';
 import { Notification } from './Notification';
 import { getInitMovieList, getGenresList, getSortList } from '../util/dictionary/dictionary';
+import { MoviesContext } from '../context/MoviesContext';
 import {
   sortMovies,
   filterMovies,
@@ -15,7 +16,6 @@ import {
 
 export const Application = () => {
   const [movies, setMovies] = useState([]);
-
   const [deleteNotification, setDeleteNotification] = useState(false);
   const [addNotification, setAddNotification] = useState(false);
   const [editNotification, setEditNotification] = useState(false);
@@ -44,22 +44,22 @@ export const Application = () => {
     setMovies(filterMovies(genre));
   };
 
-  const deleteMovieHandler = (movie) => {
+  const deleteMovieHandler = useCallback((movie) => {
     deleteMovie(movie, movies, setMovies);
     setDeleteNotification(true);
-  };
+  }, []);
 
-  const editMovieHandler = (movie) => {
+  const editMovieHandler = useCallback((movie) => {
     editMovie(movie, movies, setMovies);
     setEditNotification(true);
-  };
+  }, []);
 
-  const previewMovieHandler = (movie) => {
+  const previewMovieHandler = useCallback((movie) => {
     setMovie(movie);
     setPreview(true);
     setSearch(false);
     window.scrollTo(0, 0);
-  };
+  }, []);
 
   const searchMovieHandler = () => {
     setPreview(false);
@@ -93,7 +93,7 @@ export const Application = () => {
   );
 
   return (
-    <>
+    <MoviesContext.Provider value={movies}>
       {/* <LoginForm /> */}
       {search ? <SearchBar /> : null}
       {preview ? <MoviePreviewDetails movie={movie} searchMovie={searchMovieHandler} /> : null}
@@ -102,12 +102,10 @@ export const Application = () => {
         <MenuPanel
           genres={genres}
           sortList={sortList}
-          movies={movies}
           sortMovies={sortMoviesHandler}
           filterMovies={filterMoviesHandler}
         />
         <MoviesPreview
-          movies={movies}
           deleteMovie={deleteMovieHandler}
           editMovie={editMovieHandler}
           addMovie={addMovieHandler}
@@ -117,6 +115,6 @@ export const Application = () => {
         {addNotification ? movieAddNotificationElem : null}
         {editNotification ? movieEditNotificationElem : null}
       </div>
-    </>
+    </MoviesContext.Provider>
   );
 };

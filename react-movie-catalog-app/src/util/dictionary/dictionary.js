@@ -22,6 +22,7 @@ export const getID = () => {
 };
 
 export function getInitMovieList() {
+  console.log('getInitMovieList');
   const movies = [];
   movies.push({
     id: getID(),
@@ -82,6 +83,7 @@ export function getInitMovieList() {
 }
 
 export function getGenresList() {
+  console.log('getGenresList');
   const genres = [];
   for (const [key, value] of Object.entries(Genres)) {
     genres.push({

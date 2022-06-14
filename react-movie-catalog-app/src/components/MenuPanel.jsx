@@ -9,21 +9,16 @@ export const MenuPanel = ({ genres, sortList, sortMovies, filterMovies }) => {
       <div className="menu-panel">
         <div className="gender-menu-panel">
           <div id="menu-panel-genres">
-            <select size={genres.length}>
-              <option className="menu-panel-gender" onClick={(e) => filterMovies(e)} selected>
-                All
-              </option>
-              {genres
-                .filter((genre) => genre.value != 'All')
-                .map((genre) => {
-                  return (
-                    <React.Fragment key={genre.id}>
-                      <option className="menu-panel-gender" onClick={(e) => filterMovies(e)}>
-                        {genre.value}
-                      </option>
-                    </React.Fragment>
-                  );
-                })}
+            <select size={genres.length} defaultValue={genres[0].value}>
+              {genres.map((genre) => {
+                return (
+                  <React.Fragment key={genre.id}>
+                    <option className="menu-panel-gender" onClick={(e) => filterMovies(e)}>
+                      {genre.value}
+                    </option>
+                  </React.Fragment>
+                );
+              })}
             </select>
           </div>
           <div className="menu-panel-sort">

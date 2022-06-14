@@ -1,4 +1,5 @@
 import React from 'react';
+import searchIcon from './../assets/img/search/searchIcon.png';
 
 export const MoviePreviewDetails = ({ movie, searchMovie }) => {
   const { id, src = NotFoundImg, title, year, runtime, overview, rating, genres } = movie;
@@ -15,7 +16,7 @@ export const MoviePreviewDetails = ({ movie, searchMovie }) => {
   return (
     <div className="view-movie-details">
       <div className="view-movie-details-search" onClick={() => searchMovie()}>
-        &#128270;
+        <img src={searchIcon}></img>
       </div>
       <img src={src} onContextMenu={(e) => contextMenuHandler(e)}></img>
       <div>
