@@ -9,10 +9,10 @@ export const MoviesPreview = ({ deleteMovie, editMovie, addMovie, viewMovie }) =
   const [addModalWindow, setAddModalWindow] = useState(false);
   const movies = useContext(MoviesContext);
 
-  const addMovieHandler = useCallback((movie) => {
+  const addMovieHandler = (movie) => {
     addMovie(movie);
     setAddModalWindow(false);
-  }, []);
+  };
 
   const movieAddOperationElem = (
     <MovieOperation

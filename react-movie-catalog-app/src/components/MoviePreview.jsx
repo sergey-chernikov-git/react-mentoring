@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {useMovie } from './../hooks/useMovie'
 import PropTypes from 'prop-types';
 import NotFoundImg from './../assets/img/404/404.jpg';
 import { movieType } from './type';
@@ -6,7 +7,7 @@ import { MovieOperation } from './MovieOperation';
 
 export const MoviePreview = ({ movie, deleteMovie, editMovie, viewMovie }) => {
   const [contextMenu, setContextMenu] = useState(false);
-  const { id, src = NotFoundImg, title, year, genres } = movie;
+  const [id, src, title, year, runtime, overview, rating, genres] = useMovie(movie);
   const [editModalWindow, setEditModalWindow] = useState(false);
 
   const contextMenuHandler = (e) => {
