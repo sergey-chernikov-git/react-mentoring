@@ -4,9 +4,7 @@ import NotFoundImg from './../assets/img/404/404.jpg';
 import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
 
-
-
-export const MovieItem = ({ movie, deleteMovie, editMovie }) => {
+export const MovieItem = ({ movie, deleteMovie, editMovie, viewMovie }) => {
 
   const [contextMenu, setContextMenu] = useState(false);
   const { id, src = NotFoundImg, title, year, genres } = movie;
@@ -52,7 +50,7 @@ export const MovieItem = ({ movie, deleteMovie, editMovie }) => {
     <>
       <div className="movie-preview">
         {contextMenu ? contextMenuElem : null}
-        <img src={src} onContextMenu={(e) => contextMenuHandler(e)}></img>
+        <img src={src} onContextMenu={(e) => contextMenuHandler(e)} onClick={()=> viewMovie(movie)}></img>
         <div>
           <div className="movie-preview-title">{title}</div>
           <div className="movie-preview-year">{year.split('-')[0]}</div>

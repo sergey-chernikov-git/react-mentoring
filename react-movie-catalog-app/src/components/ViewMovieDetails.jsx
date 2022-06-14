@@ -1,6 +1,6 @@
 import React from "react"
 
-export const ViewMovieDetails = ({movie}) => {
+export const ViewMovieDetails = ({movie, searchMovie}) => {
     console.log(movie)
     const { id, src = NotFoundImg, title, year, runtime, overview, rating, genres } = movie;
     const  runtimeToHours = (runtime) => {
@@ -15,6 +15,7 @@ export const ViewMovieDetails = ({movie}) => {
     }
     return (
         <div className="view-movie-details">
+            <div className="view-movie-details-search" onClick={() => searchMovie()}>&#128270;</div>
             <img src={src} onContextMenu={(e) => contextMenuHandler(e)}></img>
             <div>
                 <div>
@@ -25,8 +26,8 @@ export const ViewMovieDetails = ({movie}) => {
                     <div className="movie-preview-gender">{genres.join(' & ')}</div>
                 </div>
                 <div className="view-movie-details-header view-movie-details-movie-info">
-                    <h4>{extractYear(year)}</h4>
-                    <h4>{runtimeToHours(runtime)}</h4>
+                    <div>{extractYear(year)}</div>
+                    <div>{runtimeToHours(runtime)}</div>
                 </div>
                 <div className="view-movie-details-overview">{overview}</div>                
             </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MoviesPanel } from './MoviesPreview';
 import { SearchBar } from './SearchBar';
 import { ViewMovieDetails } from './ViewMovieDetails';
@@ -19,6 +19,9 @@ export const Application = () => {
   const [deleteNotification, setDeleteNotification] = useState(false);
   const [addNotification, setAddNotification] = useState(false);
   const [editNotification, setEditNotification] = useState(false);
+  const [search, setSearch] = useState(true);
+  const [preview, setPreview] = useState(false);
+  const [movie, setMovie] = useState({});
 
   const genres = getGenresList();
   const sortList = getSortList();
@@ -51,6 +54,19 @@ export const Application = () => {
     setEditNotification(true);
   };
 
+  const previewMovieHandler = (movie) => {
+    setMovie(movie);
+    setPreview(true);
+    setSearch(false);
+    window.scrollTo(0, 0);
+  }
+
+  const searchMovieHandler = () => {
+    setPreview(false);
+    setSearch(true);
+    window.scrollTo(0, 0);
+  }
+
   const movieDeleteNotificationElem = (
     <Notification
       type="success"
@@ -80,12 +96,11 @@ export const Application = () => {
   return (
   
     <>
+    {/* <LoginForm /> */}
+    {search ? <SearchBar genres={genres} /> : null}
+    {preview ? <ViewMovieDetails movie={movie} searchMovie={searchMovieHandler}/> : null}
     { movies.length > 0 ? 
-      <div>
-      {/* <SearchBar genres={genres} /> */}
-      
-      <ViewMovieDetails movie={movies[0]}/>
-      {/* <LoginForm /> */}
+      <div> 
       <MenuPanel
         genres={genres}
         sortList={sortList}
@@ -98,6 +113,7 @@ export const Application = () => {
         deleteMovie={deleteMovieHandler}
         editMovie={editMovieHandler}
         addMovie={addMovieHandler}
+        viewMovie={previewMovieHandler}
       />
       {deleteNotification ? movieDeleteNotificationElem : null}
       {addNotification ? movieAddNotificationElem : null}

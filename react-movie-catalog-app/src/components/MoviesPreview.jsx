@@ -4,7 +4,7 @@ import { MovieItem } from './MovieItem';
 import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
 
-export const MoviesPanel = ({ movies, deleteMovie, editMovie, addMovie }) => {
+export const MoviesPanel = ({ movies, deleteMovie, editMovie, addMovie, viewMovie }) => {
 
   const [addModalWindow, setAddModalWindow] = useState(false);
 
@@ -36,6 +36,7 @@ export const MoviesPanel = ({ movies, deleteMovie, editMovie, addMovie }) => {
               movie={movie}
               deleteMovie={deleteMovie}
               editMovie={editMovie}
+              viewMovie={viewMovie}
             />
           );
         })}
