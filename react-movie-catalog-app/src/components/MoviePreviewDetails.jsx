@@ -1,9 +1,8 @@
 import React from 'react';
 import searchIcon from './../assets/img/search/searchIcon.png';
-import {useMovie} from './../hooks/useMovie'
+import { useMovie } from './../hooks/useMovie';
 
 export const MoviePreviewDetails = ({ movie, searchMovie }) => {
-
   const [id, src, title, year, runtime, overview, rating, genres] = useMovie(movie);
 
   const runtimeToHours = (runtime) => {

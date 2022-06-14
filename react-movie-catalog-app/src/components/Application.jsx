@@ -30,36 +30,45 @@ export const Application = () => {
     setMovies(getInitMovieList());
   }, []);
 
-  const addMovieHandler = useCallback((movie) => {
-    addMovie(movie, movies, setMovies);
-    setAddNotification(true);
-  },[movies]);
+  const addMovieHandler = useCallback(
+    (movie) => {
+      addMovie(movie, movies, setMovies);
+      setAddNotification(true);
+    },
+    [movies]
+  );
 
   const sortMoviesHandler = useCallback((e) => {
     setMovies([...sortMovies(movies, e)]);
-  },[]);
+  }, []);
 
   const filterMoviesHandler = useCallback((e) => {
     const genre = e.target.innerHTML;
     setMovies(filterMovies(genre));
-  },[]);
+  }, []);
 
-  const deleteMovieHandler = useCallback((movie) => {
-    deleteMovie(movie, movies, setMovies);
-    setDeleteNotification(true);
-  },[movies]);
+  const deleteMovieHandler = useCallback(
+    (movie) => {
+      deleteMovie(movie, movies, setMovies);
+      setDeleteNotification(true);
+    },
+    [movies]
+  );
 
-  const editMovieHandler = useCallback((movie) => {
-    editMovie(movie, movies, setMovies);
-    setEditNotification(true);
-  },[movies]);
+  const editMovieHandler = useCallback(
+    (movie) => {
+      editMovie(movie, movies, setMovies);
+      setEditNotification(true);
+    },
+    [movies]
+  );
 
   const previewMovieHandler = useCallback((movie) => {
     setMovie(movie);
     setPreview(true);
     setSearch(false);
     window.scrollTo(0, 0);
-  },[]);
+  }, []);
 
   const searchMovieHandler = () => {
     setPreview(false);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useMovie } from './../hooks/useMovie'
+import { useMovie } from './../hooks/useMovie';
 import PropTypes from 'prop-types';
 import NotFoundImg from './../assets/img/404/404.jpg';
 import { movieType } from './type';
