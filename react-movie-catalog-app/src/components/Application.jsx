@@ -6,16 +6,14 @@ import { MenuPanel } from './MenuPanel';
 import { Notification } from './Notification';
 import { getInitMovieList, getGenresList, getSortList } from '../util/dictionary/dictionary';
 import { MoviesContext } from '../context/MoviesContext';
-import {
-  sortMovies,
-  filterMovies,
-  deleteMovie,
-  editMovie,
-  addMovie
-} from './../logic/businessLogic';
+import { sortMovies, filterMovies, editMovie } from './../logic/businessLogic';
+import { useSelector, useDispatch } from 'react-redux';
+import { getMoviesAction } from '../store/actions';
 
 export const Application = () => {
-  const [movies, setMovies] = useState([]);
+  const movies = useSelector((state) => state.movies);
+  const dispatch = useDispatch();
+
   const [deleteNotification, setDeleteNotification] = useState(false);
   const [addNotification, setAddNotification] = useState(false);
   const [editNotification, setEditNotification] = useState(false);
@@ -27,41 +25,13 @@ export const Application = () => {
   const sortList = getSortList();
 
   useEffect(() => {
-    setMovies(getInitMovieList());
+    async function fetchMovies() {
+      const response = await fetch('http://localhost:4000/movies');
+      const movies = await response.json();
+      dispatch(getMoviesAction(movies.data));
+    }
+    fetchMovies();
   }, []);
-
-  const addMovieHandler = useCallback(
-    (movie) => {
-      addMovie(movie, movies, setMovies);
-      setAddNotification(true);
-    },
-    [movies]
-  );
-
-  const sortMoviesHandler = useCallback((e) => {
-    setMovies([...sortMovies(movies, e)]);
-  }, []);
-
-  const filterMoviesHandler = useCallback((e) => {
-    const genre = e.target.innerHTML;
-    setMovies(filterMovies(genre));
-  }, []);
-
-  const deleteMovieHandler = useCallback(
-    (movie) => {
-      deleteMovie(movie, movies, setMovies);
-      setDeleteNotification(true);
-    },
-    [movies]
-  );
-
-  const editMovieHandler = useCallback(
-    (movie) => {
-      editMovie(movie, movies, setMovies);
-      setEditNotification(true);
-    },
-    [movies]
-  );
 
   const previewMovieHandler = useCallback((movie) => {
     setMovie(movie);
@@ -106,20 +76,9 @@ export const Application = () => {
       {/* <LoginForm /> */}
       {search ? <SearchBar /> : null}
       {preview ? <MoviePreviewDetails movie={movie} searchMovie={searchMovieHandler} /> : null}
-
       <div>
-        <MenuPanel
-          genres={genres}
-          sortList={sortList}
-          sortMovies={sortMoviesHandler}
-          filterMovies={filterMoviesHandler}
-        />
-        <MoviesPreview
-          deleteMovie={deleteMovieHandler}
-          editMovie={editMovieHandler}
-          addMovie={addMovieHandler}
-          viewMovie={previewMovieHandler}
-        />
+        <MenuPanel genres={genres} sortList={sortList} />
+        <MoviesPreview viewMovie={previewMovieHandler} />
         {deleteNotification ? movieDeleteNotificationElem : null}
         {addNotification ? movieAddNotificationElem : null}
         {editNotification ? movieEditNotificationElem : null}

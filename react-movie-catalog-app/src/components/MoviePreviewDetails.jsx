@@ -3,7 +3,20 @@ import searchIcon from './../assets/img/search/searchIcon.png';
 import { useMovie } from './../hooks/useMovie';
 
 export const MoviePreviewDetails = ({ movie, searchMovie }) => {
-  const [id, src, title, year, runtime, overview, rating, genres] = useMovie(movie);
+  const [
+    budget,
+    genres,
+    id,
+    overview,
+    poster_path,
+    release_date,
+    revenue,
+    runtime,
+    tagline,
+    title,
+    vote_average,
+    vote_count
+  ] = useMovie(movie);
 
   const runtimeToHours = (runtime) => {
     let hours = (runtime / 60 + '').split('.')[0];
@@ -19,17 +32,17 @@ export const MoviePreviewDetails = ({ movie, searchMovie }) => {
       <div className="view-movie-details-search" onClick={() => searchMovie()}>
         <img src={searchIcon}></img>
       </div>
-      <img src={src} onContextMenu={(e) => contextMenuHandler(e)}></img>
+      <img src={poster_path} onContextMenu={(e) => contextMenuHandler(e)}></img>
       <div>
         <div>
           <div className="view-movie-details-header">
             <div className="view-movie-details-title">{title}</div>
-            <div className="view-movie-details-rating">{rating}</div>
+            <div className="view-movie-details-rating">{vote_average}</div>
           </div>
           <div className="movie-preview-gender">{genres.join(' & ')}</div>
         </div>
         <div className="view-movie-details-header view-movie-details-movie-info">
-          <div>{extractYear(year)}</div>
+          <div>{extractYear(release_date)}</div>
           <div>{runtimeToHours(runtime)}</div>
         </div>
         <div className="view-movie-details-overview">{overview}</div>

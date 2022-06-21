@@ -8,9 +8,9 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
   const [contextMenu, setContextMenu] = useState(false);
   const [id, setID] = useState(movie ? movie.id : getID());
   const [title, setTitle] = useState(movie ? movie.title : '');
-  const [year, setYear] = useState(movie ? movie.year : '');
-  const [src, setSRC] = useState(movie ? movie.src : '');
-  const [rating, setRating] = useState(movie ? movie.rating : '');
+  const [release_date, setReleaseDate] = useState(movie ? movie.release_date : '');
+  const [poster_path, setPosterPath] = useState(movie ? movie.poster_path : '');
+  const [vote_average, setVoteAverage] = useState(movie ? movie.vote_average : '');
   const [genreList, setGenreList] = useState(movie ? movie.genres : []);
   const [runtime, setRuntime] = useState(movie ? movie.runtime : '');
   const [overview, setOverview] = useState(movie ? movie.overview : '');
@@ -19,9 +19,9 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
 
   const onResetHandle = () => {
     setTitle(movie ? movie.title : '');
-    setYear(movie ? movie.year : '');
-    setSRC(movie ? movie.src : '');
-    setRating(movie ? movie.rating : '');
+    setReleaseDate(movie ? movie.year : '');
+    setPosterPath(movie ? movie.src : '');
+    setVoteAverage(movie ? movie.vote_average : '');
     setGenreList(movie ? movie.genres : []);
     setRuntime(movie ? movie.runtime : '');
     setOverview(movie ? movie.overview : '');
@@ -50,9 +50,9 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
   const movieObj = {
     id: id,
     title: title,
-    year: year,
-    src: src,
-    rating: rating,
+    release_date: release_date,
+    poster_path: poster_path,
+    vote_average: vote_average,
     genres: genreList,
     runtime: runtime,
     overview: overview
@@ -117,8 +117,8 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
               className="tight-input"
               type="date"
               alt="Select Date"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
+              value={release_date}
+              onChange={(e) => setReleaseDate(e.target.value)}
             ></input>
           </div>
         </div>
@@ -129,8 +129,8 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
               className="wide-input"
               type="url"
               placeholder="https://"
-              value={src}
-              onChange={(e) => setSRC(e.target.value)}
+              value={poster_path}
+              onChange={(e) => setPosterPath(e.target.value)}
             ></input>
           </div>
           <div>
@@ -139,8 +139,8 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
               className="tight-input"
               type="number"
               placeholder="7.8"
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
+              value={vote_average}
+              onChange={(e) => setVoteAverage(e.target.value)}
             ></input>
           </div>
         </div>

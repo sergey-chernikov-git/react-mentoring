@@ -5,12 +5,17 @@ import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
 import { MoviesContext } from '../context/MoviesContext';
 
-export const MoviesPreview = ({ deleteMovie, editMovie, addMovie, viewMovie }) => {
+import { useSelector, useDispatch } from 'react-redux';
+import { addMovieAction } from '../store/actions';
+
+export const MoviesPreview = ({ viewMovie }) => {
   const [addModalWindow, setAddModalWindow] = useState(false);
+
   const movies = useContext(MoviesContext);
+  const dispatch = useDispatch();
 
   const addMovieHandler = (movie) => {
-    addMovie(movie);
+    dispatch(addMovieAction(movie));
     setAddModalWindow(false);
   };
 
@@ -32,16 +37,7 @@ export const MoviesPreview = ({ deleteMovie, editMovie, addMovie, viewMovie }) =
       </div>
       <div className="movie-preview-panel">
         {movies.map((movie) => {
-          return (
-            <MoviePreview
-              id={movie.id}
-              key={movie.id}
-              movie={movie}
-              deleteMovie={deleteMovie}
-              editMovie={editMovie}
-              viewMovie={viewMovie}
-            />
-          );
+          return <MoviePreview key={movie.id} movie={movie} viewMovie={viewMovie} />;
         })}
       </div>
     </>

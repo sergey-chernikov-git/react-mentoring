@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { keyValueType } from './type';
+import { useSelector, useDispatch } from 'react-redux';
+import { sortMoviesAction, filterMoviesAction } from '../store/actions';
 
-export const MenuPanel = ({ genres, sortList, sortMovies, filterMovies }) => {
+export const MenuPanel = ({ genres, sortList }) => {
+  const dispatch = useDispatch();
   return (
     <>
       <div className="horisontal-line"></div>
@@ -13,7 +16,10 @@ export const MenuPanel = ({ genres, sortList, sortMovies, filterMovies }) => {
               {genres.map((genre) => {
                 return (
                   <React.Fragment key={genre.id}>
-                    <option className="menu-panel-gender" onClick={(e) => filterMovies(e)}>
+                    <option
+                      className="menu-panel-gender"
+                      onClick={(e) => dispatch(filterMoviesAction(e.target.innerHTML))}
+                    >
                       {genre.value}
                     </option>
                   </React.Fragment>
@@ -29,7 +35,7 @@ export const MenuPanel = ({ genres, sortList, sortMovies, filterMovies }) => {
                 id="dropdown-sorting-content"
                 name="genres"
                 onChange={(e) => {
-                  sortMovies(e);
+                  dispatch(sortMoviesAction(e));
                 }}
               >
                 {sortList.map((el) => {

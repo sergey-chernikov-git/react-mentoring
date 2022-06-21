@@ -1,50 +1,39 @@
 import { Sort } from './../util/dictionary/dictionary.js';
 import { getInitMovieList } from './../util/dictionary/dictionary';
 
-export const addMovie = (movie, movies, setMovies) => {
-  if (movie) {
-    const list = movies;
-    list.push(movie);
-    setMovies([...list]);
-  }
-};
-
-export const editMovie = (movie, movies, setMovies) => {
+export const editMovie = (movie, movies) => {
   try {
-    const list = movies;
     let index = 0;
-    list.forEach((el, idx) => (el.id === movie.id ? (index = idx) : ''));
-    list.splice(index, 1);
-    list.push(movie);
-    setMovies([...list]);
-    return true;
+    movies.forEach((el, idx) => (el.id === movie.id ? (index = idx) : ''));
+    movies.splice(index, 1);
+    movies.push(movie);
+    return movies;
   } catch (error) {
-    console.log(error);
-    return false;
+    console.log('Error: ', error);
+    return movies;
   }
 };
 
-export const deleteMovie = (movie, movies, setMovies) => {
-  const list = movies;
-  let index = 0;
-  list.forEach((el, idx) => (el.id === movie.id ? (index = idx) : ''));
-  // if (confirm('Are you sure to delete this movie?\n') == true) {
-  //   list.splice(index, 1);
-  // } else {
-  //   return;
-  // }
-  list.splice(index, 1);
-  console.log(list);
-  setMovies([...list]);
-  return true;
+export const deleteMovie = (movie) => {
+  
+  async function deleteMovie(movie) {
+    console.log("movie.id", movie.id)
+    const response = await fetch(`http://localhost:4000/movies/${movie.id}`, {
+      method: 'DELETE'
+    });  
+    const movies = await response.json(); 
+    console.log("response", response)
+  }
+
+  deleteMovie()
 };
 
-export const sortMovies = (movies, e) => {
-  if (e.target.value === Sort.ReleaseDate) {
+export const sortMovies = (sortBy, movies) => {
+  if (sortBy === Sort.ReleaseDate) {
     movies.sort((movieA, movieB) => {
-      if (movieA.year > movieB.year) {
+      if (movieA.release_date > movieB.release_date) {
         return 1;
-      } else if (movieA.year < movieB.year) {
+      } else if (movieA.release_date < movieB.release_date) {
         return -1;
       } else {
         return 0;
@@ -52,7 +41,7 @@ export const sortMovies = (movies, e) => {
     });
   }
 
-  if (e.target.value === Sort.Title) {
+  if (sortBy === Sort.Title) {
     movies.sort((movieA, movieB) => {
       if (movieA.title > movieB.title) {
         return 1;
@@ -63,11 +52,11 @@ export const sortMovies = (movies, e) => {
       }
     });
   }
-
   return movies;
 };
 
 export const filterMovies = (genre, movies = null) => {
+  console.log(movies, genre);
   if (genre === 'All') {
     return getInitMovieList();
   }
