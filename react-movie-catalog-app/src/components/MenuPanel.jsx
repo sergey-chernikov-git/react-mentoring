@@ -1,42 +1,50 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { keyValueType } from './type';
 
 export const MenuPanel = ({ genres, sortList, sortMovies, filterMovies }) => {
-  const [deleteNotification, setDeleteNotification] = useState(false);
   return (
     <>
       <div className="horisontal-line"></div>
-      <div className="gender-menu-panel">
-        {genres.map((genre) => {
-          return (
-            <React.Fragment key={genre.id}>
-              <div onClick={(e) => filterMovies(e)}>{genre.value}</div>
-              <div className="menu-horisontal-splitter-selected"></div>
-            </React.Fragment>
-          );
-        })}
-        <div className="sorting-panel">
-          <div>Sort by</div>
-          <select
-            className="dropdown-content"
-            id="dropdown-sorting-content"
-            name="genres"
-            onChange={(e) => {
-              sortMovies(e);
-            }}
-          >
-            {sortList.map((el) => {
-              return (
-                <option key={el.id} value={el.value}>
-                  {el.value}
-                </option>
-              );
-            })}
-          </select>
+      <div className="menu-panel">
+        <div className="gender-menu-panel">
+          <div id="menu-panel-genres">
+            <select size={genres.length} defaultValue={genres[0].value}>
+              {genres.map((genre) => {
+                return (
+                  <React.Fragment key={genre.id}>
+                    <option className="menu-panel-gender" onClick={(e) => filterMovies(e)}>
+                      {genre.value}
+                    </option>
+                  </React.Fragment>
+                );
+              })}
+            </select>
+          </div>
+          <div className="menu-panel-sort">
+            <div className="menu-panel-gender">Sort by</div>
+            <div className="menu-panel-select">
+              <select
+                className="dropdown-content"
+                id="dropdown-sorting-content"
+                name="genres"
+                onChange={(e) => {
+                  sortMovies(e);
+                }}
+              >
+                {sortList.map((el) => {
+                  return (
+                    <option key={el.id} value={el.value}>
+                      {el.value}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
         </div>
-        <div className="menu-horisontal-splitter"></div>
       </div>
+      <div className="menu-horisontal-splitter"></div>
     </>
   );
 };

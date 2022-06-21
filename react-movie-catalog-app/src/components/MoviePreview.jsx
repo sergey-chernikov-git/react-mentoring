@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
+import { useMovie } from './../hooks/useMovie';
 import PropTypes from 'prop-types';
 import NotFoundImg from './../assets/img/404/404.jpg';
 import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
-import { Notification } from './Notification';
 
-export const MovieItem = ({ movie, deleteMovie, editMovie }) => {
-
+export const MoviePreview = ({ movie, deleteMovie, editMovie, viewMovie }) => {
   const [contextMenu, setContextMenu] = useState(false);
-  const { id, src = NotFoundImg, title, year, genres } = movie;
+  const [id, src, title, year, runtime, overview, rating, genres] = useMovie(movie);
   const [editModalWindow, setEditModalWindow] = useState(false);
 
   const contextMenuHandler = (e) => {
@@ -17,12 +16,16 @@ export const MovieItem = ({ movie, deleteMovie, editMovie }) => {
   };
 
   const editModalWindowsHandler = () => {
-    setEditModalWindow(true)
-    setContextMenu(false)
-  }
+    setEditModalWindow(true);
+    setContextMenu(false);
+  };
 
-  const movieEditOperationElem =  (
-    <MovieOperation movie={movie} operationHandler={editMovie} closeWindow={() => setEditModalWindow(false)} />
+  const movieEditOperationElem = (
+    <MovieOperation
+      movie={movie}
+      operationHandler={editMovie}
+      closeWindow={() => setEditModalWindow(false)}
+    />
   );
 
   const contextMenuElem = (
@@ -51,7 +54,11 @@ export const MovieItem = ({ movie, deleteMovie, editMovie }) => {
     <>
       <div className="movie-preview">
         {contextMenu ? contextMenuElem : null}
-        <img src={src} onContextMenu={(e) => contextMenuHandler(e)}></img>
+        <img
+          src={src}
+          onContextMenu={(e) => contextMenuHandler(e)}
+          onClick={() => viewMovie(movie)}
+        ></img>
         <div>
           <div className="movie-preview-title">{title}</div>
           <div className="movie-preview-year">{year.split('-')[0]}</div>
@@ -63,7 +70,7 @@ export const MovieItem = ({ movie, deleteMovie, editMovie }) => {
   );
 };
 
-MovieItem.propTypes = {
+MoviePreview.propTypes = {
   movie: movieType,
   deleteMovie: PropTypes.func,
   editMovie: PropTypes.func

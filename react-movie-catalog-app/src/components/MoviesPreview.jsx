@@ -1,25 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { MovieItem } from './MovieItem';
+import { MoviePreview } from './MoviePreview';
 import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
+import { MoviesContext } from '../context/MoviesContext';
 
-export const MoviesPanel = ({ movies, deleteMovie, editMovie, addMovie }) => {
-
+export const MoviesPreview = ({ deleteMovie, editMovie, addMovie, viewMovie }) => {
   const [addModalWindow, setAddModalWindow] = useState(false);
+  const movies = useContext(MoviesContext);
 
-  const addMovieHandler = (movie) => {   
-    addMovie(movie);    
+  const addMovieHandler = (movie) => {
+    addMovie(movie);
     setAddModalWindow(false);
   };
-  
+
   const movieAddOperationElem = (
-    <MovieOperation operationHandler={addMovieHandler} closeWindow={() => setAddModalWindow(false)} />
+    <MovieOperation
+      operationHandler={addMovieHandler}
+      closeWindow={() => setAddModalWindow(false)}
+    />
   );
   return (
-    <>     
+    <>
       {addModalWindow ? movieAddOperationElem : null}
-      
 
       <button className="search-movie-add-button" onClick={() => setAddModalWindow(true)}>
         + Add Movie
@@ -30,12 +33,13 @@ export const MoviesPanel = ({ movies, deleteMovie, editMovie, addMovie }) => {
       <div className="movie-preview-panel">
         {movies.map((movie) => {
           return (
-            <MovieItem
+            <MoviePreview
               id={movie.id}
               key={movie.id}
               movie={movie}
               deleteMovie={deleteMovie}
               editMovie={editMovie}
+              viewMovie={viewMovie}
             />
           );
         })}
@@ -44,7 +48,7 @@ export const MoviesPanel = ({ movies, deleteMovie, editMovie, addMovie }) => {
   );
 };
 
-MoviesPanel.propTypes = {
+MoviesPreview.propTypes = {
   movies: PropTypes.arrayOf(movieType),
   deleteMovie: PropTypes.func,
   editMovie: PropTypes.func

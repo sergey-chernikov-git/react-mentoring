@@ -22,6 +22,7 @@ export const getID = () => {
 };
 
 export function getInitMovieList() {
+  console.log('getInitMovieList');
   const movies = [];
   movies.push({
     id: getID(),
@@ -29,7 +30,8 @@ export function getInitMovieList() {
     title: 'Joker',
     year: '2014-04-04',
     runtime: 120,
-    overview: 'Some movie overview',
+    overview:
+      'Audio description (AD) provides linguistic descriptions of movies and allows visually impaired people to follow a movie along with their peers. Such descriptions are by design mainly visual and thus naturally form an interesting data source for computer vision and computational linguistics. In this work we propose a novel dataset which contains transcribed ADs, which are temporally aligned to full length movies. In addition we also collected and aligned movie scripts used in prior work and compare the two sources of descriptions. We introduce the Large Scale Movie Description Challenge (LSMDC) which contains a parallel corpus of 128,118 sentences aligned to video clips from 200 movies (around 150 h of video in total). The goal of the challenge is to automatically generate descriptions for the movie clips. First we characterize the dataset by benchmarking different approaches for generating video descriptions. Comparing ADs to scripts, we find that ADs are more visual and describe precisely what is shown rather than what should happen according to the scripts created prior to movie production. Furthermore, we present and compare the results of several teams who participated in the challenges organized in the context of two workshops at ICCV 2015 and ECCV 2016.',
     rating: 7.5,
     genres: [Genres.Drama, Genres.Adventure]
   });
@@ -39,7 +41,8 @@ export function getInitMovieList() {
     title: 'The Hill',
     year: '2010-04-04',
     runtime: 120,
-    overview: 'Some movie overview',
+    overview:
+      'Audio description (AD) provides linguistic descriptions of movies and allows visually impaired people to follow a movie along with their peers. Such descriptions are by design mainly visual and thus naturally form an interesting data source for computer vision and computational linguistics. In this work we propose a novel dataset which contains transcribed ADs, which are temporally aligned to full length movies. In addition we also collected and aligned movie scripts used in prior work and compare the two sources of descriptions. We introduce the Large Scale Movie Description Challenge (LSMDC) which contains a parallel corpus of 128,118 sentences aligned to video clips from 200 movies (around 150 h of video in total). The goal of the challenge is to automatically generate descriptions for the movie clips. First we characterize the dataset by benchmarking different approaches for generating video descriptions. Comparing ADs to scripts, we find that ADs are more visual and describe precisely what is shown rather than what should happen according to the scripts created prior to movie production. Furthermore, we present and compare the results of several teams who participated in the challenges organized in the context of two workshops at ICCV 2015 and ECCV 2016.',
     rating: 7.5,
     genres: [Genres.Romance, Genres.Adventure]
   });
@@ -49,7 +52,8 @@ export function getInitMovieList() {
     title: 'Freedom',
     year: '2013-04-04',
     runtime: 120,
-    overview: 'Some movie overview',
+    overview:
+      'Audio description (AD) provides linguistic descriptions of movies and allows visually impaired people to follow a movie along with their peers. Such descriptions are by design mainly visual and thus naturally form an interesting data source for computer vision and computational linguistics. In this work we propose a novel dataset which contains transcribed ADs, which are temporally aligned to full length movies. In addition we also collected and aligned movie scripts used in prior work and compare the two sources of descriptions. We introduce the Large Scale Movie Description Challenge (LSMDC) which contains a parallel corpus of 128,118 sentences aligned to video clips from 200 movies (around 150 h of video in total). The goal of the challenge is to automatically generate descriptions for the movie clips. First we characterize the dataset by benchmarking different approaches for generating video descriptions. Comparing ADs to scripts, we find that ADs are more visual and describe precisely what is shown rather than what should happen according to the scripts created prior to movie production. Furthermore, we present and compare the results of several teams who participated in the challenges organized in the context of two workshops at ICCV 2015 and ECCV 2016.',
     rating: 7.5,
     genres: [Genres.Comedy, Genres.Drama, Genres.Adventure]
   });
@@ -58,8 +62,9 @@ export function getInitMovieList() {
     src: 'https://svirtus.cdnvideo.ru/VcjSMXf5eYBGfnfBIdLav-w4iXM=/0x0:1080x1350/filters:quality(100)/https://hb.bizmrg.com/cybersportru-media/8a/8a181c37dd4481f244d594d9205523ff.jpg?m=4b068984e9801401879986ad468bf32a',
     title: 'Uncharted',
     year: '2021-04-04',
-    runtime: 120,
-    overview: 'Some movie overview',
+    runtime: 130,
+    overview:
+      'Audio description (AD) provides linguistic descriptions of movies and allows visually impaired people to follow a movie along with their peers. Such descriptions are by design mainly visual and thus naturally form an interesting data source for computer vision and computational linguistics. In this work we propose a novel dataset which contains transcribed ADs, which are temporally aligned to full length movies. In addition we also collected and aligned movie scripts used in prior work and compare the two sources of descriptions. We introduce the Large Scale Movie Description Challenge (LSMDC) which contains a parallel corpus of 128,118 sentences aligned to video clips from 200 movies (around 150 h of video in total). The goal of the challenge is to automatically generate descriptions for the movie clips. First we characterize the dataset by benchmarking different approaches for generating video descriptions. Comparing ADs to scripts, we find that ADs are more visual and describe precisely what is shown rather than what should happen according to the scripts created prior to movie production. Furthermore, we present and compare the results of several teams who participated in the challenges organized in the context of two workshops at ICCV 2015 and ECCV 2016.',
     rating: 7.5,
     genres: [Genres.Adventure, Genres.Drama]
   });
@@ -69,7 +74,8 @@ export function getInitMovieList() {
     title: 'Us',
     year: '2020-04-04',
     runtime: 120,
-    overview: 'Some movie overview',
+    overview:
+      'Audio description (AD) provides linguistic descriptions of movies and allows visually impaired people to follow a movie along with their peers. Such descriptions are by design mainly visual and thus naturally form an interesting data source for computer vision and computational linguistics. In this work we propose a novel dataset which contains transcribed ADs, which are temporally aligned to full length movies. In addition we also collected and aligned movie scripts used in prior work and compare the two sources of descriptions. We introduce the Large Scale Movie Description Challenge (LSMDC) which contains a parallel corpus of 128,118 sentences aligned to video clips from 200 movies (around 150 h of video in total). The goal of the challenge is to automatically generate descriptions for the movie clips. First we characterize the dataset by benchmarking different approaches for generating video descriptions. Comparing ADs to scripts, we find that ADs are more visual and describe precisely what is shown rather than what should happen according to the scripts created prior to movie production. Furthermore, we present and compare the results of several teams who participated in the challenges organized in the context of two workshops at ICCV 2015 and ECCV 2016.',
     rating: 7.5,
     genres: [Genres.Romance, Genres.Adventure]
   });
@@ -77,6 +83,7 @@ export function getInitMovieList() {
 }
 
 export function getGenresList() {
+  console.log('getGenresList');
   const genres = [];
   for (const [key, value] of Object.entries(Genres)) {
     genres.push({

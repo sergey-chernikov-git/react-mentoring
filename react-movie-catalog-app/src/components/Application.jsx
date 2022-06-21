@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { MoviesPanel } from './MoviesPreview';
+import React, { useState, useEffect, useCallback } from 'react';
+import { MoviesPreview } from './MoviesPreview';
 import { SearchBar } from './SearchBar';
+import { MoviePreviewDetails } from './MoviePreviewDetails';
 import { MenuPanel } from './MenuPanel';
-import { LoginForm } from './LoginForm';
 import { Notification } from './Notification';
 import { getInitMovieList, getGenresList, getSortList } from '../util/dictionary/dictionary';
+import { MoviesContext } from '../context/MoviesContext';
 import {
   sortMovies,
   filterMovies,
@@ -15,10 +16,12 @@ import {
 
 export const Application = () => {
   const [movies, setMovies] = useState([]);
-
   const [deleteNotification, setDeleteNotification] = useState(false);
   const [addNotification, setAddNotification] = useState(false);
   const [editNotification, setEditNotification] = useState(false);
+  const [search, setSearch] = useState(true);
+  const [preview, setPreview] = useState(false);
+  const [movie, setMovie] = useState({});
 
   const genres = getGenresList();
   const sortList = getSortList();
@@ -27,28 +30,50 @@ export const Application = () => {
     setMovies(getInitMovieList());
   }, []);
 
-  const addMovieHandler = (movie) => {
-    addMovie(movie, movies, setMovies);
-    setAddNotification(true);
-  };
+  const addMovieHandler = useCallback(
+    (movie) => {
+      addMovie(movie, movies, setMovies);
+      setAddNotification(true);
+    },
+    [movies]
+  );
 
-  const sortMoviesHandler = (e) => {
+  const sortMoviesHandler = useCallback((e) => {
     setMovies([...sortMovies(movies, e)]);
-  };
+  }, []);
 
-  const filterMoviesHandler = (e) => {
+  const filterMoviesHandler = useCallback((e) => {
     const genre = e.target.innerHTML;
     setMovies(filterMovies(genre));
-  };
+  }, []);
 
-  const deleteMovieHandler = (movie) => {
-    deleteMovie(movie, movies, setMovies);
-    setDeleteNotification(true);
-  };
+  const deleteMovieHandler = useCallback(
+    (movie) => {
+      deleteMovie(movie, movies, setMovies);
+      setDeleteNotification(true);
+    },
+    [movies]
+  );
 
-  const editMovieHandler = (movie) => {
-    editMovie(movie, movies, setMovies);
-    setEditNotification(true);
+  const editMovieHandler = useCallback(
+    (movie) => {
+      editMovie(movie, movies, setMovies);
+      setEditNotification(true);
+    },
+    [movies]
+  );
+
+  const previewMovieHandler = useCallback((movie) => {
+    setMovie(movie);
+    setPreview(true);
+    setSearch(false);
+    window.scrollTo(0, 0);
+  }, []);
+
+  const searchMovieHandler = () => {
+    setPreview(false);
+    setSearch(true);
+    window.scrollTo(0, 0);
   };
 
   const movieDeleteNotificationElem = (
@@ -77,26 +102,28 @@ export const Application = () => {
   );
 
   return (
-    <>
-      <SearchBar genres={genres} />
+    <MoviesContext.Provider value={movies}>
       {/* <LoginForm /> */}
-      <MenuPanel
-        genres={genres}
-        sortList={sortList}
-        movies={movies}
-        sortMovies={sortMoviesHandler}
-        filterMovies={filterMoviesHandler}
-      />
-      <MoviesPanel
-        movies={movies}
-        deleteMovie={deleteMovieHandler}
-        editMovie={editMovieHandler}
-        addMovie={addMovieHandler}
-      />
-      {deleteNotification ? movieDeleteNotificationElem : null}
-      {addNotification ? movieAddNotificationElem : null}
-      {editNotification ? movieEditNotificationElem : null}
-      
-    </>
+      {search ? <SearchBar /> : null}
+      {preview ? <MoviePreviewDetails movie={movie} searchMovie={searchMovieHandler} /> : null}
+
+      <div>
+        <MenuPanel
+          genres={genres}
+          sortList={sortList}
+          sortMovies={sortMoviesHandler}
+          filterMovies={filterMoviesHandler}
+        />
+        <MoviesPreview
+          deleteMovie={deleteMovieHandler}
+          editMovie={editMovieHandler}
+          addMovie={addMovieHandler}
+          viewMovie={previewMovieHandler}
+        />
+        {deleteNotification ? movieDeleteNotificationElem : null}
+        {addNotification ? movieAddNotificationElem : null}
+        {editNotification ? movieEditNotificationElem : null}
+      </div>
+    </MoviesContext.Provider>
   );
 };
