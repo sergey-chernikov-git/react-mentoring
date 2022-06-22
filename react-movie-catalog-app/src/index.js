@@ -6,14 +6,11 @@ import './assets/css/index.css';
 import { ApplicationPageFallbackComponent } from './util/error/fallback';
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk'
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { movieReducer } from './store/reducers';
 
-const store = createStore(
-  movieReducer,
-  applyMiddleware(thunk)
-  );
+const store = createStore(movieReducer, applyMiddleware(thunk));
 
 const rootTag = document.getElementById('rootTag');
 const root = createRoot(rootTag);

@@ -5,7 +5,7 @@ import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { delMovieAction, editMovieAction } from '../store/actions';
+import { deleteMovie, editMovie } from '../store/thunks';
 
 export const MoviePreview = ({ movie, viewMovie }) => {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ export const MoviePreview = ({ movie, viewMovie }) => {
   const movieEditOperationElem = (
     <MovieOperation
       movie={movie}
-      operationHandler={(movie) => dispatch(editMovieAction(movie))}
+      operationHandler={(movie) => dispatch(editMovie(movie))}
       closeWindow={() => setEditModalWindow(false)}
     />
   );
@@ -62,7 +62,7 @@ export const MoviePreview = ({ movie, viewMovie }) => {
       </div>
       <div
         className="movie-preview-context-menu-item"
-        onClick={() => dispatch(delMovieAction(movie))}
+        onClick={() => dispatch(deleteMovie(movie))}
       >
         Delete
       </div>

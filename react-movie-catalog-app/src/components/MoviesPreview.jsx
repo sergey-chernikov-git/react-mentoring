@@ -6,16 +6,16 @@ import { MovieOperation } from './MovieOperation';
 import { MoviesContext } from '../context/MoviesContext';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { addMovieAction } from '../store/actions';
 
-export const MoviesPreview = ({ viewMovie }) => {
+
+export const MoviesPreview = ({ addMovie, viewMovie }) => {
   const [addModalWindow, setAddModalWindow] = useState(false);
 
   const movies = useContext(MoviesContext);
   const dispatch = useDispatch();
 
   const addMovieHandler = (movie) => {
-    dispatch(addMovieAction(movie));
+    addMovie(movie);
     setAddModalWindow(false);
   };
 

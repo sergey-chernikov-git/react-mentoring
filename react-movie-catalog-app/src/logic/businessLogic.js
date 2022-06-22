@@ -15,17 +15,16 @@ export const editMovie = (movie, movies) => {
 };
 
 export const deleteMovie = (movie) => {
-  
   async function deleteMovie(movie) {
-    console.log("movie.id", movie.id)
+    console.log('movie.id', movie.id);
     const response = await fetch(`http://localhost:4000/movies/${movie.id}`, {
       method: 'DELETE'
-    });  
-    const movies = await response.json(); 
-    console.log("response", response)
+    });
+    const movies = await response.json();
+    console.log('response', response);
   }
 
-  deleteMovie()
+  deleteMovie();
 };
 
 export const sortMovies = (sortBy, movies) => {

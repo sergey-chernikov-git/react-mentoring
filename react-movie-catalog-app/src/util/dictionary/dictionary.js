@@ -26,11 +26,13 @@ export function getInitMovieList() {
 
   async function fetchMovies() {
     const response = await fetch('http://localhost:4000/movies');
-    const movies = await response.json(); 
-    return movies.data
+    const movies = await response.json();
+    return movies.data;
   }
-  movieList = fetchMovies().then(movies => {return movies})
-  console.log(movieList)
+  movieList = fetchMovies().then((movies) => {
+    return movies;
+  });
+  console.log(movieList);
   return movieList;
 }
 

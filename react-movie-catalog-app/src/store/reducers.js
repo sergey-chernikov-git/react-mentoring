@@ -7,46 +7,52 @@ import {
   SORT_MOVIES
 } from '../util/consts/consts';
 
-import { filterMovies, sortMovies, editMovie, deleteMovie } from '../logic/businessLogic';
+import { getGenresList, getSortList } from '../util/dictionary/dictionary';
 
 const initialState = {
-  genres: [],
+  sortList: getSortList(),
+  genres: getGenresList(),
   movies: []
 };
 
 export const movieReducer = (state = initialState, action) => {
-  let list = [];
   switch (action.type) {
     case GET_MOVIES:
       return {
+        sortList: state.sortList,
         genres: state.genres,
         movies: action.movies
       };
     case ADD_MOVIE:
       return {
+        sortList: state.sortList,
         genres: state.genres,
-        movies: [...state.movies, action.movie]
+        movies: [...state.movies]
       };
     case DEL_MOVIE:
       return {
+        sortList: state.sortList,
         genres: state.genres,
-        movies: deleteMovie(action.movie)
+        movies: state.movies
       };
     case EDIT_MOVIE:
       return {
+        sortList: state.sortList,
         genres: state.genres,
-        movies: editMovie(action.movie, [...state.movies])
+        movies: [...state.movies]
       };
 
     case FILTER_MOVIES:
       return {
+        sortList: state.sortList,
         genres: state.genres,
-        movies: filterMovies(action.genre, [...state.movies])
+        movies: action.movies
       };
     case SORT_MOVIES:
       return {
+        sortList: state.sortList,
         genres: state.genres,
-        movies: sortMovies(action.sortBy, [...state.movies])
+        movies: action.movies
       };
     default:
       return state;

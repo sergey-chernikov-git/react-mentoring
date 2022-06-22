@@ -4,14 +4,14 @@ import { SearchBar } from './SearchBar';
 import { MoviePreviewDetails } from './MoviePreviewDetails';
 import { MenuPanel } from './MenuPanel';
 import { Notification } from './Notification';
-import { getInitMovieList, getGenresList, getSortList } from '../util/dictionary/dictionary';
 import { MoviesContext } from '../context/MoviesContext';
-import { sortMovies, filterMovies, editMovie } from './../logic/businessLogic';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMoviesAction } from '../store/actions';
+import { getMovies, addMovie } from '../store/thunks';
 
 export const Application = () => {
   const movies = useSelector((state) => state.movies);
+  const genres = useSelector((state) => state.genres);
+  const sortList = useSelector((state) => state.sortList);
   const dispatch = useDispatch();
 
   const [deleteNotification, setDeleteNotification] = useState(false);
@@ -21,16 +21,8 @@ export const Application = () => {
   const [preview, setPreview] = useState(false);
   const [movie, setMovie] = useState({});
 
-  const genres = getGenresList();
-  const sortList = getSortList();
-
   useEffect(() => {
-    async function fetchMovies() {
-      const response = await fetch('http://localhost:4000/movies');
-      const movies = await response.json();
-      dispatch(getMoviesAction(movies.data));
-    }
-    fetchMovies();
+    dispatch(getMovies())
   }, []);
 
   const previewMovieHandler = useCallback((movie) => {
@@ -38,7 +30,12 @@ export const Application = () => {
     setPreview(true);
     setSearch(false);
     window.scrollTo(0, 0);
-  }, []);
+  }, [dispatch]);
+
+  const addMovieHandler = (movie) => {
+    dispatch(addMovie(movie));
+    setAddNotification(true)
+  };
 
   const searchMovieHandler = () => {
     setPreview(false);
@@ -78,7 +75,7 @@ export const Application = () => {
       {preview ? <MoviePreviewDetails movie={movie} searchMovie={searchMovieHandler} /> : null}
       <div>
         <MenuPanel genres={genres} sortList={sortList} />
-        <MoviesPreview viewMovie={previewMovieHandler} />
+        <MoviesPreview addMovie={addMovieHandler} viewMovie={previewMovieHandler} />
         {deleteNotification ? movieDeleteNotificationElem : null}
         {addNotification ? movieAddNotificationElem : null}
         {editNotification ? movieEditNotificationElem : null}
