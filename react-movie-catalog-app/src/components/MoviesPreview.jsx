@@ -7,7 +7,6 @@ import { MoviesContext } from '../context/MoviesContext';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-
 export const MoviesPreview = ({ addMovie, viewMovie }) => {
   const [addModalWindow, setAddModalWindow] = useState(false);
 

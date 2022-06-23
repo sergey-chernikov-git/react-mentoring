@@ -4,7 +4,9 @@ import {
   DEL_MOVIE,
   EDIT_MOVIE,
   FILTER_MOVIES,
-  SORT_MOVIES
+  SORT_MOVIES,
+  SEARCH_MOVIES,
+  FETCH_ERROR
 } from '../util/consts/consts';
 
 import { getGenresList, getSortList } from '../util/dictionary/dictionary';
@@ -53,6 +55,18 @@ export const movieReducer = (state = initialState, action) => {
         sortList: state.sortList,
         genres: state.genres,
         movies: action.movies
+      };
+    case SEARCH_MOVIES:
+      return {
+        sortList: state.sortList,
+        genres: state.genres,
+        movies: action.movies
+      };
+    case FETCH_ERROR:
+      return {
+        sortList: state.sortList,
+        genres: state.genres,
+        movies: []
       };
     default:
       return state;

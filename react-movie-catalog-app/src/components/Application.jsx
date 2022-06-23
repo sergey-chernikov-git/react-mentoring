@@ -22,19 +22,22 @@ export const Application = () => {
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
-    dispatch(getMovies())
+    dispatch(getMovies());
   }, []);
 
-  const previewMovieHandler = useCallback((movie) => {
-    setMovie(movie);
-    setPreview(true);
-    setSearch(false);
-    window.scrollTo(0, 0);
-  }, [dispatch]);
+  const previewMovieHandler = useCallback(
+    (movie) => {
+      setMovie(movie);
+      setPreview(true);
+      setSearch(false);
+      window.scrollTo(0, 0);
+    },
+    [dispatch]
+  );
 
   const addMovieHandler = (movie) => {
     dispatch(addMovie(movie));
-    setAddNotification(true)
+    setAddNotification(true);
   };
 
   const searchMovieHandler = () => {

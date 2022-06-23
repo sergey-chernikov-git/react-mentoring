@@ -60,10 +60,7 @@ export const MoviePreview = ({ movie, viewMovie }) => {
       >
         Edit
       </div>
-      <div
-        className="movie-preview-context-menu-item"
-        onClick={() => dispatch(deleteMovie(movie))}
-      >
+      <div className="movie-preview-context-menu-item" onClick={() => dispatch(deleteMovie(movie))}>
         Delete
       </div>
     </div>

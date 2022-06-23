@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { movieType } from './type';
 import { getGenresList } from '../util/dictionary/dictionary';
 
-
 export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) => {
   const [contextMenu, setContextMenu] = useState(false);
   const [id, setID] = useState(movie ? movie.id : null);
@@ -47,27 +46,26 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
     }
   };
 
-  const movieObj = id ?
-  {
-    id: id,
-    title: title,
-    release_date: release_date,
-    poster_path: poster_path,
-    vote_average: Number(vote_average),
-    genres: genreList,
-    runtime: Number(runtime),
-    overview: overview
-  } :
-  {
-    title: title,
-    release_date: release_date,
-    poster_path: poster_path,
-    vote_average: Number(vote_average),
-    genres: genreList,
-    runtime: Number(runtime),
-    overview: overview
-  }
-
+  const movieObj = id
+    ? {
+        id: id,
+        title: title,
+        release_date: release_date,
+        poster_path: poster_path,
+        vote_average: Number(vote_average),
+        genres: genreList,
+        runtime: Number(runtime),
+        overview: overview
+      }
+    : {
+        title: title,
+        release_date: release_date,
+        poster_path: poster_path,
+        vote_average: Number(vote_average),
+        genres: genreList,
+        runtime: Number(runtime),
+        overview: overview
+      };
 
   const genreSelectorElem = (
     <div>
