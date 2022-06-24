@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteMovie, editMovie } from '../store/thunks';
 
 export const MoviePreview = ({ movie, viewMovie }) => {

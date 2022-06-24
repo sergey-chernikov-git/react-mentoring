@@ -1,11 +1,11 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { MoviePreview } from './MoviePreview';
 import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
 import { MoviesContext } from '../context/MoviesContext';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export const MoviesPreview = ({ addMovie, viewMovie }) => {
   const [addModalWindow, setAddModalWindow] = useState(false);

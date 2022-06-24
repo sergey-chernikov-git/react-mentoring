@@ -12,11 +12,14 @@ export const Application = () => {
   const movies = useSelector((state) => state.movies);
   const genres = useSelector((state) => state.genres);
   const sortList = useSelector((state) => state.sortList);
+  const error = useSelector((state) => state.error);
+  const errorDesc = useSelector((state) => state.errorDesc);
   const dispatch = useDispatch();
 
   const [deleteNotification, setDeleteNotification] = useState(false);
   const [addNotification, setAddNotification] = useState(false);
   const [editNotification, setEditNotification] = useState(false);
+  const [errorNotification, setErrorNotification] = useState(false);
   const [search, setSearch] = useState(true);
   const [preview, setPreview] = useState(false);
   const [movie, setMovie] = useState({});
@@ -24,6 +27,10 @@ export const Application = () => {
   useEffect(() => {
     dispatch(getMovies());
   }, []);
+
+  useEffect(() => {
+    setErrorNotification(error)
+  },[error])
 
   const previewMovieHandler = useCallback(
     (movie) => {
@@ -45,6 +52,15 @@ export const Application = () => {
     setSearch(true);
     window.scrollTo(0, 0);
   };
+
+  const movieErrorNotificationElem = (
+    <Notification
+      type="error"
+      message="Exception for the operation!"
+      description={errorDesc}
+      onClose={() => setErrorNotification(false)}
+    />
+  );
 
   const movieDeleteNotificationElem = (
     <Notification
@@ -80,6 +96,7 @@ export const Application = () => {
         <MenuPanel genres={genres} sortList={sortList} />
         <MoviesPreview addMovie={addMovieHandler} viewMovie={previewMovieHandler} />
         {deleteNotification ? movieDeleteNotificationElem : null}
+        {errorNotification ? movieErrorNotificationElem : null}
         {addNotification ? movieAddNotificationElem : null}
         {editNotification ? movieEditNotificationElem : null}
       </div>

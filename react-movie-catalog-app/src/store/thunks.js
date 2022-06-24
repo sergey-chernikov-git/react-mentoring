@@ -7,13 +7,15 @@ import {
   SORT_MOVIES,
   FETCH_ERROR
 } from '../util/consts/consts';
+
 import { Sort } from '../util/dictionary/dictionary';
 
 const limit = 10;
+const  baseUrl="http://localhost:4000"
 
 export const getMovies = () => {
   return (dispatch) => {
-    fetch(`http://localhost:4000/movies?limit=${limit}`)
+    fetch(`${baseUrl}/movies?limit=${limit}`)
       .then((response) => response.json())
       .then((movies) => {
         dispatch({
@@ -21,14 +23,14 @@ export const getMovies = () => {
           movies: movies.data
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => _errorDispatch(dispatch, error))
   };
 };
 
 export const addMovie = (movie) => {
   console.log(movie);
   return (dispatch) => {
-    fetch(`http://localhost:4000/movies?limit=${limit}`, {
+    fetch(`${baseUrl}/movies?limit=${limit}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -40,26 +42,26 @@ export const addMovie = (movie) => {
       .then((movie) => {
         dispatch(getMovies());
       })
-      .catch((error) => console.log(error));
+      .catch((error) => _errorDispatch(dispatch, error))
   };
 };
 
 export const deleteMovie = (movie) => {
   return (dispatch) => {
-    fetch(`http://localhost:4000/movies/${movie.id}`, {
+    fetch(`${baseUrl}/movies/${movie.id}`, {
       method: 'DELETE'
     })
       .then((response) => {
         dispatch(getMovies());
       })
-      .catch((error) => console.log(error));
+      .catch((error) => _errorDispatch(dispatch, error))
   };
 };
 
 export const editMovie = (movie) => {
   console.log(movie);
   return (dispatch) => {
-    fetch(`http://localhost:4000/movies`, {
+    fetch(`${baseUrl}/movies`, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -71,14 +73,14 @@ export const editMovie = (movie) => {
       .then((movie) => {
         dispatch(getMovies());
       })
-      .catch((error) => console.log(error));
+      .catch((error) => _errorDispatch(dispatch, error))
   };
 };
 
 export const filterMovies = (genre) => {
   if (genre === 'All') return getMovies();
   return (dispatch) => {
-    fetch(`http://localhost:4000/movies?filter=${genre}&?limit=${limit}`)
+    fetch(`${baseUrl}/movies?filter=${genre}&?limit=${limit}`)
       .then((response) => response.json())
       .then((movies) => {
         dispatch({
@@ -86,7 +88,7 @@ export const filterMovies = (genre) => {
           movies: movies.data
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => _errorDispatch(dispatch, error))
   };
 };
 
@@ -98,7 +100,7 @@ export const sortMovies = (sortRule) => {
     sortOrder = 'asc';
   }
   return (dispatch) => {
-    fetch(`http://localhost:4000/movies?sortBy=${sortBy}&sortOrder=${sortOrder}&?limit=${limit}`)
+    fetch(`${baseUrl}/movies?sortBy=${sortBy}&sortOrder=${sortOrder}&?limit=${limit}`)
       .then((response) => response.json())
       .then((movies) => {
         dispatch({
@@ -106,14 +108,13 @@ export const sortMovies = (sortRule) => {
           movies: movies.data
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => _errorDispatch(dispatch, error))
   };
 };
 
 export const searchMovieByTitle = (title) => {
-  console.log(title);
   return (dispatch) => {
-    fetch(`http://localhost:4000/movies?searchBy=title&search=${title}`)
+    fetch(`${baseUrl}/movies?searchBy=title&search=${title}`)
       .then((response) => {
         if (response.status != 200) { throw `Response code is: ${response.status}`}
         return response.json();         
@@ -124,11 +125,14 @@ export const searchMovieByTitle = (title) => {
           movies: movies.data
         });
       })
-      .catch((error) => {
-        console.error("Error: ",error);
-        dispatch({
-          type: FETCH_ERROR,
-        });
-      });
+      .catch((error) => _errorDispatch(dispatch, error))
   };
 };
+
+function _errorDispatch(dispatchCallBack, error) {
+  console.error("Error: ", error)
+  dispatchCallBack({
+    type: FETCH_ERROR,
+    errorDesc: error.message
+  })
+}

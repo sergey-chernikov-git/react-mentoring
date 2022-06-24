@@ -14,7 +14,8 @@ import { getGenresList, getSortList } from '../util/dictionary/dictionary';
 const initialState = {
   sortList: getSortList(),
   genres: getGenresList(),
-  movies: []
+  movies: [],
+  error: false
 };
 
 export const movieReducer = (state = initialState, action) => {
@@ -23,50 +24,59 @@ export const movieReducer = (state = initialState, action) => {
       return {
         sortList: state.sortList,
         genres: state.genres,
-        movies: action.movies
+        movies: action.movies,
+        error: false
       };
     case ADD_MOVIE:
       return {
         sortList: state.sortList,
         genres: state.genres,
-        movies: [...state.movies]
+        movies: [...state.movies],
+        error: false
       };
     case DEL_MOVIE:
       return {
         sortList: state.sortList,
         genres: state.genres,
-        movies: state.movies
+        movies: state.movies,
+        error: false
       };
     case EDIT_MOVIE:
       return {
         sortList: state.sortList,
         genres: state.genres,
-        movies: [...state.movies]
+        movies: [...state.movies],
+        error: false
       };
 
     case FILTER_MOVIES:
       return {
         sortList: state.sortList,
         genres: state.genres,
-        movies: action.movies
+        movies: action.movies,
+        error: false
       };
     case SORT_MOVIES:
       return {
         sortList: state.sortList,
         genres: state.genres,
-        movies: action.movies
+        movies: action.movies,
+        error: false
       };
     case SEARCH_MOVIES:
       return {
         sortList: state.sortList,
         genres: state.genres,
-        movies: action.movies
+        movies: action.movies,
+        error: false
       };
     case FETCH_ERROR:
       return {
         sortList: state.sortList,
         genres: state.genres,
-        movies: []
+        movies: [],
+        error: true,
+        errorDesc: action.errorDesc
       };
     default:
       return state;
