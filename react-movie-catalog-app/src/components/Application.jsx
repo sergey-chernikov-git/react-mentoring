@@ -29,8 +29,8 @@ export const Application = () => {
   }, []);
 
   useEffect(() => {
-    setErrorNotification(error)
-  },[error])
+    setErrorNotification(error);
+  }, [error]);
 
   const previewMovieHandler = useCallback(
     (movie) => {

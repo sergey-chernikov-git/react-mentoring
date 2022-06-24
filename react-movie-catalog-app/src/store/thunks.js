@@ -1,17 +1,9 @@
-import {
-  ADD_MOVIE,
-  GET_MOVIES,
-  DEL_MOVIE,
-  EDIT_MOVIE,
-  FILTER_MOVIES,
-  SORT_MOVIES,
-  FETCH_ERROR
-} from '../util/consts/consts';
+import { GET_MOVIES, FILTER_MOVIES, SORT_MOVIES, FETCH_ERROR } from '../util/consts/consts';
 
 import { Sort } from '../util/dictionary/dictionary';
 
 const limit = 10;
-const  baseUrl="http://localhost:4000"
+const baseUrl = 'http://localhost:4000';
 
 export const getMovies = () => {
   return (dispatch) => {
@@ -23,7 +15,7 @@ export const getMovies = () => {
           movies: movies.data
         });
       })
-      .catch((error) => _errorDispatch(dispatch, error))
+      .catch((error) => _errorDispatch(dispatch, error));
   };
 };
 
@@ -42,7 +34,7 @@ export const addMovie = (movie) => {
       .then((movie) => {
         dispatch(getMovies());
       })
-      .catch((error) => _errorDispatch(dispatch, error))
+      .catch((error) => _errorDispatch(dispatch, error));
   };
 };
 
@@ -54,7 +46,7 @@ export const deleteMovie = (movie) => {
       .then((response) => {
         dispatch(getMovies());
       })
-      .catch((error) => _errorDispatch(dispatch, error))
+      .catch((error) => _errorDispatch(dispatch, error));
   };
 };
 
@@ -73,7 +65,7 @@ export const editMovie = (movie) => {
       .then((movie) => {
         dispatch(getMovies());
       })
-      .catch((error) => _errorDispatch(dispatch, error))
+      .catch((error) => _errorDispatch(dispatch, error));
   };
 };
 
@@ -88,7 +80,7 @@ export const filterMovies = (genre) => {
           movies: movies.data
         });
       })
-      .catch((error) => _errorDispatch(dispatch, error))
+      .catch((error) => _errorDispatch(dispatch, error));
   };
 };
 
@@ -108,7 +100,7 @@ export const sortMovies = (sortRule) => {
           movies: movies.data
         });
       })
-      .catch((error) => _errorDispatch(dispatch, error))
+      .catch((error) => _errorDispatch(dispatch, error));
   };
 };
 
@@ -116,8 +108,10 @@ export const searchMovieByTitle = (title) => {
   return (dispatch) => {
     fetch(`${baseUrl}/movies?searchBy=title&search=${title}`)
       .then((response) => {
-        if (response.status != 200) { throw `Response code is: ${response.status}`}
-        return response.json();         
+        if (response.status != 200) {
+          throw `Response code is: ${response.status}`;
+        }
+        return response.json();
       })
       .then((movies) => {
         dispatch({
@@ -125,14 +119,14 @@ export const searchMovieByTitle = (title) => {
           movies: movies.data
         });
       })
-      .catch((error) => _errorDispatch(dispatch, error))
+      .catch((error) => _errorDispatch(dispatch, error));
   };
 };
 
 function _errorDispatch(dispatchCallBack, error) {
-  console.error("Error: ", error)
+  console.error('Error: ', error);
   dispatchCallBack({
     type: FETCH_ERROR,
     errorDesc: error.message
-  })
+  });
 }
