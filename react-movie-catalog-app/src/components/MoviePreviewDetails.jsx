@@ -3,20 +3,15 @@ import searchIcon from './../assets/img/search/searchIcon.png';
 import { useMovie } from './../hooks/useMovie';
 
 export const MoviePreviewDetails = ({ movie, searchMovie }) => {
-  const [
-    budget,
+  const {
     genres,
-    id,
     overview,
     poster_path,
     release_date,
-    revenue,
     runtime,
-    tagline,
     title,
     vote_average,
-    vote_count
-  ] = useMovie(movie);
+   } = useMovie(movie);
 
   const runtimeToHours = (runtime) => {
     let hours = (runtime / 60 + '').split('.')[0];

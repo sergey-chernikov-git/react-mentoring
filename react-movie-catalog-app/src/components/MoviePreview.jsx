@@ -10,20 +10,12 @@ import { operateMovie } from '../store/thunks';
 export const MoviePreview = ({ movie, viewMovie }) => {
   const dispatch = useDispatch();
   const [contextMenu, setContextMenu] = useState(false);
-  const [
-    budget,
+  const {
     genres,
-    id,
-    overview,
     poster_path,
     release_date,
-    revenue,
-    runtime,
-    tagline,
     title,
-    vote_average,
-    vote_count
-  ] = useMovie(movie);
+  } = useMovie(movie);
   const [editModalWindow, setEditModalWindow] = useState(false);
 
   const contextMenuHandler = (e) => {

@@ -58,12 +58,12 @@ export const operateMovie = ({ movie, operation }) => {
   console.log(movie, operation)
 
   if (!movie) throw "Empty movie"
-  let queryParams = [`?limit=${limit}`];
   let fetchParams = {}
-  let url = ""
+  let url = `${baseUrl}/movies`
   let type = ""
+
   if (operation === 'delete'){ 
-    url = `${baseUrl}/movies/${movie.id}`
+    url = `${url}/${movie.id}`
     fetchParams = {
       method: 'DELETE'
     }
@@ -71,7 +71,6 @@ export const operateMovie = ({ movie, operation }) => {
   }
 
   if (operation === 'update'){ 
-    url = `${baseUrl}/movies`
     fetchParams = {
       method: 'PUT',
       headers: {
@@ -84,7 +83,6 @@ export const operateMovie = ({ movie, operation }) => {
   }
 
   if (operation === 'add'){ 
-    url = `${baseUrl}/movies`
     fetchParams = {
       method: 'POST',
       headers: {
@@ -97,7 +95,7 @@ export const operateMovie = ({ movie, operation }) => {
   }
 
   return (dispatch) => {
-    fetch(url + queryParams.join('&'), fetchParams)
+    fetch(url, fetchParams)
       .then((response) => {
         console.log(response)
         dispatch({
