@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { keyValueType } from './type';
 import { useDispatch } from 'react-redux';
 
-import { filterMovies, sortMovies } from '../store/thunks';
+import { fetchMovies } from '../store/thunks';
 
 export const MenuPanel = ({ genres, sortList }) => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export const MenuPanel = ({ genres, sortList }) => {
                   <React.Fragment key={genre.id}>
                     <option
                       className="menu-panel-gender"
-                      onClick={(e) => dispatch(filterMovies(e.target.innerHTML))}
+                      onClick={(e) => dispatch(fetchMovies({ genre: e.target.innerHTML }))}
                     >
                       {genre.value}
                     </option>
@@ -36,7 +36,7 @@ export const MenuPanel = ({ genres, sortList }) => {
                 id="dropdown-sorting-content"
                 name="genres"
                 onChange={(e) => {
-                  dispatch(sortMovies(e.target.value));
+                  dispatch(fetchMovies({ sortRule: e.target.value }));
                 }}
               >
                 {sortList.map((el) => {

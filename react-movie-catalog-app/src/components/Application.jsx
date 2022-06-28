@@ -6,7 +6,7 @@ import { MenuPanel } from './MenuPanel';
 import { Notification } from './Notification';
 import { MoviesContext } from '../context/MoviesContext';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMovies, addMovie } from '../store/thunks';
+import { fetchMovies, operateMovie } from '../store/thunks';
 
 export const Application = () => {
   const movies = useSelector((state) => state.movies);
@@ -25,7 +25,7 @@ export const Application = () => {
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
-    dispatch(getMovies());
+    dispatch(fetchMovies({}));
   }, []);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export const Application = () => {
   );
 
   const addMovieHandler = (movie) => {
-    dispatch(addMovie(movie));
+    dispatch(operateMovie({movie : movie, operation : 'add'}));
     setAddNotification(true);
   };
 

@@ -7,3 +7,4 @@ export const hideElementById = (id) => {
   let element = document.getElementById(id);
   element.style.visibility = 'hidden';
 };
+Z;

@@ -1,3 +1,4 @@
+import { MoviePreview } from '../components/MoviePreview';
 import {
   ADD_MOVIE,
   GET_MOVIES,
@@ -15,65 +16,39 @@ const initialState = {
   sortList: getSortList(),
   genres: getGenresList(),
   movies: [],
-  error: false
+  error: false,
+  total: 0
 };
 
 export const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_MOVIES:
       return {
-        sortList: state.sortList,
-        genres: state.genres,
+        ...state,
         movies: action.movies,
-        error: false
+        total: action.total
       };
     case ADD_MOVIE:
       return {
-        sortList: state.sortList,
-        genres: state.genres,
-        movies: [...state.movies],
-        error: false
+        ...state,
+        movies: [...state.movies, action.movie],
+        total: action.total + 1
+
       };
     case DEL_MOVIE:
       return {
-        sortList: state.sortList,
-        genres: state.genres,
-        movies: state.movies,
-        error: false
+        ...state,
+        movies: state.movies.filter(movie => movie.id !== action.movie.id),
+        total: action.total  - 1
       };
     case EDIT_MOVIE:
       return {
-        sortList: state.sortList,
-        genres: state.genres,
-        movies: [...state.movies],
-        error: false
-      };
-
-    case FILTER_MOVIES:
-      return {
-        sortList: state.sortList,
-        genres: state.genres,
-        movies: action.movies,
-        error: false
-      };
-    case SORT_MOVIES:
-      return {
-        sortList: state.sortList,
-        genres: state.genres,
-        movies: action.movies,
-        error: false
-      };
-    case SEARCH_MOVIES:
-      return {
-        sortList: state.sortList,
-        genres: state.genres,
-        movies: action.movies,
-        error: false
+        ...state,
+        movies: state.movies.map( movie => movie.id === action.movie.id ? action.movie : movie )
       };
     case FETCH_ERROR:
       return {
-        sortList: state.sortList,
-        genres: state.genres,
+        ...state,
         movies: [],
         error: true,
         errorDesc: action.errorDesc

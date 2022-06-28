@@ -1,127 +1,115 @@
-import { GET_MOVIES, FILTER_MOVIES, SORT_MOVIES, FETCH_ERROR } from '../util/consts/consts';
+import { GET_MOVIES, FETCH_ERROR, DEL_MOVIE, EDIT_MOVIE, ADD_MOVIE} from '../util/consts/consts';
 
 import { Sort } from '../util/dictionary/dictionary';
 
 const limit = 10;
 const baseUrl = 'http://localhost:4000';
 
-export const getMovies = () => {
+export const fetchMovies = ({ page, genre, sortRule, title }) => {
+
+  let queryParams = [`limit=${limit}`];
+  let fetchParams = {}  
+
+  if (page) {
+    queryParams.push(`offset=${page * limit}`);
+  }
+
+  if (genre && genre !== 'All'){ 
+    queryParams.push(`filter=${genre}`);  
+    fetchParams = {
+      method : 'GET', 
+    }
+  }
+
+  if (title){ 
+    queryParams.push(`searchBy=title&search=${title}`);
+    fetchParams = {
+      method : 'GET', 
+    }
+  }
+
+  if (sortRule) {
+    let sortBy = sortRule === Sort.Title ? 'title' : 'release_date';
+    let sortOrder = Sort.Title ? 'asc' : 'desc';
+    queryParams.push(`sortBy=${sortBy}&sortOrder=${sortOrder}`);
+    fetchParams = {
+      method : 'GET', 
+    }
+  }
+
   return (dispatch) => {
-    fetch(`${baseUrl}/movies?limit=${limit}`)
+    fetch(`${baseUrl}/movies?${queryParams.join('&')}`, fetchParams)
       .then((response) => response.json())
-      .then((movies) => {
+      .then((json) => {
         dispatch({
           type: GET_MOVIES,
-          movies: movies.data
+          movies: json.data,
+          total : json.totalAmount
         });
       })
       .catch((error) => _errorDispatch(dispatch, error));
   };
 };
 
-export const addMovie = (movie) => {
-  console.log(movie);
-  return (dispatch) => {
-    fetch(`${baseUrl}/movies?limit=${limit}`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(movie)
-    })
-      .then((response) => response.json())
-      .then((movie) => {
-        dispatch(getMovies());
-      })
-      .catch((error) => _errorDispatch(dispatch, error));
-  };
-};
 
-export const deleteMovie = (movie) => {
-  return (dispatch) => {
-    fetch(`${baseUrl}/movies/${movie.id}`, {
+export const operateMovie = ({ movie, operation }) => { 
+
+
+  console.log(movie, operation)
+
+  if (!movie) throw "Empty movie"
+  let queryParams = [`?limit=${limit}`];
+  let fetchParams = {}
+  let url = ""
+  let type = ""
+  if (operation === 'delete'){ 
+    url = `${baseUrl}/movies/${movie.id}`
+    fetchParams = {
       method: 'DELETE'
-    })
-      .then((response) => {
-        dispatch(getMovies());
-      })
-      .catch((error) => _errorDispatch(dispatch, error));
-  };
-};
+    }
+    type = DEL_MOVIE
+  }
 
-export const editMovie = (movie) => {
-  console.log(movie);
-  return (dispatch) => {
-    fetch(`${baseUrl}/movies`, {
+  if (operation === 'update'){ 
+    url = `${baseUrl}/movies`
+    fetchParams = {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(movie)
-    })
-      .then((response) => response.json())
-      .then((movie) => {
-        dispatch(getMovies());
-      })
-      .catch((error) => _errorDispatch(dispatch, error));
-  };
-};
-
-export const filterMovies = (genre) => {
-  if (genre === 'All') return getMovies();
-  return (dispatch) => {
-    fetch(`${baseUrl}/movies?filter=${genre}&?limit=${limit}`)
-      .then((response) => response.json())
-      .then((movies) => {
-        dispatch({
-          type: FILTER_MOVIES,
-          movies: movies.data
-        });
-      })
-      .catch((error) => _errorDispatch(dispatch, error));
-  };
-};
-
-export const sortMovies = (sortRule) => {
-  let sortBy = 'release_date';
-  let sortOrder = 'desc';
-  if (sortRule === Sort.Title) {
-    sortBy = 'title';
-    sortOrder = 'asc';
+    }
+    type = EDIT_MOVIE
   }
-  return (dispatch) => {
-    fetch(`${baseUrl}/movies?sortBy=${sortBy}&sortOrder=${sortOrder}&?limit=${limit}`)
-      .then((response) => response.json())
-      .then((movies) => {
-        dispatch({
-          type: SORT_MOVIES,
-          movies: movies.data
-        });
-      })
-      .catch((error) => _errorDispatch(dispatch, error));
-  };
-};
 
-export const searchMovieByTitle = (title) => {
+  if (operation === 'add'){ 
+    url = `${baseUrl}/movies`
+    fetchParams = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(movie)
+    }
+    type = ADD_MOVIE
+  }
+
   return (dispatch) => {
-    fetch(`${baseUrl}/movies?searchBy=title&search=${title}`)
+    fetch(url + queryParams.join('&'), fetchParams)
       .then((response) => {
-        if (response.status != 200) {
-          throw `Response code is: ${response.status}`;
-        }
-        return response.json();
-      })
-      .then((movies) => {
+        console.log(response)
         dispatch({
-          type: GET_MOVIES,
-          movies: movies.data
+          type: type,
+          movie: movie
         });
       })
       .catch((error) => _errorDispatch(dispatch, error));
-  };
-};
+  }; 
+
+}
+
 
 function _errorDispatch(dispatchCallBack, error) {
   console.error('Error: ', error);

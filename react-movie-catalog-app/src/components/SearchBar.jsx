@@ -1,5 +1,5 @@
 import React from 'react';
-import { searchMovieByTitle } from '../store/thunks';
+import { fetchMovies } from '../store/thunks';
 import { useDispatch } from 'react-redux';
 export const SearchBar = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export const SearchBar = () => {
           <button
             className="search-button"
             onClick={() =>
-              dispatch(searchMovieByTitle(document.getElementById('search-input-value').value))
+              dispatch(fetchMovies({ title: document.getElementById('search-input-value').value }))
             }
           >
             Search
