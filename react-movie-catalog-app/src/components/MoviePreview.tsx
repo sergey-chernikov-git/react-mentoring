@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { useMovie } from './../hooks/useMovie';
+import React, { useState, Dispatch} from 'react';
+import { useMovie } from '../hooks/useMovie';
 import PropTypes from 'prop-types';
 import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
 
 import { useDispatch } from 'react-redux';
 import { operateMovie } from '../store/thunks';
+import { TMovie } from '../ts-types/types';
 
-export const MoviePreview = ({ movie, viewMovie }) => {
-  const dispatch = useDispatch();
+export const MoviePreview = ({ movie, viewMovie } : { movie : TMovie, viewMovie :  Function}) => {
+  const dispatch : Dispatch<any> = useDispatch();
   const [contextMenu, setContextMenu] = useState(false);
   const {
     genres,
@@ -18,7 +19,7 @@ export const MoviePreview = ({ movie, viewMovie }) => {
   } = useMovie(movie);
   const [editModalWindow, setEditModalWindow] = useState(false);
 
-  const contextMenuHandler = (e) => {
+  const contextMenuHandler = (e : React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     e.preventDefault();
     setContextMenu(true);
   };
@@ -31,7 +32,7 @@ export const MoviePreview = ({ movie, viewMovie }) => {
   const movieEditOperationElem = (
     <MovieOperation
       movie={movie}
-      operationHandler={(movie) => dispatch(operateMovie({movie : movie, operation : 'update'}))}
+      operationHandler={(movie : TMovie) => dispatch(operateMovie({movie : movie, operation : 'update'}))}
       closeWindow={() => setEditModalWindow(false)}
     />
   );
@@ -48,7 +49,7 @@ export const MoviePreview = ({ movie, viewMovie }) => {
       </div>
       <div
         className="movie-preview-context-menu-item"
-        onClick={() => editModalWindowsHandler(movie)}
+        onClick={() => editModalWindowsHandler()}
       >
         Edit
       </div>

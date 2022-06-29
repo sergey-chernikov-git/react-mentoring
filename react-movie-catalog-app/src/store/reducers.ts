@@ -1,26 +1,25 @@
-import { MoviePreview } from '../components/MoviePreview';
+import { TMovie, TMoviesAction } from '../ts-types/types';
 import {
   ADD_MOVIE,
   GET_MOVIES,
   DEL_MOVIE,
   EDIT_MOVIE,
-  FILTER_MOVIES,
-  SORT_MOVIES,
-  SEARCH_MOVIES,
   FETCH_ERROR
 } from '../util/consts/consts';
 
 import { getGenresList, getSortList } from '../util/dictionary/dictionary';
 
+const movieEmptyList : Array<TMovie> = []
+
 const initialState = {
   sortList: getSortList(),
   genres: getGenresList(),
-  movies: [],
+  movies: movieEmptyList,
   error: false,
   total: 0
 };
 
-export const movieReducer = (state = initialState, action) => {
+export const movieReducer = (state = initialState, action : TMoviesAction) => {
   switch (action.type) {
     case GET_MOVIES:
       return {
@@ -49,7 +48,7 @@ export const movieReducer = (state = initialState, action) => {
     case FETCH_ERROR:
       return {
         ...state,
-        movies: [],
+        movies: movieEmptyList,
         error: true,
         errorDesc: action.errorDesc
       };

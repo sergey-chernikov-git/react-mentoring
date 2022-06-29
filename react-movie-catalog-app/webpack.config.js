@@ -14,13 +14,13 @@ const devServer = {
 module.exports = {
   mode,
   devServer,
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     path: path.join(__dirname, '/build'),
     filename: 'index.js'
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   module: {
     rules: [
@@ -39,7 +39,12 @@ module.exports = {
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loader: 'file-loader'
-      }
+      },
+      {
+        test: /\.(tsx|ts)$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
     ]
   },
   plugins: [

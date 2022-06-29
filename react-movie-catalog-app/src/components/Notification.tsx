@@ -2,7 +2,7 @@ import React from 'react';
 import successImg from './../assets/img/notifications/success/success.png';
 import errorImg from './../assets/img/notifications/error/error.png';
 
-export const Notification = ({ type, message, description, onClose }) => {
+export const Notification = ({ type, message, description, onClose } : {type : string, message :  string, description : string, onClose : Function}) => {
   return (
     <div id={'notification' + type} className="notification" onClick={() => onClose()}>
       <div>

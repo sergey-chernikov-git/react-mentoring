@@ -1,5 +1,4 @@
 import React from 'react';
-import { hideElementById } from './../logic/elementOperations.js';
 
 export const LoginForm = () => {
   return (
@@ -20,7 +19,7 @@ export const LoginForm = () => {
             className="submit-button"
             type="submit"
             value="Log In"
-            onClick={() => hideElementById('movie-add')}
+            // onClick={() => hideElementById('movie-add')}
           ></input>
         </div>
       </div>

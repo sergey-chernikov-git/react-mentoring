@@ -1,3 +1,4 @@
+import { TMovie } from '../ts-types/types';
 import { GET_MOVIES, FETCH_ERROR, DEL_MOVIE, EDIT_MOVIE, ADD_MOVIE} from '../util/consts/consts';
 
 import { Sort } from '../util/dictionary/dictionary';
@@ -5,7 +6,7 @@ import { Sort } from '../util/dictionary/dictionary';
 const limit = 10;
 const baseUrl = 'http://localhost:4000';
 
-export const fetchMovies = ({ page, genre, sortRule, title }) => {
+export const fetchMovies = ({ page , genre, sortRule, title } : {page?: number, genre?: string, sortRule?: string, title?: string}) => {
 
   let queryParams = [`limit=${limit}`];
   let fetchParams = {}  
@@ -37,7 +38,7 @@ export const fetchMovies = ({ page, genre, sortRule, title }) => {
     }
   }
 
-  return (dispatch) => {
+  return (dispatch : any) => {
     fetch(`${baseUrl}/movies?${queryParams.join('&')}`, fetchParams)
       .then((response) => response.json())
       .then((json) => {
@@ -52,7 +53,7 @@ export const fetchMovies = ({ page, genre, sortRule, title }) => {
 };
 
 
-export const operateMovie = ({ movie, operation }) => { 
+export const operateMovie = ({ movie, operation } : {movie: TMovie, operation: string}) => { 
 
 
   console.log(movie, operation)
@@ -94,7 +95,7 @@ export const operateMovie = ({ movie, operation }) => {
     type = ADD_MOVIE
   }
 
-  return (dispatch) => {
+  return (dispatch : any) => {
     fetch(url, fetchParams)
       .then((response) => {
         console.log(response)
@@ -109,7 +110,7 @@ export const operateMovie = ({ movie, operation }) => {
 }
 
 
-function _errorDispatch(dispatchCallBack, error) {
+function _errorDispatch(dispatchCallBack : Function, error : Error) {
   console.error('Error: ', error);
   dispatchCallBack({
     type: FETCH_ERROR,

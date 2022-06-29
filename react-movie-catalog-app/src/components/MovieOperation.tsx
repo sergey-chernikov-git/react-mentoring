@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { HtmlHTMLAttributes, useState } from 'react';
 import PropTypes from 'prop-types';
 import { movieType } from './type';
 import { getGenresList } from '../util/dictionary/dictionary';
+import { TMovie } from '../ts-types/types';
 
-export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) => {
+export const MovieOperation = ({ movie = null, operationHandler, closeWindow } : {movie?: TMovie, operationHandler : Function, closeWindow : Function}) => {
   const [contextMenu, setContextMenu] = useState(false);
   const [id, setID] = useState(movie ? movie.id : null);
   const [title, setTitle] = useState(movie ? movie.title : '');
@@ -18,25 +19,25 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
 
   const onResetHandle = () => {
     setTitle(movie ? movie.title : '');
-    setReleaseDate(movie ? movie.year : '');
-    setPosterPath(movie ? movie.src : '');
+    setReleaseDate(movie ? movie.release_date : '');
+    setPosterPath(movie ? movie.poster_path : '');
     setVoteAverage(movie ? movie.vote_average : '');
     setGenreList(movie ? movie.genres : []);
     setRuntime(movie ? movie.runtime : '');
     setOverview(movie ? movie.overview : '');
   };
 
-  const genreSelectorHandler = (e, value) => {
-    console.log(e.target.className);
-    if (e.target.className === 'movie-genre-checkmark-selected') {
-      e.target.className = 'movie-genre-checkmark';
+  const genreSelectorHandler = (e : React.MouseEvent<HTMLSpanElement, MouseEvent>, value: string) => {
+    let className = (e.target as HTMLElement).className
+    if (className === 'movie-genre-checkmark-selected') {
+      className = 'movie-genre-checkmark';
       const list = genreList;
-      const inx = list.indexOf(e.target.getAttribute('genre'));
+      const inx = list.indexOf((e.target as HTMLHtmlElement).getAttribute('genre'));
       list.splice(inx, 1);
       setGenreList([...list]);
     } else {
       console.log('I am here');
-      e.target.className === 'movie-genre-checkmark-selected';
+      className === 'movie-genre-checkmark-selected';
       console.log(e.target);
       if (genreList.indexOf(value) === -1) {
         const list = genreList;
@@ -77,10 +78,10 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
           value="X"
         />
         {genres
-          .filter(({ id, value }) => value != 'All')
-          .map(({ id, value }) => {
+          .filter(({ key, value }) => value != 'All')
+          .map(({ key, value }) => {
             return (
-              <div key={id}>
+              <div key={key}>
                 <label className="movie-genre-container">
                   {value}
                   {genreList.indexOf(value) != -1 ? (
@@ -148,7 +149,7 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
               className="tight-input"
               type="number"
               placeholder="7.8"
-              value={vote_average}
+              value={vote_average as string}
               onChange={(e) => setVoteAverage(e.target.value)}
             ></input>
           </div>
@@ -168,7 +169,7 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
               className="tight-input"
               type="text"
               placeholder="minutes"
-              value={runtime}
+              value={runtime as string}
               onChange={(e) => setRuntime(e.target.value)}
             ></input>
           </div>
@@ -179,10 +180,9 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
             <label className="uppercase-label">Overview</label>
             <textarea
               name="Text1"
-              cols="40"
-              rows="5"
+              cols={40}
+              rows={5}
               className="text-box-input"
-              type="text"
               value={overview}
               onChange={(e) => setOverview(e.target.value)}
             ></textarea>
@@ -211,9 +211,6 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
   );
 };
 
-function Span() {
-  return <span className="movie-genre-checkmark" selected="true" />;
-}
 
 MovieOperation.propTypes = {
   movie: movieType,

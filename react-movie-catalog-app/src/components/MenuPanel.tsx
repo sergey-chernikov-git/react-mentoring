@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import PropTypes from 'prop-types';
 import { keyValueType } from './type';
 import { useDispatch } from 'react-redux';
 
 import { fetchMovies } from '../store/thunks';
+import { TKeyValue } from '../ts-types/types';
 
-export const MenuPanel = ({ genres, sortList }) => {
-  const dispatch = useDispatch();
+export const MenuPanel = ({ genres, sortList } : { genres : Array<TKeyValue>, sortList :  Array<TKeyValue>}) => {
+  const dispatch : Dispatch<any> = useDispatch();
   return (
     <>
       <div className="horisontal-line"></div>
@@ -16,10 +17,10 @@ export const MenuPanel = ({ genres, sortList }) => {
             <select size={genres.length} defaultValue={genres[0].value}>
               {genres.map((genre) => {
                 return (
-                  <React.Fragment key={genre.id}>
+                  <React.Fragment key={genre.key}>
                     <option
                       className="menu-panel-gender"
-                      onClick={(e) => dispatch(fetchMovies({ genre: e.target.innerHTML }))}
+                      onClick={(e) => dispatch(fetchMovies({ genre: (e.target as HTMLElement).innerHTML }))}
                     >
                       {genre.value}
                     </option>
@@ -41,7 +42,7 @@ export const MenuPanel = ({ genres, sortList }) => {
               >
                 {sortList.map((el) => {
                   return (
-                    <option key={el.id} value={el.value}>
+                    <option key={el.key} value={el.value}>
                       {el.value}
                     </option>
                   );

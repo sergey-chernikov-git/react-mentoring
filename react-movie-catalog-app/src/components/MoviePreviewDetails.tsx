@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import searchIcon from './../assets/img/search/searchIcon.png';
-import { useMovie } from './../hooks/useMovie';
+import { useMovie } from '../hooks/useMovie';
+import { TMovie } from '../ts-types/types';
 
-export const MoviePreviewDetails = ({ movie, searchMovie }) => {
+export const MoviePreviewDetails = ({ movie, searchMovie } : {movie:  TMovie, searchMovie :  Function}) => {
   const {
     genres,
     overview,
@@ -13,13 +14,13 @@ export const MoviePreviewDetails = ({ movie, searchMovie }) => {
     vote_average,
    } = useMovie(movie);
 
-  const runtimeToHours = (runtime) => {
-    let hours = (runtime / 60 + '').split('.')[0];
+  const runtimeToHours = (runtime: number) => {
+    let hours : number = Number((runtime / 60 + '').split('.')[0]);
     let minutes = runtime - hours * 60;
     return `${hours}h ${minutes}min`;
   };
 
-  const extractYear = (val) => {
+  const extractYear = (val : string) => {
     return val.split('-')[0];
   };
   return (
@@ -27,18 +28,18 @@ export const MoviePreviewDetails = ({ movie, searchMovie }) => {
       <div className="view-movie-details-search" onClick={() => searchMovie()}>
         <img src={searchIcon}></img>
       </div>
-      <img src={poster_path} onContextMenu={(e) => contextMenuHandler(e)}></img>
+      <img src={poster_path}></img>
       <div>
         <div>
           <div className="view-movie-details-header">
             <div className="view-movie-details-title">{title}</div>
-            <div className="view-movie-details-rating">{vote_average}</div>
+            <div className="view-movie-details-rating">{vote_average as ReactNode}</div>
           </div>
           <div className="movie-preview-gender">{genres.join(' & ')}</div>
         </div>
         <div className="view-movie-details-header view-movie-details-movie-info">
           <div>{extractYear(release_date)}</div>
-          <div>{runtimeToHours(runtime)}</div>
+          <div>{runtimeToHours(runtime as number)}</div>
         </div>
         <div className="view-movie-details-overview">{overview}</div>
       </div>
