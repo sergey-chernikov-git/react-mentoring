@@ -43,8 +43,8 @@ module.exports = {
       {
         test: /\.(tsx|ts)$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
-      },
+        exclude: /node_modules/
+      }
     ]
   },
   plugins: [

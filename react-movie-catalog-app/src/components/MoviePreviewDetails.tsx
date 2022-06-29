@@ -1,26 +1,19 @@
 import React, { ReactNode } from 'react';
 import searchIcon from './../assets/img/search/searchIcon.png';
 import { useMovie } from '../hooks/useMovie';
-import { TMovie } from '../ts-types/types';
+import { TMoviePreviewDetailsProps } from '../ts-types/types';
 
-export const MoviePreviewDetails = ({ movie, searchMovie } : {movie:  TMovie, searchMovie :  Function}) => {
-  const {
-    genres,
-    overview,
-    poster_path,
-    release_date,
-    runtime,
-    title,
-    vote_average,
-   } = useMovie(movie);
+export const MoviePreviewDetails = ({ movie, searchMovie }: TMoviePreviewDetailsProps) => {
+  const { genres, overview, poster_path, release_date, runtime, title, vote_average } =
+    useMovie(movie);
 
   const runtimeToHours = (runtime: number) => {
-    let hours : number = Number((runtime / 60 + '').split('.')[0]);
+    let hours: number = Number((runtime / 60 + '').split('.')[0]);
     let minutes = runtime - hours * 60;
     return `${hours}h ${minutes}min`;
   };
 
-  const extractYear = (val : string) => {
+  const extractYear = (val: string) => {
     return val.split('-')[0];
   };
   return (

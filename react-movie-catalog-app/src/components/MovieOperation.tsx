@@ -1,12 +1,16 @@
-import React, { HtmlHTMLAttributes, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { movieType } from './type';
 import { getGenresList } from '../util/dictionary/dictionary';
-import { TMovie } from '../ts-types/types';
+import { TMovieOperationProps } from '../ts-types/types';
 
-export const MovieOperation = ({ movie = null, operationHandler, closeWindow } : {movie?: TMovie, operationHandler : Function, closeWindow : Function}) => {
+export const MovieOperation = ({
+  movie = null,
+  operationHandler,
+  closeWindow
+}: TMovieOperationProps) => {
   const [contextMenu, setContextMenu] = useState(false);
-  const [id, setID] = useState(movie ? movie.id : null);
+  const [id] = useState(movie ? movie.id : null);
   const [title, setTitle] = useState(movie ? movie.title : '');
   const [release_date, setReleaseDate] = useState(movie ? movie.release_date : '');
   const [poster_path, setPosterPath] = useState(movie ? movie.poster_path : '');
@@ -15,7 +19,7 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow } :
   const [runtime, setRuntime] = useState(movie ? movie.runtime : '');
   const [overview, setOverview] = useState(movie ? movie.overview : '');
 
-  const [genres, setGenres] = useState(getGenresList());
+  const [genres] = useState(getGenresList());
 
   const onResetHandle = () => {
     setTitle(movie ? movie.title : '');
@@ -27,8 +31,11 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow } :
     setOverview(movie ? movie.overview : '');
   };
 
-  const genreSelectorHandler = (e : React.MouseEvent<HTMLSpanElement, MouseEvent>, value: string) => {
-    let className = (e.target as HTMLElement).className
+  const genreSelectorHandler = (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+    value: string
+  ) => {
+    let className = (e.target as HTMLElement).className;
     if (className === 'movie-genre-checkmark-selected') {
       className = 'movie-genre-checkmark';
       const list = genreList;
@@ -210,7 +217,6 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow } :
     </>
   );
 };
-
 
 MovieOperation.propTypes = {
   movie: movieType,

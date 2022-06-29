@@ -4,10 +4,10 @@ import { keyValueType } from './type';
 import { useDispatch } from 'react-redux';
 
 import { fetchMovies } from '../store/thunks';
-import { TKeyValue } from '../ts-types/types';
+import { TKeyValue, TMenuPanelProps } from '../ts-types/types';
 
-export const MenuPanel = ({ genres, sortList } : { genres : Array<TKeyValue>, sortList :  Array<TKeyValue>}) => {
-  const dispatch : Dispatch<any> = useDispatch();
+export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
+  const dispatch: Dispatch<any> = useDispatch();
   return (
     <>
       <div className="horisontal-line"></div>
@@ -20,7 +20,9 @@ export const MenuPanel = ({ genres, sortList } : { genres : Array<TKeyValue>, so
                   <React.Fragment key={genre.key}>
                     <option
                       className="menu-panel-gender"
-                      onClick={(e) => dispatch(fetchMovies({ genre: (e.target as HTMLElement).innerHTML }))}
+                      onClick={(e) =>
+                        dispatch(fetchMovies({ genre: (e.target as HTMLElement).innerHTML }))
+                      }
                     >
                       {genre.value}
                     </option>

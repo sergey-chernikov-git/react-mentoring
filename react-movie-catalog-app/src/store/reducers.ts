@@ -1,15 +1,9 @@
 import { TMovie, TMoviesAction } from '../ts-types/types';
-import {
-  ADD_MOVIE,
-  GET_MOVIES,
-  DEL_MOVIE,
-  EDIT_MOVIE,
-  FETCH_ERROR
-} from '../util/consts/consts';
+import { ADD_MOVIE, GET_MOVIES, DEL_MOVIE, EDIT_MOVIE, FETCH_ERROR } from '../util/consts/consts';
 
 import { getGenresList, getSortList } from '../util/dictionary/dictionary';
 
-const movieEmptyList : Array<TMovie> = []
+const movieEmptyList: Array<TMovie> = [];
 
 const initialState = {
   sortList: getSortList(),
@@ -19,7 +13,7 @@ const initialState = {
   total: 0
 };
 
-export const movieReducer = (state = initialState, action : TMoviesAction) => {
+export const movieReducer = (state = initialState, action: TMoviesAction) => {
   switch (action.type) {
     case GET_MOVIES:
       return {
@@ -32,18 +26,17 @@ export const movieReducer = (state = initialState, action : TMoviesAction) => {
         ...state,
         movies: [...state.movies, action.movie],
         total: action.total + 1
-
       };
     case DEL_MOVIE:
       return {
         ...state,
-        movies: state.movies.filter(movie => movie.id !== action.movie.id),
-        total: action.total  - 1
+        movies: state.movies.filter((movie) => movie.id !== action.movie.id),
+        total: action.total - 1
       };
     case EDIT_MOVIE:
       return {
         ...state,
-        movies: state.movies.map( movie => movie.id === action.movie.id ? action.movie : movie )
+        movies: state.movies.map((movie) => (movie.id === action.movie.id ? action.movie : movie))
       };
     case FETCH_ERROR:
       return {

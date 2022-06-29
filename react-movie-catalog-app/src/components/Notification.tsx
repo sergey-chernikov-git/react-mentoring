@@ -1,8 +1,9 @@
 import React from 'react';
 import successImg from './../assets/img/notifications/success/success.png';
 import errorImg from './../assets/img/notifications/error/error.png';
+import { TNotificationProps } from '../ts-types/types';
 
-export const Notification = ({ type, message, description, onClose } : {type : string, message :  string, description : string, onClose : Function}) => {
+export const Notification = ({ type, message, description, onClose }: TNotificationProps) => {
   return (
     <div id={'notification' + type} className="notification" onClick={() => onClose()}>
       <div>

@@ -10,12 +10,12 @@ import { fetchMovies, operateMovie } from '../store/thunks';
 import { TMovie, TMoviesState } from '../ts-types/types';
 
 export const Application = () => {
-  const movies = useSelector((state : TMoviesState) => state.movies);
-  const genres = useSelector((state : TMoviesState) => state.genres);
-  const sortList = useSelector((state : TMoviesState) => state.sortList);
-  const error = useSelector((state : TMoviesState) => state.error);
-  const errorDesc = useSelector((state : TMoviesState) => state.errorDesc);
-  const dispatch : Dispatch<any> = useDispatch();
+  const movies = useSelector((state: TMoviesState) => state.movies);
+  const genres = useSelector((state: TMoviesState) => state.genres);
+  const sortList = useSelector((state: TMoviesState) => state.sortList);
+  const error = useSelector((state: TMoviesState) => state.error);
+  const errorDesc = useSelector((state: TMoviesState) => state.errorDesc);
+  const dispatch: Dispatch<any> = useDispatch();
 
   const [deleteNotification, setDeleteNotification] = useState(false);
   const [addNotification, setAddNotification] = useState(false);
@@ -43,9 +43,8 @@ export const Application = () => {
     [dispatch]
   );
 
-  const addMovieHandler = (movie : TMovie) => {
-    
-    dispatch(operateMovie({movie : movie, operation : 'add'}));
+  const addMovieHandler = (movie: TMovie) => {
+    dispatch(operateMovie({ movie: movie, operation: 'add' }));
     setAddNotification(true);
   };
 
@@ -93,7 +92,9 @@ export const Application = () => {
     <MoviesContext.Provider value={movies}>
       {/* <LoginForm /> */}
       {search ? <SearchBar /> : null}
-      {preview ? <MoviePreviewDetails movie={movie as TMovie} searchMovie={searchMovieHandler} /> : null}
+      {preview ? (
+        <MoviePreviewDetails movie={movie as TMovie} searchMovie={searchMovieHandler} />
+      ) : null}
       <div>
         <MenuPanel genres={genres} sortList={sortList} />
         <MoviesPreview addMovie={addMovieHandler} viewMovie={previewMovieHandler} />

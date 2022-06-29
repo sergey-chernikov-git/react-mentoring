@@ -4,9 +4,9 @@ import { MoviePreview } from './MoviePreview';
 import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
 import { MoviesContext } from '../context/MoviesContext';
-import { TMovie } from '../ts-types/types';
+import { TMovie, TMoviesPreviewProps } from '../ts-types/types';
 
-export const MoviesPreview = ({ addMovie, viewMovie } : {addMovie : Function, viewMovie : Function}) => {
+export const MoviesPreview = ({ addMovie, viewMovie }: TMoviesPreviewProps) => {
   const [addModalWindow, setAddModalWindow] = useState(false);
 
   const movies = useContext(MoviesContext);
