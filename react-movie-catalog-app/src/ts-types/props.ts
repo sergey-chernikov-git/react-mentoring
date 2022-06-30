@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react';
 import { TMovie, TKeyValue } from './movie';
 
 export type TMenuPanelProps = {
@@ -31,4 +32,9 @@ export type TNotificationProps = {
   message: string;
   description: string;
   onClose: Function;
+};
+export type TFallbackComponentProps = {
+  error: Error;
+  componentStack: any;
+  resetErrorBoundary: MouseEventHandler;
 };

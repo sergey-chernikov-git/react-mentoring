@@ -1,6 +1,11 @@
-import React, { MouseEventHandler } from  'react'
+import React, { MouseEventHandler } from 'react';
+import { TFallbackComponentProps } from '../../ts-types/props';
 
-export const ApplicationPageFallbackComponent = ({ error, componentStack, resetErrorBoundary }  : {error : Error, componentStack : any, resetErrorBoundary : MouseEventHandler}) => {
+export const ApplicationPageFallbackComponent = ({
+  error,
+  componentStack,
+  resetErrorBoundary
+}: TFallbackComponentProps) => {
   return (
     <div>
       <h1>An error occurred: {error.message}</h1>
