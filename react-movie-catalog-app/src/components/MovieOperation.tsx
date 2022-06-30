@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { movieType } from './type';
 import { getGenresList } from '../util/dictionary/dictionary';
-import { TMovieOperationProps } from '../ts-types/types';
+import { TMovieOperationProps } from '../ts-types/props';
 
 export const MovieOperation = ({
   movie = null,

@@ -1,6 +1,7 @@
 import React, { Dispatch } from 'react';
 import { fetchMovies } from '../store/thunks';
 import { useDispatch } from 'react-redux';
+
 export const SearchBar = () => {
   const dispatch: Dispatch<any> = useDispatch();
   return (

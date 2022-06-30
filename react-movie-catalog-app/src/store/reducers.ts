@@ -1,4 +1,4 @@
-import { TMovie, TMoviesAction } from '../ts-types/types';
+import { TMovie, TMoviesAction } from '../ts-types/movie';
 import { ADD_MOVIE, GET_MOVIES, DEL_MOVIE, EDIT_MOVIE, FETCH_ERROR } from '../util/consts/consts';
 
 import { getGenresList, getSortList } from '../util/dictionary/dictionary';

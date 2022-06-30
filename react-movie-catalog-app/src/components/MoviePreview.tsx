@@ -6,7 +6,8 @@ import { MovieOperation } from './MovieOperation';
 
 import { useDispatch } from 'react-redux';
 import { operateMovie } from '../store/thunks';
-import { TMovie, TMoviePreviewProps } from '../ts-types/types';
+import { TMovie } from '../ts-types/movie';
+import { TMoviePreviewProps } from '../ts-types/props';
 
 export const MoviePreview = ({ movie, viewMovie }: TMoviePreviewProps) => {
   const dispatch: Dispatch<any> = useDispatch();

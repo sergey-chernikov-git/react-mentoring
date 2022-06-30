@@ -1,4 +1,4 @@
-import { TMovie } from '../ts-types/types';
+import { TMovie } from '../ts-types/movie';
 import { GET_MOVIES, FETCH_ERROR, DEL_MOVIE, EDIT_MOVIE, ADD_MOVIE } from '../util/consts/consts';
 
 import { Sort } from '../util/dictionary/dictionary';

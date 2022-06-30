@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import searchIcon from './../assets/img/search/searchIcon.png';
 import { useMovie } from '../hooks/useMovie';
-import { TMoviePreviewDetailsProps } from '../ts-types/types';
+import { TMoviePreviewDetailsProps } from '../ts-types/props';
 
 export const MoviePreviewDetails = ({ movie, searchMovie }: TMoviePreviewDetailsProps) => {
   const { genres, overview, poster_path, release_date, runtime, title, vote_average } =

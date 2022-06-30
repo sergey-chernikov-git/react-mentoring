@@ -4,7 +4,8 @@ import { keyValueType } from './type';
 import { useDispatch } from 'react-redux';
 
 import { fetchMovies } from '../store/thunks';
-import { TKeyValue, TMenuPanelProps } from '../ts-types/types';
+import { TKeyValue } from '../ts-types/movie';
+import { TMenuPanelProps } from '../ts-types/props';
 
 export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
   const dispatch: Dispatch<any> = useDispatch();
