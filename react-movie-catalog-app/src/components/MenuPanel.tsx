@@ -1,6 +1,5 @@
 import React, { Dispatch } from 'react';
 import PropTypes from 'prop-types';
-import { keyValueType } from './type';
 import { useDispatch } from 'react-redux';
 
 import { fetchMovies } from '../store/thunks';
@@ -58,11 +57,4 @@ export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
       <div className="menu-horisontal-splitter"></div>
     </>
   );
-};
-
-MenuPanel.propTypes = {
-  genders: PropTypes.arrayOf(keyValueType),
-  sortList: PropTypes.arrayOf(keyValueType),
-  sortMovies: PropTypes.func,
-  filterMovies: PropTypes.func
 };

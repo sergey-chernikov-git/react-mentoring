@@ -1,7 +1,6 @@
 import React, { useState, Dispatch } from 'react';
 import { useMovie } from '../hooks/useMovie';
 import PropTypes from 'prop-types';
-import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
 
 import { useDispatch } from 'react-redux';
@@ -75,10 +74,4 @@ export const MoviePreview = ({ movie, viewMovie }: TMoviePreviewProps) => {
       {editModalWindow ? movieEditOperationElem : null}
     </>
   );
-};
-
-MoviePreview.propTypes = {
-  movie: movieType,
-  deleteMovie: PropTypes.func,
-  editMovie: PropTypes.func
 };

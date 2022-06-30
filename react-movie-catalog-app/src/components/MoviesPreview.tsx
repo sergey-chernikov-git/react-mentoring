@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { MoviePreview } from './MoviePreview';
-import { movieType } from './type';
 import { MovieOperation } from './MovieOperation';
 import { MoviesContext } from '../context/MoviesContext';
 import { TMovie } from '../ts-types/movie';
@@ -40,10 +39,4 @@ export const MoviesPreview = ({ addMovie, viewMovie }: TMoviesPreviewProps) => {
       </div>
     </>
   );
-};
-
-MoviesPreview.propTypes = {
-  movies: PropTypes.arrayOf(movieType),
-  deleteMovie: PropTypes.func,
-  editMovie: PropTypes.func
 };
