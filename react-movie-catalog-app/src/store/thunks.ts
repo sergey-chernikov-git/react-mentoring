@@ -1,22 +1,11 @@
-import { TMovie } from '../ts-types/movie';
+import { TFetchMovieInput, TOperateMovieInput } from '../ts-types/function';
 import { GET_MOVIES, FETCH_ERROR, DEL_MOVIE, EDIT_MOVIE, ADD_MOVIE } from '../util/consts/consts';
-
 import { Sort } from '../util/dictionary/dictionary';
 
 const limit = 10;
 const baseUrl = 'http://localhost:4000';
 
-export const fetchMovies = ({
-  page,
-  genre,
-  sortRule,
-  title
-}: {
-  page?: number;
-  genre?: string;
-  sortRule?: string;
-  title?: string;
-}) => {
+export const fetchMovies = ({ page, genre, sortRule, title }: TFetchMovieInput): Function => {
   let queryParams = [`limit=${limit}`];
   let fetchParams = {};
 
@@ -47,7 +36,7 @@ export const fetchMovies = ({
     };
   }
 
-  return (dispatch: any) => {
+  return (dispatch: Function) => {
     fetch(`${baseUrl}/movies?${queryParams.join('&')}`, fetchParams)
       .then((response) => response.json())
       .then((json) => {
@@ -61,7 +50,7 @@ export const fetchMovies = ({
   };
 };
 
-export const operateMovie = ({ movie, operation }: { movie: TMovie; operation: string }) => {
+export const operateMovie = ({ movie, operation }: TOperateMovieInput): Function => {
   console.log(movie, operation);
 
   if (!movie) throw 'Empty movie';
@@ -101,7 +90,7 @@ export const operateMovie = ({ movie, operation }: { movie: TMovie; operation: s
     type = ADD_MOVIE;
   }
 
-  return (dispatch: any) => {
+  return (dispatch: Function) => {
     fetch(url, fetchParams)
       .then((response) => {
         console.log(response);

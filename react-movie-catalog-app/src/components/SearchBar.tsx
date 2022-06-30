@@ -1,9 +1,9 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { fetchMovies } from '../store/thunks';
 import { useDispatch } from 'react-redux';
 
 export const SearchBar = () => {
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch: Function = useDispatch();
   return (
     <>
       <div className="search-bar-background"></div>

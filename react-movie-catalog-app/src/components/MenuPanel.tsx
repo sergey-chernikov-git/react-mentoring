@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import { fetchMovies } from '../store/thunks';
-import { TKeyValue } from '../ts-types/movie';
 import { TMenuPanelProps } from '../ts-types/props';
 
 export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch: Function = useDispatch();
   return (
     <>
       <div className="horisontal-line"></div>

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { MoviePreview } from './MoviePreview';
 import { MovieOperation } from './MovieOperation';
 import { MoviesContext } from '../context/MoviesContext';
-import { TMovie } from '../ts-types/movie';
+import { TMovie, TMovies } from '../ts-types/movie';
 import { TMoviesPreviewProps } from '../ts-types/props';
 
 export const MoviesPreview = ({ addMovie, viewMovie }: TMoviesPreviewProps) => {
   const [addModalWindow, setAddModalWindow] = useState(false);
 
-  const movies = useContext(MoviesContext);
+  const movies: TMovies = useContext(MoviesContext);
 
   const addMovieHandler = (movie: TMovie) => {
     addMovie(movie);

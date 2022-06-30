@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, Dispatch } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MoviesPreview } from './MoviesPreview';
 import { SearchBar } from './SearchBar';
 import { MoviePreviewDetails } from './MoviePreviewDetails';
@@ -7,15 +7,15 @@ import { Notification } from './Notification';
 import { MoviesContext } from '../context/MoviesContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMovies, operateMovie } from '../store/thunks';
-import { TMovie, TMoviesState } from '../ts-types/movie';
+import { TMovie, TMoviesState, TMovies, TKeyValue, TDictionary } from '../ts-types/movie';
 
 export const Application = () => {
-  const movies = useSelector((state: TMoviesState) => state.movies);
-  const genres = useSelector((state: TMoviesState) => state.genres);
-  const sortList = useSelector((state: TMoviesState) => state.sortList);
-  const error = useSelector((state: TMoviesState) => state.error);
-  const errorDesc = useSelector((state: TMoviesState) => state.errorDesc);
-  const dispatch: Dispatch<any> = useDispatch();
+  const movies: TMovies = useSelector((state: TMoviesState) => state.movies);
+  const genres: TDictionary = useSelector((state: TMoviesState) => state.genres);
+  const sortList: TDictionary = useSelector((state: TMoviesState) => state.sortList);
+  const error: boolean = useSelector((state: TMoviesState) => state.error);
+  const errorDesc: string = useSelector((state: TMoviesState) => state.errorDesc);
+  const dispatch: Function = useDispatch();
 
   const [deleteNotification, setDeleteNotification] = useState(false);
   const [addNotification, setAddNotification] = useState(false);

@@ -16,12 +16,10 @@ export type TMovie = TMovieBase & {
   id: number;
 };
 
-export type TMovieList = {
-  movies: Array<TMovie>;
-};
+export type TMovies = Array<TMovie>;
 
 export type TMovieResponse = {
-  data: TMovieList;
+  data: TMovies;
   total: number;
   offset: number;
   limit: number;
@@ -40,7 +38,7 @@ export type TMoviesAction = {
   type: string;
   movie?: TMovie;
   total?: number;
-  movies?: TMovieList;
+  movies?: TMovies;
   errorDesc?: string;
 };
 
@@ -48,3 +46,5 @@ export type TKeyValue = {
   key: string;
   value: string;
 };
+
+export type TDictionary = Array<TKeyValue>;

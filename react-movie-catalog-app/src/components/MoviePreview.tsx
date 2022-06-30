@@ -9,7 +9,7 @@ import { TMovie } from '../ts-types/movie';
 import { TMoviePreviewProps } from '../ts-types/props';
 
 export const MoviePreview = ({ movie, viewMovie }: TMoviePreviewProps) => {
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch: Function = useDispatch();
   const [contextMenu, setContextMenu] = useState(false);
   const { genres, poster_path, release_date, title } = useMovie(movie);
   const [editModalWindow, setEditModalWindow] = useState(false);
