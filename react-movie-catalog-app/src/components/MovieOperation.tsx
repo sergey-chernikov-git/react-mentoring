@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { getGenresList } from '../util/dictionary/dictionary';
 import { TMovieOperationProps } from '../ts-types/props';
+import { TMovie, TMovieBase } from '../ts-types/movie';
 
 export const MovieOperation = ({
   movie = null,
@@ -53,7 +54,7 @@ export const MovieOperation = ({
     }
   };
 
-  const movieObj = id
+  const movieObj : TMovieBase | TMovie = id
     ? {
         id: id,
         title: title,
