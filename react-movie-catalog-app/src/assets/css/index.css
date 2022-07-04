@@ -527,6 +527,11 @@ h1 {
   color: #ffffff;
 }
 
+.validation-error {
+  color: red;
+  text-transform: lowercase;
+}
+
 .view-movie-details {
   position: relative;
   display: flex;
