@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import PropTypes from 'prop-types';
-import { keyValueType } from './type';
+import { useDispatch } from 'react-redux';
 
-export const MenuPanel = ({ genres, sortList, sortMovies, filterMovies }) => {
+import { fetchMovies } from '../store/thunks';
+import { TMenuPanelProps } from '../ts-types/props';
+
+export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
+  const dispatch: Function = useDispatch();
   return (
     <>
       <div className="horisontal-line"></div>
@@ -12,8 +16,13 @@ export const MenuPanel = ({ genres, sortList, sortMovies, filterMovies }) => {
             <select size={genres.length} defaultValue={genres[0].value}>
               {genres.map((genre) => {
                 return (
-                  <React.Fragment key={genre.id}>
-                    <option className="menu-panel-gender" onClick={(e) => filterMovies(e)}>
+                  <React.Fragment key={genre.key}>
+                    <option
+                      className="menu-panel-gender"
+                      onClick={(e) =>
+                        dispatch(fetchMovies({ genre: (e.target as HTMLElement).innerHTML }))
+                      }
+                    >
                       {genre.value}
                     </option>
                   </React.Fragment>
@@ -29,12 +38,12 @@ export const MenuPanel = ({ genres, sortList, sortMovies, filterMovies }) => {
                 id="dropdown-sorting-content"
                 name="genres"
                 onChange={(e) => {
-                  sortMovies(e);
+                  dispatch(fetchMovies({ sortRule: e.target.value }));
                 }}
               >
                 {sortList.map((el) => {
                   return (
-                    <option key={el.id} value={el.value}>
+                    <option key={el.key} value={el.value}>
                       {el.value}
                     </option>
                   );
@@ -47,11 +56,4 @@ export const MenuPanel = ({ genres, sortList, sortMovies, filterMovies }) => {
       <div className="menu-horisontal-splitter"></div>
     </>
   );
-};
-
-MenuPanel.propTypes = {
-  genders: PropTypes.arrayOf(keyValueType),
-  sortList: PropTypes.arrayOf(keyValueType),
-  sortMovies: PropTypes.func,
-  filterMovies: PropTypes.func
 };

@@ -1,43 +1,50 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { movieType } from './type';
-import { getID } from '../util/dictionary/dictionary';
 import { getGenresList } from '../util/dictionary/dictionary';
+import { TMovieOperationProps } from '../ts-types/props';
+import { TMovie, TMovieBase } from '../ts-types/movie';
 
-export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) => {
+export const MovieOperation = ({
+  movie = null,
+  operationHandler,
+  closeWindow
+}: TMovieOperationProps) => {
   const [contextMenu, setContextMenu] = useState(false);
-  const [id, setID] = useState(movie ? movie.id : getID());
+  const [id] = useState(movie ? movie.id : null);
   const [title, setTitle] = useState(movie ? movie.title : '');
-  const [year, setYear] = useState(movie ? movie.year : '');
-  const [src, setSRC] = useState(movie ? movie.src : '');
-  const [rating, setRating] = useState(movie ? movie.rating : '');
+  const [release_date, setReleaseDate] = useState(movie ? movie.release_date : '');
+  const [poster_path, setPosterPath] = useState(movie ? movie.poster_path : '');
+  const [vote_average, setVoteAverage] = useState(movie ? movie.vote_average : '');
   const [genreList, setGenreList] = useState(movie ? movie.genres : []);
   const [runtime, setRuntime] = useState(movie ? movie.runtime : '');
   const [overview, setOverview] = useState(movie ? movie.overview : '');
 
-  const [genres, setGenres] = useState(getGenresList());
+  const [genres] = useState(getGenresList());
 
   const onResetHandle = () => {
     setTitle(movie ? movie.title : '');
-    setYear(movie ? movie.year : '');
-    setSRC(movie ? movie.src : '');
-    setRating(movie ? movie.rating : '');
+    setReleaseDate(movie ? movie.release_date : '');
+    setPosterPath(movie ? movie.poster_path : '');
+    setVoteAverage(movie ? movie.vote_average : '');
     setGenreList(movie ? movie.genres : []);
     setRuntime(movie ? movie.runtime : '');
     setOverview(movie ? movie.overview : '');
   };
 
-  const genreSelectorHandler = (e, value) => {
-    console.log(e.target.className);
-    if (e.target.className === 'movie-genre-checkmark-selected') {
-      e.target.className = 'movie-genre-checkmark';
+  const genreSelectorHandler = (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+    value: string
+  ) => {
+    let className = (e.target as HTMLElement).className;
+    if (className === 'movie-genre-checkmark-selected') {
+      className = 'movie-genre-checkmark';
       const list = genreList;
-      const inx = list.indexOf(e.target.getAttribute('genre'));
+      const inx = list.indexOf((e.target as HTMLHtmlElement).getAttribute('genre'));
       list.splice(inx, 1);
       setGenreList([...list]);
     } else {
       console.log('I am here');
-      e.target.className === 'movie-genre-checkmark-selected';
+      className === 'movie-genre-checkmark-selected';
       console.log(e.target);
       if (genreList.indexOf(value) === -1) {
         const list = genreList;
@@ -47,16 +54,26 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
     }
   };
 
-  const movieObj = {
-    id: id,
-    title: title,
-    year: year,
-    src: src,
-    rating: rating,
-    genres: genreList,
-    runtime: runtime,
-    overview: overview
-  };
+  const movieObj : TMovieBase | TMovie = id
+    ? {
+        id: id,
+        title: title,
+        release_date: release_date,
+        poster_path: poster_path,
+        vote_average: Number(vote_average),
+        genres: genreList,
+        runtime: Number(runtime),
+        overview: overview
+      }
+    : {
+        title: title,
+        release_date: release_date,
+        poster_path: poster_path,
+        vote_average: Number(vote_average),
+        genres: genreList,
+        runtime: Number(runtime),
+        overview: overview
+      };
 
   const genreSelectorElem = (
     <div>
@@ -68,10 +85,10 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
           value="X"
         />
         {genres
-          .filter(({ id, value }) => value != 'All')
-          .map(({ id, value }) => {
+          .filter(({ key, value }) => value != 'All')
+          .map(({ key, value }) => {
             return (
-              <div key={id}>
+              <div key={key}>
                 <label className="movie-genre-container">
                   {value}
                   {genreList.indexOf(value) != -1 ? (
@@ -117,8 +134,8 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
               className="tight-input"
               type="date"
               alt="Select Date"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
+              value={release_date}
+              onChange={(e) => setReleaseDate(e.target.value)}
             ></input>
           </div>
         </div>
@@ -129,8 +146,8 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
               className="wide-input"
               type="url"
               placeholder="https://"
-              value={src}
-              onChange={(e) => setSRC(e.target.value)}
+              value={poster_path}
+              onChange={(e) => setPosterPath(e.target.value)}
             ></input>
           </div>
           <div>
@@ -139,8 +156,8 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
               className="tight-input"
               type="number"
               placeholder="7.8"
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
+              value={vote_average as string}
+              onChange={(e) => setVoteAverage(e.target.value)}
             ></input>
           </div>
         </div>
@@ -159,7 +176,7 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
               className="tight-input"
               type="text"
               placeholder="minutes"
-              value={runtime}
+              value={runtime as string}
               onChange={(e) => setRuntime(e.target.value)}
             ></input>
           </div>
@@ -170,10 +187,9 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
             <label className="uppercase-label">Overview</label>
             <textarea
               name="Text1"
-              cols="40"
-              rows="5"
+              cols={40}
+              rows={5}
               className="text-box-input"
-              type="text"
               value={overview}
               onChange={(e) => setOverview(e.target.value)}
             ></textarea>
@@ -200,14 +216,4 @@ export const MovieOperation = ({ movie = null, operationHandler, closeWindow }) 
       </div>
     </>
   );
-};
-
-function Span() {
-  return <span className="movie-genre-checkmark" selected="true" />;
-}
-
-MovieOperation.propTypes = {
-  movie: movieType,
-  operationHandler: PropTypes.func,
-  closeDialog: PropTypes.func
 };

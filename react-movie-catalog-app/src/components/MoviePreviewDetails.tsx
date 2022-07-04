@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import searchIcon from './../assets/img/search/searchIcon.png';
-import { useMovie } from './../hooks/useMovie';
+import { useMovie } from '../hooks/useMovie';
+import { TMoviePreviewDetailsProps } from '../ts-types/props';
+import { TMovie } from '../ts-types/movie';
 
-export const MoviePreviewDetails = ({ movie, searchMovie }) => {
-  const [id, src, title, year, runtime, overview, rating, genres] = useMovie(movie);
+export const MoviePreviewDetails = ({ movie, searchMovie }: TMoviePreviewDetailsProps) => {
+  const { genres, overview, poster_path, release_date, runtime, title, vote_average }: TMovie =
+    useMovie(movie);
 
-  const runtimeToHours = (runtime) => {
-    let hours = (runtime / 60 + '').split('.')[0];
+  const runtimeToHours = (runtime: number): string => {
+    let hours: number = Number((runtime / 60 + '').split('.')[0]);
     let minutes = runtime - hours * 60;
     return `${hours}h ${minutes}min`;
   };
 
-  const extractYear = (val) => {
+  const extractYear = (val: string): string => {
     return val.split('-')[0];
   };
   return (
@@ -19,18 +22,18 @@ export const MoviePreviewDetails = ({ movie, searchMovie }) => {
       <div className="view-movie-details-search" onClick={() => searchMovie()}>
         <img src={searchIcon}></img>
       </div>
-      <img src={src} onContextMenu={(e) => contextMenuHandler(e)}></img>
+      <img src={poster_path}></img>
       <div>
         <div>
           <div className="view-movie-details-header">
             <div className="view-movie-details-title">{title}</div>
-            <div className="view-movie-details-rating">{rating}</div>
+            <div className="view-movie-details-rating">{vote_average as ReactNode}</div>
           </div>
           <div className="movie-preview-gender">{genres.join(' & ')}</div>
         </div>
         <div className="view-movie-details-header view-movie-details-movie-info">
-          <div>{extractYear(year)}</div>
-          <div>{runtimeToHours(runtime)}</div>
+          <div>{extractYear(release_date)}</div>
+          <div>{runtimeToHours(runtime as number)}</div>
         </div>
         <div className="view-movie-details-overview">{overview}</div>
       </div>

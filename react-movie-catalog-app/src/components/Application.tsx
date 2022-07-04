@@ -4,77 +4,64 @@ import { SearchBar } from './SearchBar';
 import { MoviePreviewDetails } from './MoviePreviewDetails';
 import { MenuPanel } from './MenuPanel';
 import { Notification } from './Notification';
-import { getInitMovieList, getGenresList, getSortList } from '../util/dictionary/dictionary';
 import { MoviesContext } from '../context/MoviesContext';
-import {
-  sortMovies,
-  filterMovies,
-  deleteMovie,
-  editMovie,
-  addMovie
-} from './../logic/businessLogic';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchMovies, operateMovie } from '../store/thunks';
+import { TMovie, TMoviesState, TMovies, TKeyValue, TDictionary } from '../ts-types/movie';
 
 export const Application = () => {
-  const [movies, setMovies] = useState([]);
+  const movies: TMovies = useSelector((state: TMoviesState) => state.movies);
+  const genres: TDictionary = useSelector((state: TMoviesState) => state.genres);
+  const sortList: TDictionary = useSelector((state: TMoviesState) => state.sortList);
+  const error: boolean = useSelector((state: TMoviesState) => state.error);
+  const errorDesc: string = useSelector((state: TMoviesState) => state.errorDesc);
+  const dispatch: Function = useDispatch();
+
   const [deleteNotification, setDeleteNotification] = useState(false);
   const [addNotification, setAddNotification] = useState(false);
   const [editNotification, setEditNotification] = useState(false);
+  const [errorNotification, setErrorNotification] = useState(false);
   const [search, setSearch] = useState(true);
   const [preview, setPreview] = useState(false);
   const [movie, setMovie] = useState({});
 
-  const genres = getGenresList();
-  const sortList = getSortList();
+  useEffect(() => {
+    dispatch(fetchMovies({}));
+  }, []);
 
   useEffect(() => {
-    setMovies(getInitMovieList());
-  }, []);
+    setErrorNotification(error);
+  }, [error]);
 
-  const addMovieHandler = useCallback(
-    (movie) => {
-      addMovie(movie, movies, setMovies);
-      setAddNotification(true);
+  const previewMovieHandler = useCallback(
+    (movie: TMovie) => {
+      setMovie(movie);
+      setPreview(true);
+      setSearch(false);
+      window.scrollTo(0, 0);
     },
-    [movies]
+    [dispatch]
   );
 
-  const sortMoviesHandler = useCallback((e) => {
-    setMovies([...sortMovies(movies, e)]);
-  }, []);
-
-  const filterMoviesHandler = useCallback((e) => {
-    const genre = e.target.innerHTML;
-    setMovies(filterMovies(genre));
-  }, []);
-
-  const deleteMovieHandler = useCallback(
-    (movie) => {
-      deleteMovie(movie, movies, setMovies);
-      setDeleteNotification(true);
-    },
-    [movies]
-  );
-
-  const editMovieHandler = useCallback(
-    (movie) => {
-      editMovie(movie, movies, setMovies);
-      setEditNotification(true);
-    },
-    [movies]
-  );
-
-  const previewMovieHandler = useCallback((movie) => {
-    setMovie(movie);
-    setPreview(true);
-    setSearch(false);
-    window.scrollTo(0, 0);
-  }, []);
+  const addMovieHandler = (movie: TMovie) => {
+    dispatch(operateMovie({ movie: movie, operation: 'add' }));
+    setAddNotification(true);
+  };
 
   const searchMovieHandler = () => {
     setPreview(false);
     setSearch(true);
     window.scrollTo(0, 0);
   };
+
+  const movieErrorNotificationElem = (
+    <Notification
+      type="error"
+      message="Exception for the operation!"
+      description={errorDesc}
+      onClose={() => setErrorNotification(false)}
+    />
+  );
 
   const movieDeleteNotificationElem = (
     <Notification
@@ -105,22 +92,14 @@ export const Application = () => {
     <MoviesContext.Provider value={movies}>
       {/* <LoginForm /> */}
       {search ? <SearchBar /> : null}
-      {preview ? <MoviePreviewDetails movie={movie} searchMovie={searchMovieHandler} /> : null}
-
+      {preview ? (
+        <MoviePreviewDetails movie={movie as TMovie} searchMovie={searchMovieHandler} />
+      ) : null}
       <div>
-        <MenuPanel
-          genres={genres}
-          sortList={sortList}
-          sortMovies={sortMoviesHandler}
-          filterMovies={filterMoviesHandler}
-        />
-        <MoviesPreview
-          deleteMovie={deleteMovieHandler}
-          editMovie={editMovieHandler}
-          addMovie={addMovieHandler}
-          viewMovie={previewMovieHandler}
-        />
+        <MenuPanel genres={genres} sortList={sortList} />
+        <MoviesPreview addMovie={addMovieHandler} viewMovie={previewMovieHandler} />
         {deleteNotification ? movieDeleteNotificationElem : null}
+        {errorNotification ? movieErrorNotificationElem : null}
         {addNotification ? movieAddNotificationElem : null}
         {editNotification ? movieEditNotificationElem : null}
       </div>
