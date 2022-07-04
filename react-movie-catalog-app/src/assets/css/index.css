@@ -21,10 +21,58 @@ h4 {
   text-transform: none;
 }
 
+h1 {
+  margin-right: 20px;
+  /* margin-top: 35px; */
+}
+
 .close-x-button {
   color: var(--white-bg-color);
   background-color: var(--black-bg-color);
   border: var(--black-bg-color);
+}
+
+.context-call {
+  margin-left: 95%;
+  cursor: pointer;
+}
+
+.menu-panel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-panel-sort {
+  display: flex;
+  justify-content: center;
+  margin: 0px;
+  margin-left: 250px;
+}
+
+.movie-preview-context-menu {
+  height: 111px;
+  width: 190px;
+  border: 80px;
+  background-color: var(--black-bg-color);
+  position: absolute;
+  margin-top: 3px;
+  margin-left: 9%;
+}
+
+.movie-preview-context-menu-item {
+  width: 190px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.movie-preview-context-menu-item:hover {
+  background-color: var(--pirple-bg-color);
+}
+.movie-preview-context-menu-close {
+  padding-left: 90%;
+  padding-right: 1%;
+  cursor: pointer;
+  color: var(--white-bg-color);
 }
 
 .dropdown-content {
@@ -79,8 +127,7 @@ h4 {
 }
 
 .movie-add {
-  visibility: hidden;
-  position: absolute;
+  position: fixed;
   width: 976px;
   left: 50%;
   top: 50%;
@@ -104,7 +151,7 @@ h4 {
 }
 
 .movie-count-panel {
-  position: absolute;
+  position: relative;
   background-color: var(--black-bg-color);
   color: var(--white-bg-color);
   text-transform: none;
@@ -114,12 +161,11 @@ h4 {
   top: 41%;
 }
 
-.movie-count{
+.movie-count {
   margin-left: 11%;
 }
 
 .movie-genre-select {
-  visibility: hidden;
   position: absolute;
   text-transform: none;
   color: var(--white-bg-color);
@@ -163,6 +209,15 @@ h4 {
   background-color: #eee;
 }
 
+.movie-genre-checkmark-selected {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: var(--pirple-bg-color);
+}
+
 .movie-genre-container:hover input ~ .movie-genre-checkmark {
   background-color: #ccc;
 }
@@ -194,6 +249,8 @@ h4 {
 }
 
 .movie-preview {
+  width: 300px;
+  height: 500px;
   margin: 10px;
   color: var(--white-bg-color);
   font-style: normal;
@@ -202,6 +259,7 @@ h4 {
 
 .movie-preview img {
   border-radius: 4px;
+  height: 450px;
   width: 300px;
 }
 .movie-preview div {
@@ -214,7 +272,7 @@ h4 {
   line-height: 22px;
   opacity: 0.7;
   margin-left: 0%;
-  margin-right: 50%;
+  margin-right: 20%;
 }
 .movie-preview-year {
   border-style: outset;
@@ -231,12 +289,13 @@ h4 {
 }
 .movie-preview-gender {
   opacity: 0.5;
+  flex-wrap: wrap;
+  text-transform: none;
 }
 
 .movie-preview-panel {
-  position: absolute;
+  position: relative;
   width: var(--global-width);
-  top: 45%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -245,7 +304,6 @@ h4 {
 }
 
 .notification {
-  visibility: hidden;
   position: fixed;
   left: 50%;
   top: 50%;
@@ -254,22 +312,22 @@ h4 {
   background-color: var(--black-bg-color);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.07),
     0px 10px 20px rgba(0, 0, 0, 0.05), 0px 10px 50px rgba(0, 0, 0, 0.05);
-  z-index: 2;
+  z-index: 5;
   text-align: center;
   padding: 3%;
 }
 
 .gender-menu-panel {
-  position: absolute;
+  position: relative;
   width: var(--global-width);
   display: flex;
-
+  cursor: pointer;
   background-color: var(--black-bg-color);
   vertical-align: middle;
-  height: 300px;
-  top: 35%;
+  height: 50px;
 }
-.gender-menu-panel div {
+
+.menu-panel-gender {
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
@@ -277,29 +335,27 @@ h4 {
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
-  /* border-bottom: 1px solid var(--pirple-bg-color); */
+}
+
+.menu-panel-select {
+  margin-top: 1px;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: var(--white-bg-color);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
 }
 
 .menu-horisontal-splitter {
   position: absolute;
-  height: 2px;
-  width: 1155px;
-  top: 10%;
-  transform: translate(1%);
+  height: 3px;
+  width: 1200px;
   border-radius: 0px;
+  padding-left: 20px;
   background-color: var(--light-grey-bg-color);
-  z-index: 1;
-}
-
-.menu-horisontal-splitter-selected {
-  position: absolute;
-  height: 2px;
-  width: 40px;
-  top: 10%;
-  transform: translate(-1%);
-  border-radius: 0px;
-  background-color: var(--pirple-bg-color);
-  z-index: 2;
+  z-index: 0;
+  transform: translateY(-170%);
 }
 
 h1 {
@@ -312,7 +368,7 @@ h1 {
 }
 
 .horisontal-line {
-  position: absolute;
+  position: relative;
   height: 10px;
   width: 1200px;
   top: 34%;
@@ -344,11 +400,11 @@ h1 {
 
 .sorting-panel {
   display: flex;
-  align-content: space-between;
-  position: absolute;
-  vertical-align: middle;
+  color: var(--white-bg-color);
+  /* align-content: space-between; */
+  /* vertical-align: middle; */
   right: 0%;
-  top: -7%;
+  z-index: 3;
 }
 
 .search-movie-add-button {
@@ -366,25 +422,28 @@ h1 {
   line-height: 24px;
   letter-spacing: 0px;
   color: var(--pirple-bg-color);
+  transform: translateY(-1300%);
+  z-index: 0;
 }
 
 .search-bar-background {
-  position: absolute;
+  position: relative;
   background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/fall-movies-index-1628968089.jpg');
-  height: 683px;
+  height: 295px;
   width: var(--global-width);
   border-radius: 0px;
   mix-blend-mode: normal;
   opacity: 0.3;
   filter: blur(8.15485px);
   z-index: -1;
+  height: 565px;
 }
 
 .search-title {
   position: absolute;
   width: 392px;
   height: 49px;
-  top: 10%;
+  top: 18%;
   height: 49px;
   width: 392px;
   margin-left: 5%;
@@ -392,7 +451,7 @@ h1 {
 
 .search-input {
   position: absolute;
-  top: 20%;
+  top: 28%;
   height: 57px;
   width: 713px;
   border-radius: 4px;
@@ -404,7 +463,7 @@ h1 {
 }
 .search-button {
   position: absolute;
-  top: 20%;
+  top: 28%;
   right: 25%;
   height: 63px;
   width: 233px;
@@ -468,8 +527,88 @@ h1 {
   color: #ffffff;
 }
 
+.view-movie-details {
+  position: relative;
+  display: flex;
+  width: 1140px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  /* height: 600px; */
+  z-index: 3;
+  background-color: var(--black-bg-color);
+  color: var(--white-bg-color);
+}
+
+.view-movie-details img {
+  height: 500px;
+  width: 300px;
+  border-radius: 0px;
+  margin-left: 16.2%;
+  margin-right: 5%;
+  margin-top: 3%;
+}
+
+.view-movie-details div {
+  margin-top: 1%;
+}
+
+.view-movie-details-title {
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 49px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.view-movie-details-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px var(--white-bg-color);
+  border-style: groove;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.view-movie-details-header {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+
+.view-movie-details-header div {
+  margin-right: 10px;
+}
+
+.view-movie-details-overview {
+  text-transform: none;
+}
+.view-movie-details-movie-info {
+  color: var(--pirple-bg-color);
+}
+
+.view-movie-details-movie-info div {
+  margin-right: 100px;
+  text-transform: none;
+}
+
+.view-movie-details-search {
+  /* transform: translateX(5100%); */
+  width: 29px;
+  height: 22px;
+}
+
+.view-movie-details-search img {
+  transform: translateX(3850%);
+  width: 29px;
+  height: 22px;
+}
+
 .window-overlay {
-  visibility: hidden;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -480,4 +619,38 @@ h1 {
   z-index: 1;
   overflow: hidden;
   opacity: 0.5;
+}
+
+*:focus {
+  outline: none;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 0;
+  padding: 10px;
+  margin: -5px -20px -5px -5px;
+}
+
+select option:hover {
+  background-color: #f65261;
+}
+
+select option:checked {
+  background-color: var(--black-bg-color);
+  border-bottom: var(--pirple-bg-color);
+  border-bottom-style: solid;
+}
+
+#menu-panel-genres select option {
+  display: inline-block;
+}
+
+#menu-panel-genres {
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  z-index: 3;
 }

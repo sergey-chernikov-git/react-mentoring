@@ -1,16 +1,8 @@
 import React from 'react';
-import { hideElementById } from './../logic/elementOperations.js';
 
 export const LoginForm = () => {
   return (
     <>
-      <div
-        className="window-overlay"
-        id="login-window-overlay"
-        onClick={(e) => {
-          hideElementById(e.currentTarget.id);
-        }}
-      ></div>
       <div className="login-form" id="login-form">
         <div>Log In</div>
         <div>
@@ -27,7 +19,7 @@ export const LoginForm = () => {
             className="submit-button"
             type="submit"
             value="Log In"
-            onClick={() => hideElementById('movie-add')}
+            // onClick={() => hideElementById('movie-add')}
           ></input>
         </div>
       </div>
