@@ -659,3 +659,43 @@ select option:checked {
   overflow: hidden;
   z-index: 3;
 }
+
+.movie-confirm-dialog {
+  position: fixed;
+  transform: translate(5%, -100%);
+  width:  686px;
+  height: 352px;
+  background-color: var(--black-bg-color);
+  z-index: 5;
+}
+
+.movie-confirm-dialog h1 {
+  position: fixed;
+  transform: translate(60%, 40%);
+}
+
+.movie-confirm-dialog h3 {
+  position: fixed;
+  transform: translate(47%, 700%);
+  color: var(--white-bg-color);
+  text-transform: none;
+}
+
+.movie-confirm-dialog h4 {
+  position: fixed;
+  left: 95%;
+  color: var(--white-bg-color);
+  text-transform: none;
+}
+
+.movie-confirm-dialog input{
+  position: fixed;
+  top: 80%;
+  left: 70%;
+  background-color: var(--pirple-bg-color); 
+  width:180px;
+  height:57px;
+  border-radius:4px;
+  color: var(--white-bg-color);
+  text-transform: uppercase;
+}
