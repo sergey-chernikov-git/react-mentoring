@@ -1,6 +1,6 @@
-import React, { useState, Dispatch } from 'react';
+import React, { useState } from 'react';
 import { useMovie } from '../hooks/useMovie';
-import PropTypes from 'prop-types';
+
 import { MovieOperation } from './MovieOperation';
 
 import { useDispatch } from 'react-redux';
