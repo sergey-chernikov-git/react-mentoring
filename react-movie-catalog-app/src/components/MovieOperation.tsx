@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { getGenresList } from '../util/dictionary/dictionary';
 import { TMovieOperationProps } from '../ts-types/props';
 import { TMovie, TMovieBase } from '../ts-types/movie';
-import { Formik, Form , useFormik} from 'formik';
-import { MovieSchema } from '../validation/MovieSchema'
+import { Formik, Form, useFormik } from 'formik';
+import { MovieSchema } from '../validation/MovieSchema';
 import { FormField } from './FormField';
 
 export const MovieOperation = ({
@@ -16,7 +16,6 @@ export const MovieOperation = ({
   const [genreList, setGenreList] = useState(movie ? movie.genres : []);
 
   const [genres] = useState(getGenresList());
- 
 
   const genreSelectorHandler = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
@@ -61,26 +60,26 @@ export const MovieOperation = ({
         runtime: Number(0),
         overview: ''
       };
-    
-    const formik = useFormik({
-        initialValues : {
-          ...movieObj,
-          genreList: genreList,
-        },
-        onSubmit : values => {
-          operationHandler({
-            ...movieObj,
-            title: values.title,
-            release_date: values.release_date,
-            vote_average: Number(values.vote_average),
-            poster_path: values.poster_path,
-            genres: values.genreList,
-            runtime: Number(values.runtime),
-            overview: values.overview
-          });
-          closeWindow();
-        },
-    });
+
+  const formik = useFormik({
+    initialValues: {
+      ...movieObj,
+      genreList: genreList
+    },
+    onSubmit: (values) => {
+      operationHandler({
+        ...movieObj,
+        title: values.title,
+        release_date: values.release_date,
+        vote_average: Number(values.vote_average),
+        poster_path: values.poster_path,
+        genres: values.genreList,
+        runtime: Number(values.runtime),
+        overview: values.overview
+      });
+      closeWindow();
+    }
+  });
 
   const genreSelectorElem = (
     <div>
@@ -123,10 +122,10 @@ export const MovieOperation = ({
         <Formik
           initialValues={{
             ...movieObj,
-            genreList: genreList,
+            genreList: genreList
           }}
           validationSchema={MovieSchema}
-          onSubmit={(values, actions) => {
+          onSubmit={values => {
             operationHandler({
               ...movieObj,
               title: values.title,
@@ -140,7 +139,7 @@ export const MovieOperation = ({
             closeWindow();
           }}
         >
-          {({resetForm }) => (
+          {({ resetForm }) => (
             <Form id="movie-form">
               <div className="movie-preview-context-menu-close" onClick={() => closeWindow()}>
                 X
@@ -149,12 +148,7 @@ export const MovieOperation = ({
                 <h1>{movie ? 'Edit ' : 'Add '}Movie</h1>
               </div>
               <div>
-                <FormField
-                  name="title"
-                  type="text"
-                  className="wide-input"
-                  label="Title"
-                />
+                <FormField name="title" type="text" className="wide-input" label="Title" />
                 <FormField
                   name="release_date"
                   type="date"
