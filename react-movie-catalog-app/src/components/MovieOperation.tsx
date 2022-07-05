@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { getGenresList } from '../util/dictionary/dictionary';
 import { TMovieOperationProps } from '../ts-types/props';
 import { TMovie, TMovieBase } from '../ts-types/movie';
-import { Formik, Form } from 'formik';
+import { Formik, Form , useFormik} from 'formik';
 import { MovieSchema } from '../validation/MovieSchema'
 import { FormField } from './FormField';
 
@@ -16,6 +16,7 @@ export const MovieOperation = ({
   const [genreList, setGenreList] = useState(movie ? movie.genres : []);
 
   const [genres] = useState(getGenresList());
+ 
 
   const genreSelectorHandler = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
@@ -60,6 +61,26 @@ export const MovieOperation = ({
         runtime: Number(0),
         overview: ''
       };
+    
+    const formik = useFormik({
+        initialValues : {
+          ...movieObj,
+          genreList: genreList,
+        },
+        onSubmit : values => {
+          operationHandler({
+            ...movieObj,
+            title: values.title,
+            release_date: values.release_date,
+            vote_average: Number(values.vote_average),
+            poster_path: values.poster_path,
+            genres: values.genreList,
+            runtime: Number(values.runtime),
+            overview: values.overview
+          });
+          closeWindow();
+        },
+    });
 
   const genreSelectorElem = (
     <div>
@@ -119,7 +140,7 @@ export const MovieOperation = ({
             closeWindow();
           }}
         >
-          {({ errors, touched, resetForm }) => (
+          {({resetForm }) => (
             <Form id="movie-form">
               <div className="movie-preview-context-menu-close" onClick={() => closeWindow()}>
                 X
@@ -133,16 +154,12 @@ export const MovieOperation = ({
                   type="text"
                   className="wide-input"
                   label="Title"
-                  errors={errors}
-                  touched={touched}
                 />
                 <FormField
                   name="release_date"
                   type="date"
                   className="tight-input"
                   label="Release Date"
-                  errors={errors}
-                  touched={touched}
                 />
               </div>
               <div>
@@ -152,8 +169,6 @@ export const MovieOperation = ({
                   placeholder="http://testhos.com/poster.jpg"
                   className="wide-input"
                   label="Movie URL"
-                  errors={errors}
-                  touched={touched}
                 />
                 <FormField
                   name="vote_average"
@@ -161,8 +176,6 @@ export const MovieOperation = ({
                   placeholder="7.8"
                   className="tight-input"
                   label="Rating"
-                  errors={errors}
-                  touched={touched}
                 />
               </div>
               <div>
@@ -171,8 +184,6 @@ export const MovieOperation = ({
                   type="text"
                   className="wide-input"
                   label="Genres"
-                  errors={errors}
-                  touched={touched}
                   value={genreList.join(', ')}
                   onClick={() => setContextMenu(!contextMenu)}
                 />
@@ -182,8 +193,6 @@ export const MovieOperation = ({
                   placeholder="120"
                   className="tight-input"
                   label="Runtime"
-                  errors={errors}
-                  touched={touched}
                 />
               </div>
               {contextMenu ? genreSelectorElem : null}
@@ -193,8 +202,6 @@ export const MovieOperation = ({
                   type="text"
                   className="text-box-input"
                   label="Overview"
-                  errors={errors}
-                  touched={touched}
                   cols={40}
                   rows={5}
                   as="textarea"
