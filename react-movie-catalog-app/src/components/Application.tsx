@@ -8,8 +8,14 @@ import { MoviesContext } from '../context/MoviesContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMovies, operateMovie } from '../store/thunks';
 import { TMovie, TMoviesState, TMovies, TDictionary } from '../ts-types/movie';
+import { useParams, useSearchParams } from 'react-router-dom';
 
-export const Application = () => {
+  
+
+export const Application = () => {  
+  const {searchQuery} = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  
   const movies: TMovies = useSelector((state: TMoviesState) => state.movies);
   const genres: TDictionary = useSelector((state: TMoviesState) => state.genres);
   const sortList: TDictionary = useSelector((state: TMoviesState) => state.sortList);
@@ -24,6 +30,14 @@ export const Application = () => {
   const [search, setSearch] = useState(true);
   const [preview, setPreview] = useState(false);
   const [movie, setMovie] = useState({});
+
+  if (searchQuery) {
+    dispatch(
+      fetchMovies({
+        title: searchQuery
+      })
+    )
+  }
 
   useEffect(() => {
     dispatch(fetchMovies({}));
@@ -89,9 +103,10 @@ export const Application = () => {
   );
 
   return (
+    
     <MoviesContext.Provider value={movies}>
       {/* <LoginForm /> */}
-      {search ? <SearchBar /> : null}
+      {search ? <SearchBar searchQuery={searchQuery} /> : null}
       {preview ? (
         <MoviePreviewDetails movie={movie as TMovie} searchMovie={searchMovieHandler} />
       ) : null}
