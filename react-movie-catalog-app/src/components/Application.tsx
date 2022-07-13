@@ -17,6 +17,7 @@ export const Application = () => {
   const [queryParams, setQueryParams] = useSearchParams();
 
   const  sortBy = queryParams.get('sortBy');
+  const  genre = queryParams.get('genre');
   const  movieId = queryParams.get('movie');
   console.log(sortBy, )
 
@@ -42,6 +43,14 @@ export const Application = () => {
         title: searchQuery
       })
     )
+  }
+
+  if(sortBy) {    
+    dispatch(fetchMovies({ sortRule: sortBy }));
+  }
+
+  if(genre) {    
+    dispatch(fetchMovies({ genre: genre }));
   }
 
   useEffect(() => {
