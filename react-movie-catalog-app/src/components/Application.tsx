@@ -7,7 +7,7 @@ import { Notification } from './Notification';
 import { MoviesContext } from '../context/MoviesContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMovies, operateMovie } from '../store/thunks';
-import { TMovie, TMoviesState, TMovies, TKeyValue, TDictionary } from '../ts-types/movie';
+import { TMovie, TMoviesState, TMovies, TDictionary } from '../ts-types/movie';
 
 export const Application = () => {
   const movies: TMovies = useSelector((state: TMoviesState) => state.movies);
