@@ -19,10 +19,9 @@ export const Application = () => {
   const  sortBy = queryParams.get('sortBy');
   const  genre = queryParams.get('genre');
   const  movieId = queryParams.get('movie');
-  console.log(sortBy, )
-
 
   const movies: TMovies = useSelector((state: TMoviesState) => state.movies);
+  const movie: TMovie = useSelector((state: TMoviesState) => state.movie);
   const genres: TDictionary = useSelector((state: TMoviesState) => state.genres);
   const sortList: TDictionary = useSelector((state: TMoviesState) => state.sortList);
   const error: boolean = useSelector((state: TMoviesState) => state.error);
@@ -35,7 +34,7 @@ export const Application = () => {
   const [errorNotification, setErrorNotification] = useState(false);
   const [search, setSearch] = useState(true);
   const [preview, setPreview] = useState(false);
-  const [movie, setMovie] = useState({});
+  const [isLoaded, setLoaded] = useState(false);
 
   if (searchQuery) {
     dispatch(
@@ -47,6 +46,18 @@ export const Application = () => {
 
   if(sortBy) {    
     dispatch(fetchMovies({ sortRule: sortBy }));
+  }
+
+  if(movieId && !isLoaded) {    
+    dispatch(fetchMovies({ movieId: movieId }));
+    console.log("movie: ",movie)
+    
+    if (movie) {
+      setLoaded(true);
+      setPreview(true);
+      setSearch(false);
+    }   
+    
   }
 
   if(genre) {    
@@ -62,8 +73,8 @@ export const Application = () => {
   }, [error]);
 
   const previewMovieHandler = useCallback(
-    (movie: TMovie) => {
-      setMovie(movie);
+    (movieId: string) => {
+      dispatch(fetchMovies({ movieId: movieId }));
       setPreview(true);
       setSearch(false);
       window.scrollTo(0, 0);

@@ -73,7 +73,7 @@ export const MoviePreview = ({ movie, viewMovie }: TMoviePreviewProps) => {
         <img
           src={poster_path}
           onContextMenu={(e) => contextMenuHandler(e)}
-          onClick={() => viewMovie(movie)}
+          onClick={() => viewMovie(movie.id)}
         ></img>
         <div>
           <div className="movie-preview-title">{title}</div>
