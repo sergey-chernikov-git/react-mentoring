@@ -12,6 +12,7 @@ import { movieReducer } from './store/reducers';
 
 import { Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
 import { SearchBar } from './components/SearchBar';
+import { PageNotFound } from './components/PageNotFound';
 
 const store = createStore(movieReducer, applyMiddleware(thunk));
 
@@ -22,6 +23,7 @@ root.render(
     <ErrorBoundary FallbackComponent={ApplicationPageFallbackComponent}>
       <BrowserRouter>
         <Routes>
+          <Route path='*' element={<PageNotFound />} />
           <Route  path="/" element={<Navigate to="/search" replace />}/> 
           <Route  path="/search" element={<Application/> }/>
           <Route  path="/search/:searchQuery" element={<Application/> }/>

@@ -14,8 +14,13 @@ import { useParams, useSearchParams } from 'react-router-dom';
 
 export const Application = () => {  
   const {searchQuery} = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-  
+  const [queryParams, setQueryParams] = useSearchParams();
+
+  const  sortBy = queryParams.get('sortBy');
+  const  movieId = queryParams.get('movie');
+  console.log(sortBy, )
+
+
   const movies: TMovies = useSelector((state: TMoviesState) => state.movies);
   const genres: TDictionary = useSelector((state: TMoviesState) => state.genres);
   const sortList: TDictionary = useSelector((state: TMoviesState) => state.sortList);
