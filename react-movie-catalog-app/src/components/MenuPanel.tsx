@@ -1,10 +1,5 @@
-import React, { Dispatch } from 'react';
-
-import { useDispatch } from 'react-redux';
-
+import React from 'react';
 import { useNavigate } from "react-router-dom";
-
-import { fetchMovies } from '../store/thunks';
 import { TMenuPanelProps } from '../ts-types/props'; 
 import { useSearchParams } from 'react-router-dom'; 
 
