@@ -11,7 +11,6 @@ import thunk from 'redux-thunk';
 import { movieReducer } from './store/reducers';
 
 import { Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
-import { SearchBar } from './components/SearchBar';
 import { PageNotFound } from './components/PageNotFound';
 
 const store = createStore(movieReducer, applyMiddleware(thunk));

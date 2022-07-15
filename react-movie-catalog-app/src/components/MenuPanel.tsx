@@ -12,7 +12,6 @@ export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
   const [queryParams, setQueryParams] = useSearchParams();
   const  sortBy = queryParams.get('sortBy');
   const  genre = queryParams.get('genre');
-  const dispatch: Function = useDispatch();
   const navigate = useNavigate();
   return (
     <>
@@ -20,7 +19,7 @@ export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
       <div className="menu-panel">
         <div className="gender-menu-panel">
           <div id="menu-panel-genres">
-            <select size={genres.length} defaultValue={genres[0].value} value={genre}>
+            <select size={genres.length}  value={ genre || genres[0].value } onChange={(e) => navigate(`/search?genre=${genre}`)}>
               {genres.map((genre) => {
                 return (
                   <React.Fragment key={genre.key}>
@@ -45,7 +44,7 @@ export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
                 onChange={(e) => {
                   navigate(`/search?sortBy=${e.target.value}`);
                 }}
-                value={sortBy}
+                value={sortBy || "" }
               >
                 {sortList.map((el) => {
                   return (

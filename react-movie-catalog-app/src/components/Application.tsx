@@ -8,13 +8,15 @@ import { MoviesContext } from '../context/MoviesContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMovies, operateMovie } from '../store/thunks';
 import { TMovie, TMoviesState, TMovies, TDictionary } from '../ts-types/movie';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 
   
 
 export const Application = () => {  
   const {searchQuery} = useParams();
   const [queryParams, setQueryParams] = useSearchParams();
+
+  const navigate = useNavigate();
 
   const  sortBy = queryParams.get('sortBy');
   const  genre = queryParams.get('genre');
@@ -50,7 +52,6 @@ export const Application = () => {
 
   if(movieId && !isLoaded) {    
     dispatch(fetchMovies({ movieId: movieId }));
-    console.log("movie: ",movie)
     
     if (movie) {
       setLoaded(true);
@@ -88,6 +89,7 @@ export const Application = () => {
   };
 
   const searchMovieHandler = () => {
+    navigate(`/search`)
     setPreview(false);
     setSearch(true);
     window.scrollTo(0, 0);
@@ -132,7 +134,7 @@ export const Application = () => {
     <MoviesContext.Provider value={movies}>
       {/* <LoginForm /> */}
       {search ? <SearchBar searchQuery={searchQuery} /> : null}
-      {preview ? (
+      {preview && movie? (
         <MoviePreviewDetails movie={movie as TMovie} searchMovie={searchMovieHandler} />
       ) : null}
       <div>
