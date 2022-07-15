@@ -5,6 +5,7 @@ import { useSearchParams, useLocation} from 'react-router-dom';
 
 export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
   const [queryParams, setQueryParams] = useSearchParams();
+
   const  sortBy = queryParams.get('sortBy');
   const  genre = queryParams.get('genre');
   const location = useLocation()
@@ -15,7 +16,7 @@ export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
       <div className="menu-panel">
         <div className="gender-menu-panel">
           <div id="menu-panel-genres">
-            <select size={genres.length}  value={ genre || genres[0].value }>
+            <select size={genres.length}  value={ genre || genres[0].value } onChange={()=>{}}>
               {genres.map((genre) => {
                 return (
                   <React.Fragment key={genre.key}>
