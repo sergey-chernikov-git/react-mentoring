@@ -7,7 +7,10 @@ const baseUrl = 'http://localhost:4000';
 
 export const fetchMovies = ({ page, genre, sortRule, title, movieId }: TFetchMovieInput): Function => {
   let queryParams = [`limit=${limit}`];
-  let fetchParams = {};
+  let fetchParams = {
+    method: 'GET'
+  };
+
   let url = `${baseUrl}/movies`
 
   if (page) {
@@ -40,22 +43,20 @@ export const fetchMovies = ({ page, genre, sortRule, title, movieId }: TFetchMov
 
   if (title) {
     queryParams.push(`searchBy=title&search=${title}`);
-    fetchParams = {
-      method: 'GET'
-    };
   }
 
   if (sortRule) {
     let sortBy = sortRule === Sort.Title ? 'title' : 'release_date';
     let sortOrder = Sort.Title ? 'asc' : 'desc';
     queryParams.push(`sortBy=${sortBy}&sortOrder=${sortOrder}`);
-    fetchParams = {
-      method: 'GET'
-    };
   }
 
+  const fetchUrl=`${url}?${queryParams.join('&')}`
+
+  console.log(fetchUrl)
+
   return (dispatch: Function) => {
-    fetch(`${url}?${queryParams.join('&')}`, fetchParams)
+    fetch(fetchUrl, fetchParams)
       .then((response) => response.json())
       .then((json) => {
         dispatch({

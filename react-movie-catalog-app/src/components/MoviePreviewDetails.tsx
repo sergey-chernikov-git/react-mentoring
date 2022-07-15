@@ -17,8 +17,7 @@ export const MoviePreviewDetails = ({ movie, searchMovie }: TMoviePreviewDetails
   };
 
   useEffect(()=>{
-    console.log("location", location)
-    navigate(`/search?movie=${movie.id}`)
+    navigate(location.pathname+location.search)
   },[])
 
   const extractYear = (val: string): string => {

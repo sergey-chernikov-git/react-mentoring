@@ -38,36 +38,34 @@ export const Application = () => {
   const [preview, setPreview] = useState(false);
   const [isLoaded, setLoaded] = useState(false);
 
-  if (searchQuery) {
-    dispatch(
-      fetchMovies({
-        title: searchQuery
-      })
-    )
-  }
-
-  if(sortBy) {    
-    dispatch(fetchMovies({ sortRule: sortBy }));
-  }
-
   if(movieId && !isLoaded) {    
-    dispatch(fetchMovies({ movieId: movieId }));
-    
+    dispatch(fetchMovies({ movieId: movieId }));    
     if (movie) {
       setLoaded(true);
       setPreview(true);
       setSearch(false);
-    }   
-    
-  }
+    }       
+  }  
 
-  if(genre) {    
-    dispatch(fetchMovies({ genre: genre }));
-  }
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchMovies({
+  //       title: searchQuery,
+  //       genre: genre,
+  //       sortRule: sortBy
+  //     })
+  //   )
+  // }, []);
 
   useEffect(() => {
-    dispatch(fetchMovies({}));
-  }, []);
+    dispatch(
+      fetchMovies({
+        title: searchQuery,
+        genre: genre,
+        sortRule: sortBy
+      })
+    )
+  }, [searchQuery,genre,sortBy]);
 
   useEffect(() => {
     setErrorNotification(error);
