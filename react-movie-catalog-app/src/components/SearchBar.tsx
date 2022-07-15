@@ -20,7 +20,7 @@ export const SearchBar = ({searchQuery} : {searchQuery: string}) => {
           <input className="search-input" id="search-input-value" defaultValue={searchVal} onChange={(e) =>  setSearchVal(e.target.value)}></input>
           <button
             className="search-button"
-            onClick={() =>  navigate(`/search/${(document.getElementById('search-input-value') as HTMLInputElement).value}`)}>
+            onClick={() =>  navigate(`/search/${(document.getElementById('search-input-value') as HTMLInputElement).value}${location.search}`)}>
             Search
           </button>
         </div>
