@@ -33,7 +33,7 @@ export const MoviePreviewDetails = ({ movie, searchMovie }: TMoviePreviewDetails
         <div>
           <div className="view-movie-details-header">
             <div className="view-movie-details-title">{title}</div>
-            <div className="view-movie-details-rating">{vote_average as ReactNode}</div>
+            <div className="view-movie-details-rating">{vote_average}</div>
           </div>
           <div className="movie-preview-gender">{genres.join(' & ')}</div>
         </div>

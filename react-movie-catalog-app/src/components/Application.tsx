@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchMovies, operateMovie } from '../store/thunks';
 import { TMovie, TMoviesState, TMovies, TDictionary } from '../ts-types/movie';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
+import { Spinner } from './Spinner';
 
   
 
@@ -22,12 +23,8 @@ export const Application = () => {
   const  genre = queryParams.get('genre');
   const  movieId = queryParams.get('movie');
 
-  const movies: TMovies = useSelector((state: TMoviesState) => state.movies);
-  const movie: TMovie = useSelector((state: TMoviesState) => state.movie);
-  const genres: TDictionary = useSelector((state: TMoviesState) => state.genres);
-  const sortList: TDictionary = useSelector((state: TMoviesState) => state.sortList);
-  const error: boolean = useSelector((state: TMoviesState) => state.error);
-  const errorDesc: string = useSelector((state: TMoviesState) => state.errorDesc);
+  const {movies, movie, genres, sortList, error, errorDesc} = useSelector((state: TMoviesState) => state)
+
   const dispatch: Function = useDispatch();
 
   const [deleteNotification, setDeleteNotification] = useState(false);
@@ -47,16 +44,6 @@ export const Application = () => {
     }       
   }  
 
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchMovies({
-  //       title: searchQuery,
-  //       genre: genre,
-  //       sortRule: sortBy
-  //     })
-  //   )
-  // }, []);
-
   useEffect(() => {
     dispatch(
       fetchMovies({
@@ -65,6 +52,7 @@ export const Application = () => {
         sortRule: sortBy
       })
     )
+    setLoaded(true)
   }, [searchQuery,genre,sortBy]);
 
   useEffect(() => {
@@ -137,7 +125,7 @@ export const Application = () => {
       ) : null}
       <div>
         <MenuPanel genres={genres} sortList={sortList} />
-        <MoviesPreview addMovie={addMovieHandler} viewMovie={previewMovieHandler} />
+        { isLoaded ? <MoviesPreview addMovie={addMovieHandler} viewMovie={previewMovieHandler} /> : <Spinner/>}
         {deleteNotification ? movieDeleteNotificationElem : null}
         {errorNotification ? movieErrorNotificationElem : null}
         {addNotification ? movieAddNotificationElem : null}

@@ -22,7 +22,7 @@ export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
                   <React.Fragment key={genre.key}>
                     <option
                       className="menu-panel-gender" 
-                      onClick={(e) =>  navigate(`${location.pathname}?sortBy=${sortBy}genre=${(e.target as HTMLHtmlElement).textContent}`)}
+                      onClick={(e) =>  navigate(`${location.pathname}?sortBy=${sortBy}&genre=${(e.target as HTMLHtmlElement).textContent}`)}
                     >
                       {genre.value}
                     </option>
