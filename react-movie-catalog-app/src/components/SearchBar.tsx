@@ -11,12 +11,6 @@ export const SearchBar = ({searchQuery} : {searchQuery: string}) => {
     navigate(`${location.pathname}${location.search}`)
   },[])
 
-  const handleKeyDown = (event: any) => {
-    if(event.keyCode === 13) { 
-      navigateToSearch()
-    }
-  }
-
   const navigateToSearch = () => {
     navigate(`/search/${(document.getElementById('search-input-value') as HTMLInputElement).value}${location.search}`)
   }
@@ -26,14 +20,14 @@ export const SearchBar = ({searchQuery} : {searchQuery: string}) => {
       <div className="search-bar-background"></div>
       <div className="search-bar">
         <h1 className="search-title">Find your movie</h1>
-        <div className="search-panel">
-          <input className="search-input" id="search-input-value" defaultValue={searchVal} onKeyDown={handleKeyDown} onChange={(e) =>  setSearchVal(e.target.value)}></input>
+        <form className="search-panel" onSubmit={() =>  navigateToSearch()}>
+          <input className="search-input" id="search-input-value" defaultValue={searchVal}  onChange={(e) =>  setSearchVal(e.target.value)}></input>
           <button
-            className="search-button"
-            onClick={() =>  navigateToSearch()}>
+            type='submit'
+            className="search-button">
             Search
           </button>
-        </div>
+        </form>
       </div>
     </>
   );
