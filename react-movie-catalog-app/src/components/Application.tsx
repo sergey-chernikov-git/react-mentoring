@@ -8,13 +8,23 @@ import { MoviesContext } from '../context/MoviesContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMovies, operateMovie } from '../store/thunks';
 import { TMovie, TMoviesState, TMovies, TDictionary } from '../ts-types/movie';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
+import { Spinner } from './Spinner';
 
-export const Application = () => {
-  const movies: TMovies = useSelector((state: TMoviesState) => state.movies);
-  const genres: TDictionary = useSelector((state: TMoviesState) => state.genres);
-  const sortList: TDictionary = useSelector((state: TMoviesState) => state.sortList);
-  const error: boolean = useSelector((state: TMoviesState) => state.error);
-  const errorDesc: string = useSelector((state: TMoviesState) => state.errorDesc);
+  
+
+export const Application = () => {  
+  const {searchQuery} = useParams();
+  const [queryParams, setQueryParams] = useSearchParams();
+
+  const navigate = useNavigate();
+
+  const  sortBy = queryParams.get('sortBy');
+  const  genre = queryParams.get('genre');
+  const  movieId = queryParams.get('movie');
+
+  const {movies, movie, genres, sortList, error, errorDesc} = useSelector((state: TMoviesState) => state)
+
   const dispatch: Function = useDispatch();
 
   const [deleteNotification, setDeleteNotification] = useState(false);
@@ -23,19 +33,35 @@ export const Application = () => {
   const [errorNotification, setErrorNotification] = useState(false);
   const [search, setSearch] = useState(true);
   const [preview, setPreview] = useState(false);
-  const [movie, setMovie] = useState({});
+  const [isLoaded, setLoaded] = useState(false);
+
+  if(movieId && !isLoaded) {    
+    dispatch(fetchMovies({ movieId: movieId }));    
+    if (movie) {
+      setLoaded(true);
+      setPreview(true);
+      setSearch(false);
+    }       
+  }  
 
   useEffect(() => {
-    dispatch(fetchMovies({}));
-  }, []);
+    dispatch(
+      fetchMovies({
+        title: searchQuery,
+        genre: genre,
+        sortRule: sortBy
+      })
+    )
+    setLoaded(true)
+  }, [searchQuery,genre,sortBy]);
 
   useEffect(() => {
     setErrorNotification(error);
   }, [error]);
 
   const previewMovieHandler = useCallback(
-    (movie: TMovie) => {
-      setMovie(movie);
+    (movieId: string) => {
+      dispatch(fetchMovies({ movieId: movieId }));
       setPreview(true);
       setSearch(false);
       window.scrollTo(0, 0);
@@ -49,6 +75,7 @@ export const Application = () => {
   };
 
   const searchMovieHandler = () => {
+    navigate(`/search`)
     setPreview(false);
     setSearch(true);
     window.scrollTo(0, 0);
@@ -89,15 +116,16 @@ export const Application = () => {
   );
 
   return (
+    
     <MoviesContext.Provider value={movies}>
       {/* <LoginForm /> */}
-      {search ? <SearchBar /> : null}
-      {preview ? (
+      {search ? <SearchBar searchQuery={searchQuery} /> : null}
+      {preview && movie? (
         <MoviePreviewDetails movie={movie as TMovie} searchMovie={searchMovieHandler} />
       ) : null}
       <div>
         <MenuPanel genres={genres} sortList={sortList} />
-        <MoviesPreview addMovie={addMovieHandler} viewMovie={previewMovieHandler} />
+        { isLoaded ? <MoviesPreview addMovie={addMovieHandler} viewMovie={previewMovieHandler} /> : <Spinner/>}
         {deleteNotification ? movieDeleteNotificationElem : null}
         {errorNotification ? movieErrorNotificationElem : null}
         {addNotification ? movieAddNotificationElem : null}

@@ -1,27 +1,28 @@
-import React, { Dispatch } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-
-import { fetchMovies } from '../store/thunks';
-import { TMenuPanelProps } from '../ts-types/props';
+import React from 'react';
+import { useNavigate } from "react-router-dom";
+import { TMenuPanelProps } from '../ts-types/props'; 
+import { useSearchParams, useLocation} from 'react-router-dom'; 
 
 export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
-  const dispatch: Function = useDispatch();
+  const [queryParams, setQueryParams] = useSearchParams();
+
+  const  sortBy = queryParams.get('sortBy');
+  const  genre = queryParams.get('genre');
+  const location = useLocation()
+  const navigate = useNavigate();
   return (
     <>
       <div className="horisontal-line"></div>
       <div className="menu-panel">
         <div className="gender-menu-panel">
           <div id="menu-panel-genres">
-            <select size={genres.length} defaultValue={genres[0].value}>
+            <select size={genres.length}  value={ genre || genres[0].value } onChange={()=>{}}>
               {genres.map((genre) => {
                 return (
                   <React.Fragment key={genre.key}>
                     <option
-                      className="menu-panel-gender"
-                      onClick={(e) =>
-                        dispatch(fetchMovies({ genre: (e.target as HTMLElement).innerHTML }))
-                      }
+                      className="menu-panel-gender" 
+                      onClick={(e) =>  navigate(`${location.pathname}?sortBy=${sortBy}&genre=${(e.target as HTMLHtmlElement).textContent}`)}
                     >
                       {genre.value}
                     </option>
@@ -38,8 +39,9 @@ export const MenuPanel = ({ genres, sortList }: TMenuPanelProps) => {
                 id="dropdown-sorting-content"
                 name="genres"
                 onChange={(e) => {
-                  dispatch(fetchMovies({ sortRule: e.target.value }));
+                  navigate(`${location.pathname}?sortBy=${e.target.value}&genre=${genre}`);
                 }}
+                value={sortBy || "" }
               >
                 {sortList.map((el) => {
                   return (
