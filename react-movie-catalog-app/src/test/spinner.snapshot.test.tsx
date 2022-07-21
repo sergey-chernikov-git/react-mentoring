@@ -1,8 +1,8 @@
-import * as React from 'react'
-import {Spinner} from '../components/Spinner'
-import renderer from 'react-test-renderer'
+import  React from 'react'
+import { Spinner } from '../components/Spinner'
+import {render, cleanup} from '@testing-library/react'
 
 it('renders correctly', () => {
-  const tree = renderer.create(<Spinner/>).toJSON()
-  expect(tree).toMatchSnapshot()
+  const { asFragment } = render(<Spinner/>)
+  expect(asFragment()).toMatchSnapshot()
 })
