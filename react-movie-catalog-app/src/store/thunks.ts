@@ -1,17 +1,30 @@
 import { TFetchMovieInput, TOperateMovieInput } from '../ts-types/function';
-import { GET_MOVIES, FETCH_ERROR, DEL_MOVIE, EDIT_MOVIE, ADD_MOVIE, GET_MOVIE } from '../util/consts/consts';
+import {
+  GET_MOVIES,
+  FETCH_ERROR,
+  DEL_MOVIE,
+  EDIT_MOVIE,
+  ADD_MOVIE,
+  GET_MOVIE
+} from '../util/consts/consts';
 import { Sort } from '../util/dictionary/dictionary';
 
 const limit = 10;
 const baseUrl = 'http://localhost:4000';
 
-export const fetchMovies = ({ page, genre, sortRule, title, movieId }: TFetchMovieInput): Function => {
+export const fetchMovies = ({
+  page,
+  genre,
+  sortRule,
+  title,
+  movieId
+}: TFetchMovieInput): Function => {
   let queryParams = [`limit=${limit}`];
   let fetchParams = {
     method: 'GET'
   };
 
-  let url = `${baseUrl}/movies`
+  let url = `${baseUrl}/movies`;
 
   if (page) {
     queryParams.push(`offset=${page * limit}`);
@@ -31,9 +44,6 @@ export const fetchMovies = ({ page, genre, sortRule, title, movieId }: TFetchMov
     };
   }
 
-
-  
-
   if (genre && genre !== 'All') {
     queryParams.push(`filter=${genre}`);
     fetchParams = {
@@ -51,9 +61,9 @@ export const fetchMovies = ({ page, genre, sortRule, title, movieId }: TFetchMov
     queryParams.push(`sortBy=${sortBy}&sortOrder=${sortOrder}`);
   }
 
-  const fetchUrl=`${url}?${queryParams.join('&')}`
+  const fetchUrl = `${url}?${queryParams.join('&')}`;
 
-  console.log(fetchUrl)
+  console.log(fetchUrl);
 
   return (dispatch: Function) => {
     fetch(fetchUrl, fetchParams)
@@ -62,7 +72,7 @@ export const fetchMovies = ({ page, genre, sortRule, title, movieId }: TFetchMov
         dispatch({
           type: GET_MOVIES,
           movies: json.data,
-          total: json.totalAmount,
+          total: json.totalAmount
         });
       })
       .catch((error) => _errorDispatch(dispatch, error));

@@ -1,16 +1,23 @@
 import { TMovie, TMoviesAction, TMoviesState } from '../ts-types/movie';
-import { ADD_MOVIE, GET_MOVIES, DEL_MOVIE, EDIT_MOVIE, FETCH_ERROR, GET_MOVIE } from '../util/consts/consts';
+import {
+  ADD_MOVIE,
+  GET_MOVIES,
+  DEL_MOVIE,
+  EDIT_MOVIE,
+  FETCH_ERROR,
+  GET_MOVIE
+} from '../util/consts/consts';
 import { getGenresList, getSortList } from '../util/dictionary/dictionary';
 
 const movieEmptyList: Array<TMovie> = [];
 
-const initialState : TMoviesState = {
+const initialState: TMoviesState = {
   sortList: getSortList(),
   genres: getGenresList(),
   movies: movieEmptyList,
   error: false,
   total: 0,
-  movie: null,
+  movie: null
 };
 
 export const movieReducer = (state = initialState, action: TMoviesAction) => {
@@ -22,10 +29,10 @@ export const movieReducer = (state = initialState, action: TMoviesAction) => {
         total: action.total
       };
     case GET_MOVIE:
-        return {
-          ...state,
-          movie: action.movie
-        };
+      return {
+        ...state,
+        movie: action.movie
+      };
     case ADD_MOVIE:
       return {
         ...state,

@@ -664,7 +664,7 @@ select option:checked {
 .movie-confirm-dialog {
   position: fixed;
   transform: translate(5%, -100%);
-  width:  686px;
+  width: 686px;
   height: 352px;
   background-color: var(--black-bg-color);
   z-index: 5;
@@ -689,19 +689,19 @@ select option:checked {
   text-transform: none;
 }
 
-.movie-confirm-dialog input{
+.movie-confirm-dialog input {
   position: fixed;
   top: 80%;
   left: 70%;
-  background-color: var(--pirple-bg-color); 
-  width:180px;
-  height:57px;
-  border-radius:4px;
+  background-color: var(--pirple-bg-color);
+  width: 180px;
+  height: 57px;
+  border-radius: 4px;
   color: var(--white-bg-color);
   text-transform: uppercase;
 }
 
-.page-not-found{
+.page-not-found {
   color: var(--white-bg-color);
   text-align: center;
   padding-top: 25%;
@@ -728,7 +728,6 @@ select option:checked {
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
-
 }
 .loader:before {
   width: 50%;

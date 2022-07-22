@@ -1,13 +1,13 @@
-import  React from 'react'
-import { PageNotFound } from '../../PageNotFound'
-import {render, cleanup} from '@testing-library/react'
+import React from 'react';
+import { PageNotFound } from '../../PageNotFound';
+import { render, cleanup } from '@testing-library/react';
 import { expect } from '@jest/globals';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
-describe("PageNotFound Snapshot Test Suit", () => {
+describe('PageNotFound Snapshot Test Suit', () => {
   test('renders correctly', () => {
-    const { asFragment } = render(<PageNotFound/>)
-    expect(asFragment()).toMatchSnapshot()
-  })
-})
+    const { asFragment } = render(<PageNotFound />);
+    expect(asFragment()).toMatchSnapshot();
+  });
+});

@@ -13,7 +13,7 @@ export const MoviePreview = ({ movie, viewMovie }: TMoviePreviewProps) => {
   const [contextMenu, setContextMenu] = useState(false);
   const { genres, poster_path, release_date, title } = useMovie(movie);
   const [editModalWindow, setEditModalWindow] = useState(false);
-  const [confirm, setConfirm] = useState(false)
+  const [confirm, setConfirm] = useState(false);
 
   const contextMenuHandler = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     e.preventDefault();
@@ -35,15 +35,27 @@ export const MoviePreview = ({ movie, viewMovie }: TMoviePreviewProps) => {
     />
   );
 
-  const confirmDialog =(
+  const confirmDialog = (
     <div className="movie-confirm-dialog">
-      <h4 onClick={()=>{setConfirm(false)}}>X</h4>
+      <h4
+        onClick={() => {
+          setConfirm(false);
+        }}
+      >
+        X
+      </h4>
       <h1>Delete Movie</h1>
       <h3>Are you sure you want to delete this movie?</h3>
-      <input type='button' value='Confirm' onClick={()=>{dispatch(operateMovie({ movie: movie, operation: 'delete' }))}}></input>
+      <input
+        type="button"
+        value="Confirm"
+        onClick={() => {
+          dispatch(operateMovie({ movie: movie, operation: 'delete' }));
+        }}
+      ></input>
     </div>
-    )
-  const contextMenuElem = (    
+  );
+  const contextMenuElem = (
     <div className="movie-preview-context-menu">
       <div
         className="movie-preview-context-menu-close"
@@ -58,10 +70,13 @@ export const MoviePreview = ({ movie, viewMovie }: TMoviePreviewProps) => {
       </div>
       <div
         className="movie-preview-context-menu-item"
-        onClick={() =>{
+        onClick={() => {
           setConfirm(true);
-          setContextMenu(false)
-        }}>Delete</div>
+          setContextMenu(false);
+        }}
+      >
+        Delete
+      </div>
     </div>
   );
 
