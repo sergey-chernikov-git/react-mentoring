@@ -1,6 +1,7 @@
 import  React from 'react'
-import { Spinner } from '../components/Spinner'
+import { Spinner } from '../Spinner'
 import { render, cleanup } from '@testing-library/react'
+import { expect } from '@jest/globals';
 
 afterEach(cleanup)
 

@@ -1,6 +1,7 @@
 import  React from 'react'
-import { MovieOperation } from '../components/MovieOperation'
+import { MovieOperation } from '../MovieOperation'
 import { render, cleanup } from '@testing-library/react'
+import { expect } from '@jest/globals';
 
 afterEach(cleanup)
 

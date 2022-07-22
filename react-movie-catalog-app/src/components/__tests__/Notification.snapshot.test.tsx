@@ -1,6 +1,7 @@
 import  React from 'react'
-import { Notification } from '../components/Notification'
+import { Notification } from '../Notification'
 import {render, cleanup} from '@testing-library/react'
+import { expect } from '@jest/globals';
 
 afterEach(cleanup)
 
