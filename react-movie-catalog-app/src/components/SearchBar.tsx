@@ -28,6 +28,7 @@ export const SearchBar = ({ searchQuery }: { searchQuery: string }) => {
           <input
             className="search-input"
             id="search-input-value"
+            data-testid="search-input-value"
             defaultValue={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
           ></input>
