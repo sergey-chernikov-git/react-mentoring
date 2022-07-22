@@ -1,7 +1,9 @@
-import  { movieReducer } from '../store/reducers'
-import  { GET_MOVIES, GET_MOVIE, ADD_MOVIE, DEL_MOVIE, EDIT_MOVIE, FETCH_ERROR } from '../util/consts/consts'
+import  { movieReducer } from '../../../store/reducers'
+import  { GET_MOVIES, GET_MOVIE, ADD_MOVIE, DEL_MOVIE, EDIT_MOVIE, FETCH_ERROR } from '../../../util/consts/consts'
 
-import { getGenresList, getSortList } from '../util/dictionary/dictionary';
+import { getGenresList, getSortList } from '../../../util/dictionary/dictionary';
+
+import { expect } from '@jest/globals';
 
 const initMovie = {
   id: 12,

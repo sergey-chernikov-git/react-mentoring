@@ -1,5 +1,5 @@
 import  React from 'react'
-import { PageNotFound } from '../PageNotFound'
+import { PageNotFound } from '../../PageNotFound'
 import {render, cleanup} from '@testing-library/react'
 import { expect } from '@jest/globals';
 
