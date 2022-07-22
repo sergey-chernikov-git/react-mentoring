@@ -9,7 +9,9 @@
     "build:test": "dotenv -e .env.test webpack",
     "build:prod": "dotenv -e .env.prod webpack",
     "format": "npx prettier --write . --config .prettierrc",
-    "test": "jest"
+    "test": "jest",
+    "test-e2e": "npx cypress run",
+    "cypress:open": "npx cypress open"
   },
   "author": "Sergey Chernikov",
   "license": "ISC",
@@ -40,6 +42,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^6.7.1",
+    "cypress": "^10.3.1",
     "dotenv": "^16.0.1",
     "dotenv-cli": "^5.1.0",
     "file-loader": "^6.2.0",
