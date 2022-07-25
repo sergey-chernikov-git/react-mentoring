@@ -24,17 +24,17 @@ describe('SearchBar Component Test Suit', () => {
   const searchText = 'Test Movie';
   
   
-  // test('Search Input Rendering ', () => {     
-  //   const route = '/'
-  //   render(
-  //     <MemoryRouter initialEntries={[route]}>
-  //       <Provider store={store}>
-  //         <SearchBar searchQuery={searchText} />
-  //       </Provider>
-  //     </MemoryRouter>);
-  //   const searchElement = screen.getByTestId("search-input-value");
-  //   expect(searchElement).toBeInTheDocument()
-  // });
+  test('Search Input Rendering ', () => {     
+    const route = '/'
+    render(
+      <MemoryRouter initialEntries={[route]}>
+        <Provider store={store}>
+          <SearchBar searchQuery={searchText} />
+        </Provider>
+      </MemoryRouter>);
+    const searchElement = screen.getByTestId("search-input-value");
+    expect(searchElement).toBeInTheDocument()
+  });
 
   test(`Search Input Text to be ${searchText} `, () => {
     const route = '/'
