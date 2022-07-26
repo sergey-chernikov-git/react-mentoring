@@ -125,7 +125,7 @@ export const MovieOperation = ({
             genreList: genreList
           }}
           validationSchema={MovieSchema}
-          onSubmit={values => {
+          onSubmit={(values) => {
             operationHandler({
               ...movieObj,
               title: values.title,

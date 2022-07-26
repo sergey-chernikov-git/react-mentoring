@@ -11,19 +11,19 @@ import { TMovie, TMoviesState, TMovies, TDictionary } from '../ts-types/movie';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { Spinner } from './Spinner';
 
-  
-
-export const Application = () => {  
-  const {searchQuery} = useParams();
+export const Application = () => {
+  const { searchQuery } = useParams();
   const [queryParams, setQueryParams] = useSearchParams();
 
   const navigate = useNavigate();
 
-  const  sortBy = queryParams.get('sortBy');
-  const  genre = queryParams.get('genre');
-  const  movieId = queryParams.get('movie');
+  const sortBy = queryParams.get('sortBy');
+  const genre = queryParams.get('genre');
+  const movieId = queryParams.get('movie');
 
-  const {movies, movie, genres, sortList, error, errorDesc} = useSelector((state: TMoviesState) => state)
+  const { movies, movie, genres, sortList, error, errorDesc } = useSelector(
+    (state: TMoviesState) => state
+  );
 
   const dispatch: Function = useDispatch();
 
@@ -35,14 +35,14 @@ export const Application = () => {
   const [preview, setPreview] = useState(false);
   const [isLoaded, setLoaded] = useState(false);
 
-  if(movieId && !isLoaded) {    
-    dispatch(fetchMovies({ movieId: movieId }));    
+  if (movieId && !isLoaded) {
+    dispatch(fetchMovies({ movieId: movieId }));
     if (movie) {
       setLoaded(true);
       setPreview(true);
       setSearch(false);
-    }       
-  }  
+    }
+  }
 
   useEffect(() => {
     dispatch(
@@ -51,9 +51,9 @@ export const Application = () => {
         genre: genre,
         sortRule: sortBy
       })
-    )
-    setLoaded(true)
-  }, [searchQuery,genre,sortBy]);
+    );
+    setLoaded(true);
+  }, [searchQuery, genre, sortBy]);
 
   useEffect(() => {
     setErrorNotification(error);
@@ -75,7 +75,7 @@ export const Application = () => {
   };
 
   const searchMovieHandler = () => {
-    navigate(`/search`)
+    navigate(`/search`);
     setPreview(false);
     setSearch(true);
     window.scrollTo(0, 0);
@@ -116,16 +116,19 @@ export const Application = () => {
   );
 
   return (
-    
     <MoviesContext.Provider value={movies}>
       {/* <LoginForm /> */}
       {search ? <SearchBar searchQuery={searchQuery} /> : null}
-      {preview && movie? (
+      {preview && movie ? (
         <MoviePreviewDetails movie={movie as TMovie} searchMovie={searchMovieHandler} />
       ) : null}
       <div>
         <MenuPanel genres={genres} sortList={sortList} />
-        { isLoaded ? <MoviesPreview addMovie={addMovieHandler} viewMovie={previewMovieHandler} /> : <Spinner/>}
+        {isLoaded ? (
+          <MoviesPreview addMovie={addMovieHandler} viewMovie={previewMovieHandler} />
+        ) : (
+          <Spinner />
+        )}
         {deleteNotification ? movieDeleteNotificationElem : null}
         {errorNotification ? movieErrorNotificationElem : null}
         {addNotification ? movieAddNotificationElem : null}

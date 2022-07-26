@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notification Snapshot Test Suit renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="notification"
+    id="notificationsuccess"
+  >
+    <div>
+      <img
+        src="Mocked File"
+      />
+    </div>
+    <h2>
+      Congratulations!
+    </h2>
+    <h4>
+      the movie has been succesfully updated
+    </h4>
+  </div>
+</DocumentFragment>
+`;
