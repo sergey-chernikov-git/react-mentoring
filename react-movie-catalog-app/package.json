@@ -2,7 +2,7 @@
   "name": "movie-catalog",
   "version": "1.0.0",
   "description": "React mentoring app",
-  "main": "index.js",
+  "main": "server/index.ts",
   "scripts": {
     "start": "dotenv -e .env.dev webpack-dev-server --open --hot",
     "build:dev": "dotenv -e .env.dev webpack",
@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
+    "express": "^4.18.1",
     "formik": "^2.2.9",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
