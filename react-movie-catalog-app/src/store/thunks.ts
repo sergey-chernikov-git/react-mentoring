@@ -1,16 +1,47 @@
 import { TFetchMovieInput, TOperateMovieInput } from '../ts-types/function';
-import { GET_MOVIES, FETCH_ERROR, DEL_MOVIE, EDIT_MOVIE, ADD_MOVIE } from '../util/consts/consts';
+import {
+  GET_MOVIES,
+  FETCH_ERROR,
+  DEL_MOVIE,
+  EDIT_MOVIE,
+  ADD_MOVIE,
+  GET_MOVIE
+} from '../util/consts/consts';
 import { Sort } from '../util/dictionary/dictionary';
 
 const limit = 10;
 const baseUrl = 'http://localhost:4000';
 
-export const fetchMovies = ({ page, genre, sortRule, title }: TFetchMovieInput): Function => {
+export const fetchMovies = ({
+  page,
+  genre,
+  sortRule,
+  title,
+  movieId
+}: TFetchMovieInput): Function => {
   let queryParams = [`limit=${limit}`];
-  let fetchParams = {};
+  let fetchParams = {
+    method: 'GET'
+  };
+
+  let url = `${baseUrl}/movies`;
 
   if (page) {
     queryParams.push(`offset=${page * limit}`);
+  }
+
+  if (movieId) {
+    return (dispatch: Function) => {
+      fetch(`${url}/${movieId}`)
+        .then((response) => response.json())
+        .then((json) => {
+          dispatch({
+            type: GET_MOVIE,
+            movie: json
+          });
+        })
+        .catch((error) => _errorDispatch(dispatch, error));
+    };
   }
 
   if (genre && genre !== 'All') {
@@ -22,22 +53,20 @@ export const fetchMovies = ({ page, genre, sortRule, title }: TFetchMovieInput):
 
   if (title) {
     queryParams.push(`searchBy=title&search=${title}`);
-    fetchParams = {
-      method: 'GET'
-    };
   }
 
   if (sortRule) {
     let sortBy = sortRule === Sort.Title ? 'title' : 'release_date';
     let sortOrder = Sort.Title ? 'asc' : 'desc';
     queryParams.push(`sortBy=${sortBy}&sortOrder=${sortOrder}`);
-    fetchParams = {
-      method: 'GET'
-    };
   }
 
+  const fetchUrl = `${url}?${queryParams.join('&')}`;
+
+  console.log(fetchUrl);
+
   return (dispatch: Function) => {
-    fetch(`${baseUrl}/movies?${queryParams.join('&')}`, fetchParams)
+    fetch(fetchUrl, fetchParams)
       .then((response) => response.json())
       .then((json) => {
         dispatch({

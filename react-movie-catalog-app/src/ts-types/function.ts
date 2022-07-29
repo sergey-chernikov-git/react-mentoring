@@ -5,6 +5,7 @@ export type TFetchMovieInput = {
   genre?: string;
   sortRule?: string;
   title?: string;
+  movieId?: string;
 };
 export type TOperateMovieInput = {
   movie: TMovie;

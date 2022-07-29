@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { getGenresList } from '../util/dictionary/dictionary';
 import { TMovieOperationProps } from '../ts-types/props';
 import { TMovie, TMovieBase } from '../ts-types/movie';
+import { Formik, Form, useFormik } from 'formik';
+import { MovieSchema } from '../validation/MovieSchema';
+import { FormField } from './FormField';
 
 export const MovieOperation = ({
   movie = null,
@@ -11,25 +13,9 @@ export const MovieOperation = ({
 }: TMovieOperationProps) => {
   const [contextMenu, setContextMenu] = useState(false);
   const [id] = useState(movie ? movie.id : null);
-  const [title, setTitle] = useState(movie ? movie.title : '');
-  const [release_date, setReleaseDate] = useState(movie ? movie.release_date : '');
-  const [poster_path, setPosterPath] = useState(movie ? movie.poster_path : '');
-  const [vote_average, setVoteAverage] = useState(movie ? movie.vote_average : '');
   const [genreList, setGenreList] = useState(movie ? movie.genres : []);
-  const [runtime, setRuntime] = useState(movie ? movie.runtime : '');
-  const [overview, setOverview] = useState(movie ? movie.overview : '');
 
   const [genres] = useState(getGenresList());
-
-  const onResetHandle = () => {
-    setTitle(movie ? movie.title : '');
-    setReleaseDate(movie ? movie.release_date : '');
-    setPosterPath(movie ? movie.poster_path : '');
-    setVoteAverage(movie ? movie.vote_average : '');
-    setGenreList(movie ? movie.genres : []);
-    setRuntime(movie ? movie.runtime : '');
-    setOverview(movie ? movie.overview : '');
-  };
 
   const genreSelectorHandler = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
@@ -54,26 +40,46 @@ export const MovieOperation = ({
     }
   };
 
-  const movieObj : TMovieBase | TMovie = id
+  let movieObj: TMovieBase | TMovie = id
     ? {
-        id: id,
-        title: title,
-        release_date: release_date,
-        poster_path: poster_path,
-        vote_average: Number(vote_average),
+        id: movie.id,
+        title: movie.title,
+        release_date: movie.release_date,
+        poster_path: movie.poster_path,
+        vote_average: Number(movie.vote_average),
         genres: genreList,
-        runtime: Number(runtime),
-        overview: overview
+        runtime: Number(movie.runtime),
+        overview: movie.overview
       }
     : {
-        title: title,
-        release_date: release_date,
-        poster_path: poster_path,
-        vote_average: Number(vote_average),
+        title: '',
+        release_date: '',
+        poster_path: '',
+        vote_average: Number(0),
         genres: genreList,
-        runtime: Number(runtime),
-        overview: overview
+        runtime: Number(0),
+        overview: ''
       };
+
+  const formik = useFormik({
+    initialValues: {
+      ...movieObj,
+      genreList: genreList
+    },
+    onSubmit: (values) => {
+      operationHandler({
+        ...movieObj,
+        title: values.title,
+        release_date: values.release_date,
+        vote_average: Number(values.vote_average),
+        poster_path: values.poster_path,
+        genres: values.genreList,
+        runtime: Number(values.runtime),
+        overview: values.overview
+      });
+      closeWindow();
+    }
+  });
 
   const genreSelectorElem = (
     <div>
@@ -113,106 +119,100 @@ export const MovieOperation = ({
   return (
     <>
       <div className="movie-add" id="movie-add">
-        <div className="movie-preview-context-menu-close" onClick={() => closeWindow()}>
-          X
-        </div>
-        <div>
-          <h1>{movie ? 'Edit ' : 'Add '}Movie</h1>
-        </div>
-        <div>
-          <div>
-            <label className="uppercase-label">Title</label>
-            <input
-              className="wide-input"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            ></input>
-          </div>
-          <div>
-            <label className="uppercase-label">Release Date</label>
-            <input
-              className="tight-input"
-              type="date"
-              alt="Select Date"
-              value={release_date}
-              onChange={(e) => setReleaseDate(e.target.value)}
-            ></input>
-          </div>
-        </div>
-        <div>
-          <div>
-            <label className="uppercase-label">Movie URL</label>
-            <input
-              className="wide-input"
-              type="url"
-              placeholder="https://"
-              value={poster_path}
-              onChange={(e) => setPosterPath(e.target.value)}
-            ></input>
-          </div>
-          <div>
-            <label className="uppercase-label">Rating</label>
-            <input
-              className="tight-input"
-              type="number"
-              placeholder="7.8"
-              value={vote_average as string}
-              onChange={(e) => setVoteAverage(e.target.value)}
-            ></input>
-          </div>
-        </div>
-        <div>
-          <div>
-            <label className="uppercase-label">Genre</label>
-            <input
-              className="wide-input"
-              value={genreList.join(', ')}
-              onClick={() => setContextMenu(!contextMenu)}
-            ></input>
-          </div>
-          <div>
-            <label className="uppercase-label">Runtime</label>
-            <input
-              className="tight-input"
-              type="text"
-              placeholder="minutes"
-              value={runtime as string}
-              onChange={(e) => setRuntime(e.target.value)}
-            ></input>
-          </div>
-        </div>
-        {contextMenu ? genreSelectorElem : null}
-        <div>
-          <div>
-            <label className="uppercase-label">Overview</label>
-            <textarea
-              name="Text1"
-              cols={40}
-              rows={5}
-              className="text-box-input"
-              value={overview}
-              onChange={(e) => setOverview(e.target.value)}
-            ></textarea>
-          </div>
-        </div>
-
-        <div>
-          <input
-            className="reset-button"
-            type="submit"
-            value="Reset"
-            onClick={() => onResetHandle()}
-          ></input>
-          <input
-            className="submit-button"
-            type="submit"
-            value="Submit"
-            onClick={() => {
-              operationHandler(movieObj);
-              closeWindow();
-            }}
-          ></input>
-        </div>
+        <Formik
+          initialValues={{
+            ...movieObj,
+            genreList: genreList
+          }}
+          validationSchema={MovieSchema}
+          onSubmit={(values) => {
+            operationHandler({
+              ...movieObj,
+              title: values.title,
+              release_date: values.release_date,
+              vote_average: Number(values.vote_average),
+              poster_path: values.poster_path,
+              genres: values.genreList,
+              runtime: Number(values.runtime),
+              overview: values.overview
+            });
+            closeWindow();
+          }}
+        >
+          {({ resetForm }) => (
+            <Form id="movie-form">
+              <div className="movie-preview-context-menu-close" onClick={() => closeWindow()}>
+                X
+              </div>
+              <div>
+                <h1>{movie ? 'Edit ' : 'Add '}Movie</h1>
+              </div>
+              <div>
+                <FormField name="title" type="text" className="wide-input" label="Title" />
+                <FormField
+                  name="release_date"
+                  type="date"
+                  className="tight-input"
+                  label="Release Date"
+                />
+              </div>
+              <div>
+                <FormField
+                  name="poster_path"
+                  type="url"
+                  placeholder="http://testhos.com/poster.jpg"
+                  className="wide-input"
+                  label="Movie URL"
+                />
+                <FormField
+                  name="vote_average"
+                  type="number"
+                  placeholder="7.8"
+                  className="tight-input"
+                  label="Rating"
+                />
+              </div>
+              <div>
+                <FormField
+                  name="genreList"
+                  type="text"
+                  className="wide-input"
+                  label="Genres"
+                  value={genreList.join(', ')}
+                  onClick={() => setContextMenu(!contextMenu)}
+                />
+                <FormField
+                  name="runtime"
+                  type="number"
+                  placeholder="120"
+                  className="tight-input"
+                  label="Runtime"
+                />
+              </div>
+              {contextMenu ? genreSelectorElem : null}
+              <div>
+                <FormField
+                  name="overview"
+                  type="text"
+                  className="text-box-input"
+                  label="Overview"
+                  cols={40}
+                  rows={5}
+                  as="textarea"
+                />
+              </div>
+              <div>
+                <input
+                  className="reset-button"
+                  type="reset"
+                  value="Reset"
+                  onClick={(e) => resetForm()}
+                ></input>
+                <input className="submit-button" type="submit" value="Submit"></input>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
     </>
   );

@@ -4,7 +4,8 @@ const Genres = {
   Drama: 'Drama',
   Adventure: 'Adventure',
   Comedy: 'Comedy',
-  Romance: 'Romance'
+  Romance: 'Romance',
+  Fantasy: 'Fantasy'
 };
 
 export const Sort = {

@@ -8,7 +8,8 @@ const { PORT: port, NODE_ENV: mode } = process.env;
 
 const devServer = {
   port,
-  open: true
+  open: true,
+  historyApiFallback: true
 };
 
 module.exports = {
@@ -17,7 +18,8 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     path: path.join(__dirname, '/build'),
-    filename: 'index.js'
+    filename: 'index.js',
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
