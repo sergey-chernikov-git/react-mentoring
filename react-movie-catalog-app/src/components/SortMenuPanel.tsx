@@ -6,8 +6,8 @@ import { useSearchParams, useLocation } from 'react-router-dom';
 export const SortMenuPanel = ({sortList} : {sortList: Array<TKeyValue>}) => {
 
     const [queryParams, setQueryParams] = useSearchParams();
-    const genre = queryParams.get('genre');
-    const sortBy = queryParams.get('sortBy');
+    const genre = queryParams.get('genre') || "All";
+    const sortBy = queryParams.get('sortBy') || "Title";
     const location = useLocation();
     const navigate = useNavigate();
 
