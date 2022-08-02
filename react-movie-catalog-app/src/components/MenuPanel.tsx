@@ -1,15 +1,16 @@
 import React from 'react';
+import { MenuPanelHOC } from './MenuPanelHOC';
 
-export const MenuPanel = ({ children }: React.PropsWithChildren) => {
+const MenuPanelWrapped = ({ children }: any) => {
   return (
     <>
-      <div className="horisontal-line"></div>
       <div className="menu-panel">
         <div className="gender-menu-panel">
           {children} 
         </div>
       </div>
-      <div className="menu-horisontal-splitter"></div>
     </>
   );
 };
+
+export const MenuPanel = MenuPanelHOC(MenuPanelWrapped)
