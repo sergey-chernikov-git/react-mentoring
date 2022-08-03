@@ -3,7 +3,7 @@ import successImg from './../assets/img/notifications/success/success.png';
 import errorImg from './../assets/img/notifications/error/error.png';
 import { TNotificationProps } from '../ts-types/props';
 
-export const Notification = ({ type, message, description, onClose }: TNotificationProps) => {
+const NotificationMemo = ({ type, message, description, onClose }: TNotificationProps) => {
   return (
     <div id={'notification' + type} className="notification" onClick={() => onClose()}>
       <div>
@@ -14,3 +14,5 @@ export const Notification = ({ type, message, description, onClose }: TNotificat
     </div>
   );
 };
+
+export  const Notification = React.memo(NotificationMemo)
