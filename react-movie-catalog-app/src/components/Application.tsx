@@ -7,7 +7,7 @@ import { Notification } from './Notification';
 import { MoviesContext } from '../context/MoviesContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMovies, operateMovie } from '../store/thunks';
-import { TMovie, TMoviesState, TMovies, TDictionary } from '../ts-types/movie';
+import { TMovie, TMoviesState } from '../ts-types/movie';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { Spinner } from './Spinner';
 import { GenreMenuPanel } from './GenreMenuPalel';
