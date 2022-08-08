@@ -6,6 +6,34 @@ import { Formik, Form, useFormik } from 'formik';
 import { MovieSchema } from '../validation/MovieSchema';
 import { FormField } from './FormField';
 
+import Button from '@mui/material/Button';
+import { createTheme, ThemeProvider } from "@mui/material";
+
+const theme = createTheme({  
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#f65261',
+          color: '#FFFFFF',
+          borderRadius: '4px',
+          width: '182px',
+          height: '57px',
+          boxSizing: 'border-box',
+          fontWeight: '500',
+          fontSize: '20px',
+          lineHeight: '24px',
+          textAlign: 'center',
+          margin: '10px',
+        
+        },
+      },
+    },
+  },
+});
+
+
+
 export const MovieOperation = ({
   movie = null,
   operationHandler,
@@ -202,15 +230,13 @@ export const MovieOperation = ({
                 />
               </div>
               <div>
-                <input
-                  className="reset-button"
-                  type="reset"
-                  value="Reset"
-                  onClick={(e) => resetForm()}
-                ></input>
-                <input className="submit-button" type="submit" value="Submit"></input>
+              <ThemeProvider theme={theme}>
+                <Button onClick={(e) => resetForm()}>Reset</Button>
+                <Button type="submit">Submit</Button>  
+              </ThemeProvider>               
               </div>
             </Form>
+
           )}
         </Formik>
       </div>

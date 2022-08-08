@@ -7,9 +7,11 @@ import { Notification } from './Notification';
 import { MoviesContext } from '../context/MoviesContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMovies, operateMovie } from '../store/thunks';
-import { TMovie, TMoviesState, TMovies, TDictionary } from '../ts-types/movie';
+import { TMovie, TMoviesState } from '../ts-types/movie';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { Spinner } from './Spinner';
+import { GenreMenuPanel } from './GenreMenuPalel';
+import { SortMenuPanel } from './SortMenuPanel';
 
 export const Application = () => {
   const { searchQuery } = useParams();
@@ -123,7 +125,10 @@ export const Application = () => {
         <MoviePreviewDetails movie={movie as TMovie} searchMovie={searchMovieHandler} />
       ) : null}
       <div>
-        <MenuPanel genres={genres} sortList={sortList} />
+        <MenuPanel> 
+          <GenreMenuPanel genres={genres}/>
+          <SortMenuPanel sortList={sortList}/>
+        </MenuPanel>
         {isLoaded ? (
           <MoviesPreview addMovie={addMovieHandler} viewMovie={previewMovieHandler} />
         ) : (
