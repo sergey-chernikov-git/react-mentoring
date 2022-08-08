@@ -31,6 +31,7 @@ export type TMoviesState = {
   movies: Array<TMovie>;
   error: boolean;
   total: number;
+  movie?: TMovie;
   errorDesc?: string;
 };
 
