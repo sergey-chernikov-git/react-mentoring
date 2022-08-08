@@ -16,6 +16,10 @@
   "author": "Sergey Chernikov",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.9.3",
     "@reduxjs/toolkit": "^1.8.2",
     "express": "^4.18.1",
     "formik": "^2.2.9",

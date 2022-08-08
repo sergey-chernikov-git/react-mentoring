@@ -6,6 +6,8 @@ import { Formik, Form, useFormik } from 'formik';
 import { MovieSchema } from '../validation/MovieSchema';
 import { FormField } from './FormField';
 
+import Button from '@mui/material/Button';
+
 export const MovieOperation = ({
   movie = null,
   operationHandler,
@@ -202,13 +204,8 @@ export const MovieOperation = ({
                 />
               </div>
               <div>
-                <input
-                  className="reset-button"
-                  type="reset"
-                  value="Reset"
-                  onClick={(e) => resetForm()}
-                ></input>
-                <input className="submit-button" type="submit" value="Submit"></input>
+                <Button onClick={(e) => resetForm()}>Reset</Button>
+                <Button type="submit">Submit</Button>                
               </div>
             </Form>
           )}
